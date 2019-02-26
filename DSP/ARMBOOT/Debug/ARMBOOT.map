@@ -1,0 +1,223 @@
+******************************************************************************
+                  TI ARM Linker PC v16.9.0                     
+******************************************************************************
+>> Linked Fri Apr 14 03:29:09 2017
+
+OUTPUT FILE NAME:   <ARMBOOT.out>
+ENTRY POINT SYMBOL: "_c_int00"  address: 80008000
+
+
+MEMORY CONFIGURATION
+
+         name            origin    length      used     unused   attr    fill
+----------------------  --------  ---------  --------  --------  ----  --------
+  SHDSPL2ROM            11700000   00100000  00000000  00100000  RWIX
+  SHDSPL2RAM            11800000   00040000  00000000  00040000  RWIX
+  SHDSPL1PRAM           11e00000   00008000  00000000  00008000  RWIX
+  SHDSPL1DRAM           11f00000   00008000  00000000  00008000  RWIX
+  EMIFACS0              40000000   20000000  00000000  20000000  RWIX
+  EMIFACS2              60000000   02000000  00000000  02000000  RWIX
+  EMIFACS3              62000000   02000000  00000000  02000000  RWIX
+  EMIFACS4              64000000   02000000  00000000  02000000  RWIX
+  EMIFACS5              66000000   02000000  00000000  02000000  RWIX
+  SHRAM                 80008000   00018000  00000de0  00017220  RWIX
+  DDR2                  c0000000   20000000  00000000  20000000  RWIX
+  ARMROM                fffd0000   00010000  00000000  00010000  RWIX
+  ARMRAM                ffff0000   00002000  00000000  00002000  RWIX
+
+
+SEGMENT ALLOCATION MAP
+
+run origin  load origin   length   init length attrs members
+----------  ----------- ---------- ----------- ----- -------
+80008000    80008000    00000048   00000048    r-x
+  80008000    80008000    00000048   00000048    r-x .boot
+80008048    80008048    00000800   00000000    rw-
+  80008048    80008048    00000800   00000000    rw- .stack
+80008848    80008848    00000544   00000544    r-x
+  80008848    80008848    00000544   00000544    r-x .text
+80008d8c    80008d8c    00000024   00000000    rw-
+  80008d8c    80008d8c    00000024   00000000    rw- .data
+80008db0    80008db0    00000030   00000030    r--
+  80008db0    80008db0    00000030   00000030    r-- .cinit
+
+
+SECTION ALLOCATION MAP
+
+ output                                  attributes/
+section   page    origin      length       input sections
+--------  ----  ----------  ----------   ----------------
+.boot      0    80008000    00000048     
+                  80008000    00000048     boot.obj (.text)
+
+.stack     0    80008048    00000800     UNINITIALIZED
+                  80008048    00000800     --HOLE--
+
+.text      0    80008848    00000544     
+                  80008848    00000180     rtsv5_A_le_eabi.lib : memcpy32.obj (.text)
+                  800089c8    00000114     main.obj (.text)
+                  80008adc    000000a0     rtsv5_A_le_eabi.lib : autoinit.obj (.text)
+                  80008b7c    0000009c                         : copy_decompress_lzss.obj (.text:decompress:lzss)
+                  80008c18    00000090                         : exit.obj (.text)
+                  80008ca8    00000088                         : cpy_tbl.obj (.text)
+                  80008d30    00000024                         : _lock.obj (.text)
+                  80008d54    00000020                         : args_main.obj (.text)
+                  80008d74    00000014                         : copy_decompress_none.obj (.text:decompress:none)
+                  80008d88    00000004                         : startup.obj (.text)
+
+.data      0    80008d8c    00000024     UNINITIALIZED
+                  80008d8c    0000000c     rtsv5_A_le_eabi.lib : exit.obj (.data:$O1$$)
+                  80008d98    0000000c     main.obj (.data)
+                  80008da4    00000008     rtsv5_A_le_eabi.lib : _lock.obj (.data:$O1$$)
+                  80008dac    00000004                         : stkdepth_vars.obj (.data)
+
+.cinit     0    80008db0    00000030     
+                  80008db0    0000001d     (.cinit..data.load) [load image, compression = lzss]
+                  80008dcd    00000003     --HOLE-- [fill = 0]
+                  80008dd0    00000008     (__TI_handler_table)
+                  80008dd8    00000008     (__TI_cinit_table)
+
+.init_array 
+*          0    80008000    00000000     UNINITIALIZED
+
+MODULE SUMMARY
+
+       Module                     code   ro data   rw data
+       ------                     ----   -------   -------
+    .\
+       main.obj                   276    0         12     
+       boot.obj                   72     0         0      
+    +--+--------------------------+------+---------+---------+
+       Total:                     348    0         12     
+                                                          
+    C:\ti\ccsv7\tools\compiler\ti-cgt-arm_16.9.0.LTS\lib\rtsv5_A_le_eabi.lib
+       memcpy32.obj               384    0         0      
+       autoinit.obj               160    0         0      
+       copy_decompress_lzss.obj   156    0         0      
+       exit.obj                   144    0         12     
+       cpy_tbl.obj                136    0         0      
+       _lock.obj                  36     0         8      
+       args_main.obj              32     0         0      
+       copy_decompress_none.obj   20     0         0      
+       startup.obj                4      0         0      
+       stkdepth_vars.obj          0      0         4      
+    +--+--------------------------+------+---------+---------+
+       Total:                     1072   0         24     
+                                                          
+       Stack:                     0      0         2048   
+       Linker Generated:          0      45        0      
+    +--+--------------------------+------+---------+---------+
+       Grand Total:               1420   45        2084   
+
+
+LINKER GENERATED COPY TABLES
+
+__TI_cinit_table @ 80008dd8 records: 1, size/record: 8, table size: 8
+	.data: load addr=80008db0, load size=0000001d bytes, run addr=80008d8c, run size=00000024 bytes, compression=lzss
+
+
+LINKER GENERATED HANDLER TABLE
+
+__TI_handler_table @ 80008dd0 records: 2, size/record: 4, table size: 8
+	index: 0, handler: __TI_decompress_lzss
+	index: 1, handler: __TI_decompress_none
+
+
+GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
+
+address   name                           
+-------   ----                           
+80008c18  C$$EXIT                        
+UNDEFED   SHT$$INIT_ARRAY$$Base          
+UNDEFED   SHT$$INIT_ARRAY$$Limit         
+80008d98  SYS_REGS                       
+80008848  __STACK_END                    
+00000800  __STACK_SIZE                   
+80008dd8  __TI_CINIT_Base                
+80008de0  __TI_CINIT_Limit               
+80008dd0  __TI_Handler_Table_Base        
+80008dd8  __TI_Handler_Table_Limit       
+80008adc  __TI_auto_init                 
+80008d8c  __TI_cleanup_ptr               
+80008b7c  __TI_decompress_lzss           
+80008d74  __TI_decompress_none           
+80008d90  __TI_dtors_ptr                 
+80008d94  __TI_enable_exit_profile_output
+ffffffff  __TI_pprof_out_hndl            
+ffffffff  __TI_prof_data_size            
+ffffffff  __TI_prof_data_start           
+80008db0  __TI_static_base__             
+80008848  __aeabi_memcpy                 
+80008848  __aeabi_memcpy4                
+80008848  __aeabi_memcpy8                
+ffffffff  __binit__                      
+ffffffff  __c_args__                     
+80008048  __stack                        
+80008d54  _args_main                     
+80008000  _c_int00                       
+80008da4  _lock                          
+80008d48  _nop                           
+80008d3c  _register_lock                 
+80008d30  _register_unlock               
+80008d88  _system_post_cinit             
+80008da8  _unlock                        
+80008c20  abort                          
+ffffffff  binit                          
+80008ca8  copy_in                        
+80008c2c  exit                           
+800089c8  main                           
+80008dac  main_func_sp                   
+80008848  memcpy                         
+80008da0  pllRegs                        
+80008d9c  psc0Regs                       
+
+
+GLOBAL SYMBOLS: SORTED BY Symbol Address 
+
+address   name                           
+-------   ----                           
+00000800  __STACK_SIZE                   
+80008000  _c_int00                       
+80008048  __stack                        
+80008848  __STACK_END                    
+80008848  __aeabi_memcpy                 
+80008848  __aeabi_memcpy4                
+80008848  __aeabi_memcpy8                
+80008848  memcpy                         
+800089c8  main                           
+80008adc  __TI_auto_init                 
+80008b7c  __TI_decompress_lzss           
+80008c18  C$$EXIT                        
+80008c20  abort                          
+80008c2c  exit                           
+80008ca8  copy_in                        
+80008d30  _register_unlock               
+80008d3c  _register_lock                 
+80008d48  _nop                           
+80008d54  _args_main                     
+80008d74  __TI_decompress_none           
+80008d88  _system_post_cinit             
+80008d8c  __TI_cleanup_ptr               
+80008d90  __TI_dtors_ptr                 
+80008d94  __TI_enable_exit_profile_output
+80008d98  SYS_REGS                       
+80008d9c  psc0Regs                       
+80008da0  pllRegs                        
+80008da4  _lock                          
+80008da8  _unlock                        
+80008dac  main_func_sp                   
+80008db0  __TI_static_base__             
+80008dd0  __TI_Handler_Table_Base        
+80008dd8  __TI_CINIT_Base                
+80008dd8  __TI_Handler_Table_Limit       
+80008de0  __TI_CINIT_Limit               
+ffffffff  __TI_pprof_out_hndl            
+ffffffff  __TI_prof_data_size            
+ffffffff  __TI_prof_data_start           
+ffffffff  __binit__                      
+ffffffff  __c_args__                     
+ffffffff  binit                          
+UNDEFED   SHT$$INIT_ARRAY$$Base          
+UNDEFED   SHT$$INIT_ARRAY$$Limit         
+
+[43 symbols]

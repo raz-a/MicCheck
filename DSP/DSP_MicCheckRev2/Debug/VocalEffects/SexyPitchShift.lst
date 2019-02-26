@@ -1,0 +1,2418 @@
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE    1
+
+       1                    ;******************************************************************************
+       2                    ;* G3 TMS320C6x C/C++ Codegen                                       PC v8.1.3 *
+       3                    ;* Date/Time created: Fri Apr 14 08:40:37 2017                                *
+       4                    ;******************************************************************************
+       5                            .compiler_opts --abi=eabi --array_alignment=8 --diag_wrap=off --endian=little --hll_source=on 
+       6                    
+       7                    ;******************************************************************************
+       8                    ;* GLOBAL FILE PARAMETERS                                                     *
+       9                    ;*                                                                            *
+      10                    ;*   Architecture      : TMS320C674x                                          *
+      11                    ;*   Optimization      : Enabled at level 3                                   *
+      12                    ;*   Optimizing for    : Speed                                                *
+      13                    ;*                       Based on options: -o3, no -ms                        *
+      14                    ;*   Endian            : Little                                               *
+      15                    ;*   Interrupt Thrshld : Disabled                                             *
+      16                    ;*   Data Access Model : Far Aggregate Data                                   *
+      17                    ;*   Pipelining        : Enabled                                              *
+      18                    ;*   Speculate Loads   : Enabled with threshold = 0                           *
+      19                    ;*   Memory Aliases    : Presume are aliases (pessimistic)                    *
+      20                    ;*   Debug Info        : DWARF Debug                                          *
+      21                    ;*                                                                            *
+      22                    ;******************************************************************************
+      23                    
+      24                            .asg    A15, FP
+      25                            .asg    B14, DP
+      26                            .asg    B15, SP
+      27                            .global $bss
+      28                    
+      29                    
+      30                    $C$DW$CU        .dwtag  DW_TAG_compile_unit
+      31                            .dwattr $C$DW$CU, DW_AT_name("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffec
+      32                            .dwattr $C$DW$CU, DW_AT_producer("TI G3 TMS320C6x C/C++ Codegen PC v8.1.3 Copyright (c) 1996-2
+      33                            .dwattr $C$DW$CU, DW_AT_TI_version(0x01)
+      34                            .dwattr $C$DW$CU, DW_AT_comp_dir("C:\Users\Raz Aloni\OneDrive\School\EEL4924\DSP\DSP_Workspace
+      35                    
+      36                    $C$DW$1 .dwtag  DW_TAG_subprogram
+      37                            .dwattr $C$DW$1, DW_AT_name("_nassert")
+      38                            .dwattr $C$DW$1, DW_AT_TI_symbol_name("_nassert")
+      39                            .dwattr $C$DW$1, DW_AT_declaration
+      40                            .dwattr $C$DW$1, DW_AT_external
+      41                    $C$DW$2 .dwtag  DW_TAG_formal_parameter
+      42                            .dwattr $C$DW$2, DW_AT_type(*$C$DW$T$10)
+      43                    
+      44                            .dwendtag $C$DW$1
+      45                    
+      46 00000000                   .sect   ".rodata"
+      47                            .align  4
+      48                            .elfsym OneOverPi,SYM_SIZE(4)
+      49 00000000           OneOverPi:
+      50 00000000 3EA2F98C          .word   03ea2f98ch              ; OneOverPi @ 0
+      51                    
+      52                    $C$DW$3 .dwtag  DW_TAG_variable
+      53                            .dwattr $C$DW$3, DW_AT_name("OneOverPi")
+      54                            .dwattr $C$DW$3, DW_AT_TI_symbol_name("OneOverPi")
+      55                            .dwattr $C$DW$3, DW_AT_type(*$C$DW$T$146)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE    2
+
+      56                            .dwattr $C$DW$3, DW_AT_location[DW_OP_addr OneOverPi]
+      57                            .dwattr $C$DW$3, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalE
+      58                            .dwattr $C$DW$3, DW_AT_decl_line(0x21)
+      59                            .dwattr $C$DW$3, DW_AT_decl_column(0x14)
+      60                    
+      61 00000004                   .sect   ".rodata"
+      62                            .align  4
+      63                            .elfsym TwoPi,SYM_SIZE(4)
+      64 00000004           TwoPi:
+      65 00000004 40C90FD0          .word   040c90fd0h              ; TwoPi @ 0
+      66                    
+      67                    $C$DW$4 .dwtag  DW_TAG_variable
+      68                            .dwattr $C$DW$4, DW_AT_name("TwoPi")
+      69                            .dwattr $C$DW$4, DW_AT_TI_symbol_name("TwoPi")
+      70                            .dwattr $C$DW$4, DW_AT_type(*$C$DW$T$146)
+      71                            .dwattr $C$DW$4, DW_AT_location[DW_OP_addr TwoPi]
+      72                            .dwattr $C$DW$4, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalE
+      73                            .dwattr $C$DW$4, DW_AT_decl_line(0x22)
+      74                            .dwattr $C$DW$4, DW_AT_decl_column(0x14)
+      75                    
+      76                            .nearcommon     FFTSize,4,4
+      77                    $C$DW$5 .dwtag  DW_TAG_variable
+      78                            .dwattr $C$DW$5, DW_AT_name("FFTSize")
+      79                            .dwattr $C$DW$5, DW_AT_TI_symbol_name("FFTSize")
+      80                            .dwattr $C$DW$5, DW_AT_type(*$C$DW$T$53)
+      81                            .dwattr $C$DW$5, DW_AT_location[DW_OP_addr FFTSize]
+      82                            .dwattr $C$DW$5, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalE
+      83                            .dwattr $C$DW$5, DW_AT_decl_line(0x29)
+      84                            .dwattr $C$DW$5, DW_AT_decl_column(0x0f)
+      85                    
+      86                            .nearcommon     ExpectedPhaseShift,4,4
+      87                    $C$DW$6 .dwtag  DW_TAG_variable
+      88                            .dwattr $C$DW$6, DW_AT_name("ExpectedPhaseShift")
+      89                            .dwattr $C$DW$6, DW_AT_TI_symbol_name("ExpectedPhaseShift")
+      90                            .dwattr $C$DW$6, DW_AT_type(*$C$DW$T$55)
+      91                            .dwattr $C$DW$6, DW_AT_location[DW_OP_addr ExpectedPhaseShift]
+      92                            .dwattr $C$DW$6, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalE
+      93                            .dwattr $C$DW$6, DW_AT_decl_line(0x2c)
+      94                            .dwattr $C$DW$6, DW_AT_decl_column(0x0e)
+      95                    
+      96                            .farcommon      SexyAnalysisFreqs,2048,8
+      97                    $C$DW$7 .dwtag  DW_TAG_variable
+      98                            .dwattr $C$DW$7, DW_AT_name("SexyAnalysisFreqs")
+      99                            .dwattr $C$DW$7, DW_AT_TI_symbol_name("SexyAnalysisFreqs")
+     100                            .dwattr $C$DW$7, DW_AT_type(*$C$DW$T$149)
+     101                            .dwattr $C$DW$7, DW_AT_location[DW_OP_addr SexyAnalysisFreqs]
+     102                            .dwattr $C$DW$7, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalE
+     103                            .dwattr $C$DW$7, DW_AT_decl_line(0x38)
+     104                            .dwattr $C$DW$7, DW_AT_decl_column(0x0e)
+     105                    
+     106                            .farcommon      SexySynthFreqs,2048,8
+     107                    $C$DW$8 .dwtag  DW_TAG_variable
+     108                            .dwattr $C$DW$8, DW_AT_name("SexySynthFreqs")
+     109                            .dwattr $C$DW$8, DW_AT_TI_symbol_name("SexySynthFreqs")
+     110                            .dwattr $C$DW$8, DW_AT_type(*$C$DW$T$149)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE    3
+
+     111                            .dwattr $C$DW$8, DW_AT_location[DW_OP_addr SexySynthFreqs]
+     112                            .dwattr $C$DW$8, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalE
+     113                            .dwattr $C$DW$8, DW_AT_decl_line(0x3e)
+     114                            .dwattr $C$DW$8, DW_AT_decl_column(0x0e)
+     115                    
+     116                    ;       C:\ti\ccsv7\tools\compiler\ti-cgt-c6000_8.1.3\bin\opt6x.exe C:\\Users\\RAZALO~1\\AppData\\Loca
+     117 00000000                   .sect   ".text"
+     118                            .clink
+     119                            .global SexyPitchShifter
+     120                    
+     121                    $C$DW$9 .dwtag  DW_TAG_subprogram
+     122                            .dwattr $C$DW$9, DW_AT_name("SexyPitchShifter")
+     123                            .dwattr $C$DW$9, DW_AT_low_pc(SexyPitchShifter)
+     124                            .dwattr $C$DW$9, DW_AT_high_pc(0x00)
+     125                            .dwattr $C$DW$9, DW_AT_TI_symbol_name("SexyPitchShifter")
+     126                            .dwattr $C$DW$9, DW_AT_external
+     127                            .dwattr $C$DW$9, DW_AT_type(*$C$DW$T$67)
+     128                            .dwattr $C$DW$9, DW_AT_TI_begin_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Vo
+     129                            .dwattr $C$DW$9, DW_AT_TI_begin_line(0x5b)
+     130                            .dwattr $C$DW$9, DW_AT_TI_begin_column(0x06)
+     131                            .dwattr $C$DW$9, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalE
+     132                            .dwattr $C$DW$9, DW_AT_decl_line(0x5b)
+     133                            .dwattr $C$DW$9, DW_AT_decl_column(0x06)
+     134                            .dwattr $C$DW$9, DW_AT_TI_max_frame_size(0x00)
+     135                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     136                    
+     137                            .dwfde $C$DW$CIE, SexyPitchShifter
+     138                    $C$DW$10        .dwtag  DW_TAG_formal_parameter
+     139                            .dwattr $C$DW$10, DW_AT_name("inMagsPhases")
+     140                            .dwattr $C$DW$10, DW_AT_TI_symbol_name("inMagsPhases")
+     141                            .dwattr $C$DW$10, DW_AT_type(*$C$DW$T$56)
+     142                            .dwattr $C$DW$10, DW_AT_location[DW_OP_reg4]
+     143                    
+     144                    $C$DW$11        .dwtag  DW_TAG_formal_parameter
+     145                            .dwattr $C$DW$11, DW_AT_name("outMagsPhases")
+     146                            .dwattr $C$DW$11, DW_AT_TI_symbol_name("outMagsPhases")
+     147                            .dwattr $C$DW$11, DW_AT_type(*$C$DW$T$56)
+     148                            .dwattr $C$DW$11, DW_AT_location[DW_OP_reg20]
+     149                    
+     150                    $C$DW$12        .dwtag  DW_TAG_formal_parameter
+     151                            .dwattr $C$DW$12, DW_AT_name("shiftAmount")
+     152                            .dwattr $C$DW$12, DW_AT_TI_symbol_name("shiftAmount")
+     153                            .dwattr $C$DW$12, DW_AT_type(*$C$DW$T$55)
+     154                            .dwattr $C$DW$12, DW_AT_location[DW_OP_reg6]
+     155                    
+     156                    $C$DW$13        .dwtag  DW_TAG_formal_parameter
+     157                            .dwattr $C$DW$13, DW_AT_name("phaseHistoryAccumulate")
+     158                            .dwattr $C$DW$13, DW_AT_TI_symbol_name("phaseHistoryAccumulate")
+     159                            .dwattr $C$DW$13, DW_AT_type(*$C$DW$T$56)
+     160                            .dwattr $C$DW$13, DW_AT_location[DW_OP_reg22]
+     161                    
+     162                    
+     163                    ;******************************************************************************
+     164                    ;* FUNCTION NAME: SexyPitchShifter                                            *
+     165                    ;*                                                                            *
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE    4
+
+     166                    ;*   Regs Modified     : A3,A4,A5,A6,A7,A8,A9,A16,A17,A18,A19,A20,A21,A22,A23,*
+     167                    ;*                           A24,A25,A26,B4,B5,B6,B7,B8,B9,B16,B17,B18,B19,   *
+     168                    ;*                           B20,B21,B22,B23,B24,B25,B26,B27,B28              *
+     169                    ;*   Regs Used         : A3,A4,A5,A6,A7,A8,A9,A16,A17,A18,A19,A20,A21,A22,A23,*
+     170                    ;*                           A24,A25,A26,B3,B4,B5,B6,B7,B8,B9,DP,B16,B17,B18, *
+     171                    ;*                           B19,B20,B21,B22,B23,B24,B25,B26,B27,B28          *
+     172                    ;*   Local Frame Size  : 0 Args + 0 Auto + 0 Save = 0 byte                    *
+     173                    ;******************************************************************************
+     174                    SexyPitchShifter:
+     175                    ;** --------------------------------------------------------------------------*
+     176                    $C$DW$14        .dwtag  DW_TAG_variable
+     177                            .dwattr $C$DW$14, DW_AT_name("k")
+     178                            .dwattr $C$DW$14, DW_AT_TI_symbol_name("k")
+     179                            .dwattr $C$DW$14, DW_AT_type(*$C$DW$T$82)
+     180                            .dwattr $C$DW$14, DW_AT_location[DW_OP_reg9]
+     181                    
+     182                    $C$DW$15        .dwtag  DW_TAG_variable
+     183                            .dwattr $C$DW$15, DW_AT_name("k")
+     184                            .dwattr $C$DW$15, DW_AT_TI_symbol_name("k")
+     185                            .dwattr $C$DW$15, DW_AT_type(*$C$DW$T$82)
+     186                            .dwattr $C$DW$15, DW_AT_location[DW_OP_reg21]
+     187                    
+     188                    $C$DW$16        .dwtag  DW_TAG_variable
+     189                            .dwattr $C$DW$16, DW_AT_name("phaseSum")
+     190                            .dwattr $C$DW$16, DW_AT_TI_symbol_name("phaseSum")
+     191                            .dwattr $C$DW$16, DW_AT_type(*$C$DW$T$147)
+     192                            .dwattr $C$DW$16, DW_AT_location[DW_OP_regx 0x41]
+     193                    
+     194                    $C$DW$17        .dwtag  DW_TAG_variable
+     195                            .dwattr $C$DW$17, DW_AT_name("outPhases")
+     196                            .dwattr $C$DW$17, DW_AT_TI_symbol_name("outPhases")
+     197                            .dwattr $C$DW$17, DW_AT_type(*$C$DW$T$147)
+     198                            .dwattr $C$DW$17, DW_AT_location[DW_OP_regx 0x2d]
+     199                    
+     200                    $C$DW$18        .dwtag  DW_TAG_variable
+     201                            .dwattr $C$DW$18, DW_AT_name("outMags")
+     202                            .dwattr $C$DW$18, DW_AT_TI_symbol_name("outMags")
+     203                            .dwattr $C$DW$18, DW_AT_type(*$C$DW$T$147)
+     204                            .dwattr $C$DW$18, DW_AT_location[DW_OP_regx 0x2b]
+     205                    
+     206                    $C$DW$19        .dwtag  DW_TAG_variable
+     207                            .dwattr $C$DW$19, DW_AT_name("inPhases")
+     208                            .dwattr $C$DW$19, DW_AT_TI_symbol_name("inPhases")
+     209                            .dwattr $C$DW$19, DW_AT_type(*$C$DW$T$147)
+     210                            .dwattr $C$DW$19, DW_AT_location[DW_OP_reg21]
+     211                    
+     212                    $C$DW$20        .dwtag  DW_TAG_variable
+     213                            .dwattr $C$DW$20, DW_AT_name("inMags")
+     214                            .dwattr $C$DW$20, DW_AT_TI_symbol_name("inMags")
+     215                            .dwattr $C$DW$20, DW_AT_type(*$C$DW$T$147)
+     216                            .dwattr $C$DW$20, DW_AT_location[DW_OP_regx 0x2c]
+     217                    
+     218                    $C$DW$21        .dwtag  DW_TAG_variable
+     219                            .dwattr $C$DW$21, DW_AT_name("shiftAmount")
+     220                            .dwattr $C$DW$21, DW_AT_TI_symbol_name("shiftAmount")
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE    5
+
+     221                            .dwattr $C$DW$21, DW_AT_type(*$C$DW$T$146)
+     222                            .dwattr $C$DW$21, DW_AT_location[DW_OP_regx 0x2e]
+     223                    
+     224                    $C$DW$22        .dwtag  DW_TAG_variable
+     225                            .dwattr $C$DW$22, DW_AT_name("phaseHistoryAccumulate")
+     226                            .dwattr $C$DW$22, DW_AT_TI_symbol_name("phaseHistoryAccumulate")
+     227                            .dwattr $C$DW$22, DW_AT_type(*$C$DW$T$148)
+     228                            .dwattr $C$DW$22, DW_AT_location[DW_OP_reg22]
+     229                    
+     230                            .dwcfi  cfa_offset, 0
+     231                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     232 00000000 0d00006e!            LDW     .D2T2   *+DP(FFTSize),B26 ; [B_D64P] |116| 
+     233 00000004 0287e828             MVKL    .S1     0x40c90fd0,A5     ; [A_S674] 
+     234                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     235 00000008     f247             MV      .L2X    A4,B7             ; [B_L674] |92| 
+     236 0000000a     ea46             MV      .L1     A4,A23            ; [A_L674] |92| 
+     237 0000000c 027cc628             MVKL    .S1     0x3ea2f98c,A4     ; [A_S674] 
+     238                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     239 00000010 04e8224a             EXT     .S2     B26,1,2,B9        ; [B_Sb674] |116| 
+     240 00000014 02e849a2             SHRU    .S2     B26,2,B5          ; [B_Sb674] 
+     241                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     242                    
+     243 00000018     eef1             SUB     .L2     B5,1,B7           ; [B_L674] 
+     244 00000024 029d3c42  ||         ADDAW   .D2     B7,B9,B5          ; [B_D64P] |116| 
+     245 00000020 02a064e9  ||         MVKH    .S1     0x40c90fd0,A5     ; [A_S674] 
+     246 0000001a     da46  ||         MV      .L1X    B4,A22            ; [A_L674] |92| 
+     247                    
+     248 00000028     dbef             MVC     .S2     B7,ILC            ; [B_Sb674] 
+     249 0000002c 021f5168  ||         MVKH    .S1     0x3ea2f98c,A4     ; [A_S674] 
+     250 0000002a     5e46  ||         MV      .L1X    B4,A26            ; [A_L674] |92| 
+     251                    
+     252                    ;*----------------------------------------------------------------------------*
+     253                    ;*   SOFTWARE PIPELINE INFORMATION
+     254                    ;*
+     255                    ;*      Loop found in file               : C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Vocal
+     256                    ;*      Loop source line                 : 133
+     257                    ;*      Loop opening brace source line   : 134
+     258                    ;*      Loop closing brace source line   : 156
+     259                    ;*      Loop Unroll Multiple             : 2x
+     260                    ;*      Known Minimum Trip Count         : 2                    
+     261                    ;*      Known Max Trip Count Factor      : 2
+     262                    ;*      Loop Carried Dependency Bound(^) : 2
+     263                    ;*      Unpartitioned Resource Bound     : 5
+     264                    ;*      Partitioned Resource Bound(*)    : 5
+     265                    ;*      Resource Partition:
+     266                    ;*                                A-side   B-side
+     267                    ;*      .L units                     3        3     
+     268                    ;*      .S units                     2        2     
+     269                    ;*      .D units                     3        2     
+     270                    ;*      .M units                     3        3     
+     271                    ;*      .X cross paths               5        1     
+     272                    ;*      .T address paths             3        2     
+     273                    ;*      Logical  ops (.LS)           4        4     (.L or .S unit)
+     274                    ;*      Addition ops (.LSD)          2        4     (.L or .S or .D unit)
+     275                    ;*      Bound(.L .S .LS)             5*       5*    
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE    6
+
+     276                    ;*      Bound(.L .S .D .LS .LSD)     5*       5*    
+     277                    ;*
+     278                    ;*      Searching for software pipeline schedule at ...
+     279                    ;*         ii = 5  Did not find schedule
+     280                    ;*         ii = 6  Register is live too long
+     281                    ;*         ii = 6  Register is live too long
+     282                    ;*         ii = 6  Register is live too long
+     283                    ;*         ii = 6  Did not find schedule
+     284                    ;*         ii = 7  Schedule found with 7 iterations in parallel
+     285                    ;*      Done
+     286                    ;*
+     287                    ;*      Loop will be splooped
+     288                    ;*      Collapsed epilog stages       : 0
+     289                    ;*      Collapsed prolog stages       : 0
+     290                    ;*      Minimum required memory pad   : 0 bytes
+     291                    ;*
+     292                    ;*      Minimum safe trip count       : 1 (after unrolling)
+     293                    ;*
+     294                    ;*      (Performance) If you know that this loop will always execute at a multiple of <4> and at least
+     295                    ;*----------------------------------------------------------------------------*
+     296 00000030           $C$L1:    ; PIPED LOOP PROLOG
+     297                    
+     298 00000030     0f67             SPLOOPD         7                 ;49 ; [A_L674] (P) 
+     299 00000032     834f  ||         MV      .S2     B6,B4             ; [B_Sb674] |92| 
+     300 00000034     f2c7  ||         MV      .L2X    A5,B7             ; [B_L674] 
+     301 00000038 0e193c42  ||         ADDAW   .D2     B6,B9,B28         ; [B_D64P] |120| 
+     302 00000036     f2ce  ||         MV      .S1X    B5,A7             ; [A_S674] 
+     303                    
+     304                    ;** --------------------------------------------------------------------------*
+     305 00000040           $C$L2:    ; PIPED LOOP KERNEL
+     306                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     307                    
+     308 00000040     2ee6             SPMASK                            ; [] 
+     309 00000042     0293  ||^        ZERO    .S2     B5                ; [B_Sb674] |133| 
+     310 0000004c     1647  ||^        MV      .L2X    A4,B8             ; [B_L674] 
+     311 00000048 091037e7  ||         LDDW    .D2T2   *B4++(8),B19:B18  ; [B_D64P] |136| (P) <0,0> 
+     312 00000044 021c3765  ||         LDDW    .D1T1   *A7++(8),A5:A4    ; [A_D64P] |136| (P) <0,0> 
+     313                    
+     314                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     315                    
+     316 0000004e     ad67             SPMASK                            ; [] 
+     317 00000050     2f4e  ||^        MV      .S1     A6,A25            ; [A_S674] |92| 
+     318 00000052     d346  ||^        MV      .L1X    B6,A6             ; [A_L674] |92| 
+     319 00000054 0300006f! ||^        LDW     .D2T2   *+DP(ExpectedPhaseShift),B6 ; [B_D64P] 
+     320 00000058 0c14205a  ||         ADD     .L2     1,B5,B24          ; [B_L674] |149| (P) <0,1> 
+     321                    
+     322                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     323                    
+     324 00000060 09941959             INTSP   .L1X    B5,A19            ; [A_L674] |149| (P) <0,2>  ^ 
+     325 00000064 0be0095a  ||         INTSP   .L2     B24,B23           ; [B_L674] |149| (P) <0,2> 
+     326                    
+     327 00000068     2c6e             NOP             2                 ; [A_L674] 
+     328                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     329                    
+     330 0000006a     0d44             STDW    .D1T1   A5:A4,*A6++(8)    ; [A_D64P] |139| (P) <0,5> 
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE    7
+
+     331 0000006c 0a489238  ||         SUBSP   .L1X    A4,B18,A20        ; [A_L674] |149| (P) <0,5> 
+     332                    
+     333                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     334                    
+     335 00000070 02944943             ADD     .D2     2,B5,B5           ; [B_D64P] |133| (P) <0,6>  ^ 
+     336 00000074 021a7e01  ||         MPYSP   .M1X    B6,A19,A4         ; [A_M674] |149| (P) <0,6> 
+     337 00000078 0c967ebb  ||         SUBSP   .S2X    A5,B19,B25        ; [B_Sb674] |149| (P) <0,6> 
+     338 00000080 095cce02  ||         MPYSP   .M2     B6,B23,B18        ; [B_M674] |149| (P) <0,6> 
+     339                    
+     340 00000084 00004000             NOP             3                 ; [A_L674] 
+     341                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     342                    
+     343 00000088 02928239             SUBSP   .L1     A20,A4,A5         ; [A_L674] |149| (P) <0,10> 
+     344 0000008c 0a4b223a  ||         SUBSP   .L2     B25,B18,B20       ; [B_L674] |149| (P) <0,10> 
+     345                    
+     346 00000090 041340f1             MVD     .M1     A4,A8             ; [A_M674] |149| (P) <0,11> Split a long life
+     347 00000094 0bcb40f2  ||         MVD     .M2     B18,B23           ; [B_M674] |149| (P) <0,11> Split a long life
+     348                    
+     349 00000098 00002000             NOP             2                 ; [A_L674] 
+     350                    
+     351 0000009c 0a20be01             MPYSP   .M1X    B8,A5,A20         ; [A_M674] |149| (P) <0,14> 
+     352 000000a0 0ad10e02  ||         MPYSP   .M2     B8,B20,B21        ; [B_M674] |149| (P) <0,14> 
+     353                    
+     354 000000a4     2c6e             NOP             2                 ; [A_L674] 
+     355 000000a6     0ad6             MV      .D1     A5,A16            ; [A_D64P] |149| (P) <0,17> Split a long life
+     356                    
+     357 000000a8 0ad008f3             MV      .D2     B20,B21           ; [B_D64P] |149| (P) <0,18> Split a long life
+     358 000000ac 09d00179  ||         SPTRUNC .L1     A20,A19           ; [A_L674] |149| (P) <0,18> 
+     359 000000b0 09d4017a  ||         SPTRUNC .L2     B21,B19           ; [B_L674] |149| (P) <0,18> 
+     360                    
+     361 000000b4 04a340f1             MVD     .M1     A8,A9             ; [A_M674] |149| (P) <0,19> Split a long life
+     362 000000b8 085f40f2  ||         MVD     .M2     B23,B16           ; [B_M674] |149| (P) <0,19> Split a long life
+     363                    
+     364 000000c0 00002000             NOP             2                 ; [A_L674] 
+     365                    
+     366 000000c4 024fe9a1             SHRU    .S1     A19,31,A4         ; [A_S674] |149| (P) <0,22> 
+     367 000000c8 094fe9a2  ||         SHRU    .S2     B19,31,B18        ; [B_Sb674] |149| (P) <0,22> 
+     368                    
+     369 000000d4     2856             MV      .D1     A16,A17           ; [A_D64P] |149| (P) <0,23> Split a long life
+     370 000000d0 0a9022a1  ||         XOR     .S1     1,A4,A21          ; [A_S674] |149| (P) <0,23> 
+     371 000000cc 0c482bf3  ||         XOR     .D2     1,B18,B24         ; [B_D64P] |149| (P) <0,23> 
+     372                    
+     373 000000d6     cacf             MV      .S2     B21,B22           ; [B_Sb674] |149| (P) <0,24> Split a long life
+     374 000000e0     62ba  ||         ADD     .S1     A19,A21,A19       ; [A_S674] |149| (P) <0,24> 
+     375 000000d8 0c4f0843  ||         ADD     .D2     B19,B24,B24       ; [B_D64P] |149| (P) <0,24> 
+     376                    
+     377 000000e2     2e66             SPMASK                            ; [] 
+     378 000000e4 0d80002a! ||^        MVKL    .S2     SexyAnalysisFreqs,B27 ; [B_Sb674] 
+     379                    
+     380 000000e8 044c2da1             SHR     .S1     A19,1,A8          ; [A_S674] |149| (P) <0,26> 
+     381 000000ec 0a602da2  ||         SHR     .S2     B24,1,B20         ; [B_Sb674] |149| (P) <0,26> 
+     382                    
+     383 000000f0 08200959             INTSP   .L1     A8,A16            ; [A_L674] |149| (P) <0,27> 
+     384 000000f4 0b50095a  ||         INTSP   .L2     B20,B22           ; [B_L674] |149| (P) <0,27> 
+     385                    
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE    8
+
+     386 000000f8 00230001             SPMASK                            ; [] 
+     387 00000100 0d80006a! ||^        MVKH    .S2     SexyAnalysisFreqs,B27 ; [B_Sb674] 
+     388                    
+     389 00000104 092740f1             MVD     .M1     A9,A18            ; [A_M674] |149| (P) <0,29> Split a long life
+     390 00000108 08c340f2  ||         MVD     .M2     B16,B17           ; [B_M674] |149| (P) <0,29> Split a long life
+     391                    
+     392 0000010c 024740f1             MVD     .M1     A17,A4            ; [A_M674] |149| (P) <0,30> Split a long life
+     393 00000110 095b40f2  ||         MVD     .M2     B22,B18           ; [B_M674] |149| (P) <0,30> Split a long life
+     394                    
+     395 00000114 041e1e01             MPYSP   .M1X    B7,A16,A8         ; [A_M674] |149| (P) <0,31> 
+     396 00000118 09d8ee02  ||         MPYSP   .M2     B7,B22,B19        ; [B_M674] |149| (P) <0,31> 
+     397                    
+     398 0000011c 00130001             SPMASK                            ; [] 
+     399 00000120     7d8e  ||^        MV      .S1X    B27,A3            ; [A_S674] 
+     400                    
+     401 00000122     2c6e             NOP             2                 ; [A_L674] 
+     402                    
+     403 00000124 02a08239             SUBSP   .L1     A4,A8,A5          ; [A_L674] |149| (P) <0,35> 
+     404 00000128 09ce423a  ||         SUBSP   .L2     B18,B19,B19       ; [B_L674] |149| (P) <0,35> 
+     405                    
+     406                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     407                    
+     408 0000012c 00430001             SPMASK                            ; [] 
+     409 00000130 0c2418f0  ||^        MV      .D1X    B9,A24            ; [A_D64P] |116| Define a twin register
+     410                    
+     411 00000134 00002000             NOP             2                 ; [A_L674] 
+     412                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     413                    
+     414 00000138 0248ae19             ADDSP   .S1     A5,A18,A4         ; [A_S674] |149| (P) <0,39> 
+     415 00000140 09466e1a  ||         ADDSP   .S2     B19,B17,B18       ; [B_Sb674] |149| (P) <0,39> 
+     416                    
+     417 00000144 00830001             SPMASK                            ; [] 
+     418 00000148 04ec8942  ||^        ADD     .D2     4,B27,B9          ; [B_D64P] 
+     419                    
+     420                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     421                    
+     422 0000014c 00430001             SPMASK                            ; [] 
+     423 00000150 0c6b1c40  ||^        ADDAW   .D1     A26,A24,A24       ; [A_D64P] |118| 
+     424                    
+     425 00000154     0c6e             NOP             1                 ; [A_L674] 
+     426                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     427                    
+     428 00000156     1c66             SPKERNEL        0,0               ; [] 
+     429 00000158 020c5675  ||         STW     .D1T1   A4,*A3++(8)       ; [A_D64P] |149| <0,43> 
+     430 00000160 092456f6  ||         STW     .D2T2   B18,*B9++(8)      ; [B_D64P] |149| <0,43> 
+     431                    
+     432                    ;** --------------------------------------------------------------------------*
+     433 00000164           $C$L3:    ; PIPED LOOP EPILOG
+     434                    
+     435 00000164     1af7             ZERO    .D2     B5                ; [B_D64P] 
+     436 00000166     cb16  ||         MV      .D1     A22,A6            ; [A_D64P] 
+     437                    
+     438 00000168     0627             ZERO    .L2     B4                ; [B_L674] 
+     439 0000016a     6c6e             NOP             4                 ; [A_L674] 
+     440                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE    9
+
+     441 0000016c 036829a2             SHRU    .S2     B26,1,B6          ; [B_Sb674] |164| 
+     442 00000170 03182942             ADD     .D2     1,B6,B6           ; [B_D64P] |164| 
+     443 00000174 04581fda             MV      .L2X    A22,B8            ; [B_L674] 
+     444 00000178 04000c52             ADDK    .S2     24,B8             ; [B_Sb674] 
+     445 00000180 00010000             NOP             9                 ; [A_L674] 
+     446 00000184 00004000             NOP             3                 ; [A_L674] 
+     447 00000188 081829a2             SHRU    .S2     B6,1,B16          ; [B_Sb674] |164| 
+     448 0000018c 03404da2             SHR     .S2     B16,2,B6          ; [B_Sb674] |164| 
+     449                    
+     450 00000194     7b6f             SUB     .S2     B6,1,B6           ; [B_Sb674] 
+     451 00000190 08000029! ||         MVKL    .S1     SexySynthFreqs,A16 ; [A_S674] 
+     452                    
+     453 00000196     0c6e             NOP             1                 ; [A_L674] 
+     454                    
+     455 000001a0 069803a2             MVC     .S2     B6,ILC            ; [B_Sb674] 
+     456 00000198 08000069! ||         MVKH    .S1     SexySynthFreqs,A16 ; [A_S674] 
+     457                    
+     458 000001a4 03c10058             ADD     .L1     8,A16,A7          ; [A_L674] 
+     459                    
+     460 000001a8 04590941             ADD     .D1     8,A22,A8          ; [A_D64P] 
+     461 000001ac     d817  ||         MV      .D2X    A16,B6            ; [B_D64P] 
+     462                    
+     463 000001ae     f807             MV      .L2X    A16,B7            ; [B_L674] 
+     464 000001b0     17af             ADDK    .S2     16,B7             ; [B_Sb674] 
+     465 000001b2     1f2f             ADDK    .S2     24,B6             ; [B_Sb674] 
+     466 000001b4     06a6             ZERO    .L1     A5                ; [A_L674] 
+     467 000001b6     4c6e             NOP             3                 ; [A_L674] 
+     468 000001b8     0626             ZERO    .L1     A4                ; [A_L674] 
+     469                    ;** --------------------------------------------------------------------------*
+     470                    ;*----------------------------------------------------------------------------*
+     471                    ;*   SOFTWARE PIPELINE INFORMATION
+     472                    ;*
+     473                    ;*      Loop found in file               : C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Vocal
+     474                    ;*      Loop source line                 : 162
+     475                    ;*      Loop opening brace source line   : 163
+     476                    ;*      Loop closing brace source line   : 166
+     477                    ;*      Loop Unroll Multiple             : 8x
+     478                    ;*      Known Minimum Trip Count         : 1                    
+     479                    ;*      Known Max Trip Count Factor      : 1
+     480                    ;*      Loop Carried Dependency Bound(^) : 0
+     481                    ;*      Unpartitioned Resource Bound     : 4
+     482                    ;*      Partitioned Resource Bound(*)    : 6
+     483                    ;*      Resource Partition:
+     484                    ;*                                A-side   B-side
+     485                    ;*      .L units                     0        0     
+     486                    ;*      .S units                     0        0     
+     487                    ;*      .D units                     4*       4*    
+     488                    ;*      .M units                     0        0     
+     489                    ;*      .X cross paths               0        0     
+     490                    ;*      .T address paths             4        4     
+     491                    ;*      Logical  ops (.LS)           0        0     (.L or .S unit)
+     492                    ;*      Addition ops (.LSD)          0        0     (.L or .S or .D unit)
+     493                    ;*      Bound(.L .S .LS)             0        0     
+     494                    ;*      Bound(.L .S .D .LS .LSD)     2        2     
+     495                    ;*
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   10
+
+     496                    ;*      Searching for software pipeline schedule at ...
+     497                    ;*         ii = 6  Schedule found with 2 iterations in parallel
+     498                    ;*      Done
+     499                    ;*
+     500                    ;*      Loop will be splooped
+     501                    ;*      Collapsed epilog stages       : 0
+     502                    ;*      Collapsed prolog stages       : 0
+     503                    ;*      Minimum required memory pad   : 0 bytes
+     504                    ;*
+     505                    ;*      Minimum safe trip count       : 1 (after unrolling)
+     506                    ;*
+     507                    ;*      (Performance) Consider adding assertions to indicate n-byte alignment of variables outMags if 
+     508                    ;*----------------------------------------------------------------------------*
+     509 000001ba           $C$L4:    ; PIPED LOOP PROLOG
+     510 000001ba     0ee7             SPLOOPD         6                 ;12 ; [A_L674] (P) 
+     511                    ;** --------------------------------------------------------------------------*
+     512 000001c0           $C$L5:    ; PIPED LOOP KERNEL
+     513                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     514 000001c0 02989774             STNDW   .D1T1   A5:A4,*A6++(32)   ; [A_D64P] |165| (P) <0,0> 
+     515                    
+     516 000001c4     2ce7             SPMASK                            ; [] 
+     517 000001c6     6046  ||^        MV      .L1     A16,A3            ; [A_L674] 
+     518 000001cc     3747  ||^        MV      .L2X    A22,B9            ; [B_L674] 
+     519 000001c8 02a09775  ||         STNDW   .D1T1   A5:A4,*A8++(32)   ; [A_D64P] |165| (P) <0,1> 
+     520                    
+     521                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     522                    
+     523 000001ce     2e66             SPMASK                            ; [] 
+     524 000001d0 04800853  ||^        ADDK    .S2     16,B9             ; [B_Sb674] 
+     525 000001d4 020c9745  ||         STDW    .D1T1   A5:A4,*A3++(32)   ; [A_D64P] |164| (P) <0,2> 
+     526 000001d8 021c97c6  ||         STDW    .D2T2   B5:B4,*B7++(32)   ; [B_D64P] |164| (P) <0,2> 
+     527                    
+     528                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     529 000001e0 02a497f6             STNDW   .D2T2   B5:B4,*B9++(32)   ; [B_D64P] |165| (P) <0,3> 
+     530                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     531                    
+     532 000001e4 021c9745             STDW    .D1T1   A5:A4,*A7++(32)   ; [A_D64P] |164| (P) <0,4> 
+     533 000001e8 021897c6  ||         STDW    .D2T2   B5:B4,*B6++(32)   ; [B_D64P] |164| (P) <0,4> 
+     534                    
+     535                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     536 000001ec 02a097f6             STNDW   .D2T2   B5:B4,*B8++(32)   ; [B_D64P] |165| (P) <0,5> 
+     537 000001f0     1c66             SPKERNEL        0,0               ; [] 
+     538                    ;** --------------------------------------------------------------------------*
+     539 00000200           $C$L6:    ; PIPED LOOP EPILOG
+     540                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     541                    
+     542 00000200 045808f1             MV      .D1     A22,A8            ; [A_D64P] 
+     543 00000204     c806  ||         MV      .L1     A16,A6            ; [A_L674] |171| 
+     544 0000020c     ad87  ||         MV      .L2     B27,B5            ; [B_L674] |174| 
+     545 00000206     ab8e  ||         MV      .S1     A23,A5            ; [A_S674] 
+     546 00000208 026829a3  ||         SHRU    .S2     B26,1,B4          ; [B_Sb674] |174| 
+     547                    
+     548                    ;** --------------------------------------------------------------------------*
+     549 0000020e     ee61             SUB     .L2     B4,1,B6           ; [B_L674] 
+     550 00000210     db6f             MVC     .S2     B6,ILC            ; [B_Sb674] 
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   11
+
+     551                    ;*----------------------------------------------------------------------------*
+     552                    ;*   SOFTWARE PIPELINE INFORMATION
+     553                    ;*
+     554                    ;*      Loop found in file               : C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Vocal
+     555                    ;*      Loop source line                 : 171
+     556                    ;*      Loop opening brace source line   : 172
+     557                    ;*      Loop closing brace source line   : 185
+     558                    ;*      Known Minimum Trip Count         : 8                    
+     559                    ;*      Known Max Trip Count Factor      : 8
+     560                    ;*      Loop Carried Dependency Bound(^) : 10
+     561                    ;*      Unpartitioned Resource Bound     : 3
+     562                    ;*      Partitioned Resource Bound(*)    : 4
+     563                    ;*      Resource Partition:
+     564                    ;*                                A-side   B-side
+     565                    ;*      .L units                     2        0     
+     566                    ;*      .S units                     0        0     
+     567                    ;*      .D units                     4*       1     
+     568                    ;*      .M units                     2        0     
+     569                    ;*      .X cross paths               1        0     
+     570                    ;*      .T address paths             4        1     
+     571                    ;*      Logical  ops (.LS)           1        0     (.L or .S unit)
+     572                    ;*      Addition ops (.LSD)          1        0     (.L or .S or .D unit)
+     573                    ;*      Bound(.L .S .LS)             2        0     
+     574                    ;*      Bound(.L .S .D .LS .LSD)     3*       1     
+     575                    ;*
+     576                    ;*      Searching for software pipeline schedule at ...
+     577                    ;*         ii = 10 Schedule found with 3 iterations in parallel
+     578                    ;*      Done
+     579                    ;*
+     580                    ;*      Loop will be splooped
+     581                    ;*      Collapsed epilog stages       : 0
+     582                    ;*      Collapsed prolog stages       : 0
+     583                    ;*      Minimum required memory pad   : 0 bytes
+     584                    ;*
+     585                    ;*      Minimum safe trip count       : 1
+     586                    ;*
+     587                    ;*      (Performance) Consider adding assertions to indicate n-byte alignment of variables inMags if t
+     588                    ;*----------------------------------------------------------------------------*
+     589 00000212           $C$L7:    ; PIPED LOOP PROLOG
+     590                    
+     591 00000212     4ce7             SPLOOPD         10                ;30 ; [A_L674] (P) 
+     592 00000214 04800028  ||         ZERO    .S1     A9                ; [A_S674] |171| 
+     593                    
+     594                    ;** --------------------------------------------------------------------------*
+     595 00000218           $C$L8:    ; PIPED LOOP KERNEL
+     596                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     597 00000218 01a40958             INTSP   .L1     A9,A3             ; [A_L674] |180| (P) <0,0> 
+     598 00000220     2c6e             NOP             2                 ; [A_L674] 
+     599                    
+     600 00000222     2d66             SPMASK                            ; [] 
+     601 00000224     ec8e  ||^        MV      .S1     A25,A7            ; [A_S674] 
+     602                    
+     603 00000226     1ccd             LDW     .D2T2   *B5++(4),B4       ; [B_D64P] |183| (P) <0,4> 
+     604 00000228 018cee00  ||         MPYSP   .M1     A7,A3,A3          ; [A_M674] |180| (P) <0,4> 
+     605                    
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   12
+
+     606 0000022c 00004000             NOP             3                 ; [A_L674] 
+     607 00000230 020c0178             SPTRUNC .L1     A3,A4             ; [A_L674] |180| (P) <0,8> 
+     608                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     609                    
+     610 00000234 0190fe01             MPYSP   .M1X    A7,B4,A3          ; [A_M674] |183| (P) <0,9> 
+     611 00000238 04a42058  ||         ADD     .L1     1,A9,A9           ; [A_L674] |171| (P) <0,9> 
+     612                    
+     613                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     614 00000240 08143664             LDW     .D1T1   *A5++(4),A16      ; [A_D64P] |180| (P) <0,10> 
+     615 00000244 00000000             NOP             1                 ; [A_L674] 
+     616 00000248 01a08a64             LDW     .D1T1   *+A8[A4],A3       ; [A_D64P] |180| (P) <0,12>  ^ 
+     617                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     618 0000024c     8534             STW     .D1T1   A3,*+A6[A4]       ; [A_D64P] |183| (P) <0,13> 
+     619 0000024e     4c6e             NOP             3                 ; [A_L674] 
+     620                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     621 00000250 018e0218             ADDSP   .L1     A16,A3,A3         ; [A_L674] |180| (P) <0,17>  ^ 
+     622 00000254     2c6e             NOP             2                 ; [A_L674] 
+     623 00000256     0c6e             NOP             1                 ; [A_L674] 
+     624                    
+     625 00000258 00034001             SPKERNEL        0,0               ; [] 
+     626 00000260 01a08a74  ||         STW     .D1T1   A3,*+A8[A4]       ; [A_D64P] |180| <0,21>  ^ 
+     627                    
+     628                    ;** --------------------------------------------------------------------------*
+     629 00000264           $C$L9:    ; PIPED LOOP EPILOG
+     630                    
+     631 00000264 04f008f3             MV      .D2     B28,B9            ; [B_D64P] 
+     632 00000270     ec0e  ||         MV      .S1     A24,A7            ; [A_S674] 
+     633 0000026c 04700fdb  ||         MV      .L2     B28,B8            ; [B_L674] 
+     634 00000268 0243e1a3  ||         SUB     .S2     B16,1,B4          ; [B_Sb674] 
+     635                    
+     636 00000272     da6f             MVC     .S2     B4,ILC            ; [B_Sb674] 
+     637 00000274 00010000             NOP             9                 ; [A_L674] 
+     638 00000278     0c6e             NOP             1                 ; [A_L674] 
+     639                    ;** --------------------------------------------------------------------------*
+     640                    ;*----------------------------------------------------------------------------*
+     641                    ;*   SOFTWARE PIPELINE INFORMATION
+     642                    ;*
+     643                    ;*      Loop found in file               : C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Vocal
+     644                    ;*      Loop source line                 : 190
+     645                    ;*      Loop opening brace source line   : 191
+     646                    ;*      Loop closing brace source line   : 195
+     647                    ;*      Loop Unroll Multiple             : 2x
+     648                    ;*      Known Minimum Trip Count         : 4                    
+     649                    ;*      Known Max Trip Count Factor      : 4
+     650                    ;*      Loop Carried Dependency Bound(^) : 2
+     651                    ;*      Unpartitioned Resource Bound     : 2
+     652                    ;*      Partitioned Resource Bound(*)    : 4
+     653                    ;*      Resource Partition:
+     654                    ;*                                A-side   B-side
+     655                    ;*      .L units                     0        0     
+     656                    ;*      .S units                     0        0     
+     657                    ;*      .D units                     2*       2*    
+     658                    ;*      .M units                     0        0     
+     659                    ;*      .X cross paths               2        2     
+     660                    ;*      .T address paths             3        2     
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   13
+
+     661                    ;*      Logical  ops (.LS)           1        1     (.L or .S unit)
+     662                    ;*      Addition ops (.LSD)          2        2     (.L or .S or .D unit)
+     663                    ;*      Bound(.L .S .LS)             1        1     
+     664                    ;*      Bound(.L .S .D .LS .LSD)     2*       2*    
+     665                    ;*
+     666                    ;*      Searching for software pipeline schedule at ...
+     667                    ;*         ii = 4  Schedule found with 4 iterations in parallel
+     668                    ;*      Done
+     669                    ;*
+     670                    ;*      Loop will be splooped
+     671                    ;*      Collapsed epilog stages       : 0
+     672                    ;*      Collapsed prolog stages       : 0
+     673                    ;*      Minimum required memory pad   : 0 bytes
+     674                    ;*
+     675                    ;*      Minimum safe trip count       : 1 (after unrolling)
+     676                    ;*
+     677                    ;*      (Performance) Consider adding assertions to indicate n-byte alignment of variables phaseSum if
+     678                    ;*
+     679                    ;*      (Performance) Consider adding assertions to indicate n-byte alignment of variables outPhases, 
+     680                    ;*----------------------------------------------------------------------------*
+     681 0000027a           $C$L10:    ; PIPED LOOP PROLOG
+     682 0000027a     0de7             SPLOOPD         4                 ;16 ; [A_L674] (P) 
+     683                    ;** --------------------------------------------------------------------------*
+     684 00000280           $C$L11:    ; PIPED LOOP KERNEL
+     685                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     686 00000280 04183764             LDDW    .D1T1   *A6++(8),A9:A8    ; [A_D64P] |193| (P) <0,0> 
+     687 00000284 02a437a6             LDNDW   .D2T2   *B9++(8),B5:B4    ; [B_D64P] |193| (P) <0,1> 
+     688 00000288 00008000             NOP             5                 ; [A_L674] 
+     689                    
+     690 0000028c 01953219             ADDSP   .L1X    A9,B5,A3          ; [A_L674] |193| (P) <0,7>  ^ 
+     691 00000290 0320921a  ||         ADDSP   .L2X    A8,B4,B6          ; [B_L674] |193| (P) <0,7>  ^ 
+     692                    
+     693 00000294     4c6e             NOP             3                 ; [A_L674] 
+     694                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     695 00000296     a1ce             MV      .S1     A3,A5             ; [A_S674] |194| (P) <0,11> 
+     696                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     697                    
+     698 00000298     f1cf             MV      .S2X    A3,B7             ; [B_Sb674] |193| <0,12>  ^ 
+     699 0000029a     9346  ||         MV      .L1X    B6,A4             ; [A_L674] |194| <0,12>  ^ 
+     700                    
+     701 000002a0 00000000             NOP             1                 ; [A_L674] 
+     702 000002a4 03a037f6             STNDW   .D2T2   B7:B6,*B8++(8)    ; [B_D64P] |193| <0,14> 
+     703                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     704                    
+     705 000002a8     1c67             SPKERNEL        1,0               ; [] 
+     706 000002aa     0dd4  ||         STNDW   .D1T1   A5:A4,*A7++(8)    ; [A_D64P] |194| <0,15> 
+     707                    
+     708                    ;** --------------------------------------------------------------------------*
+     709 000002ac           $C$L12:    ; PIPED LOOP EPILOG
+     710 000002ac     2c6e             NOP             2                 ; [A_L674] 
+     711                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     712                    $C$DW$23        .dwtag  DW_TAG_TI_branch
+     713                            .dwattr $C$DW$23, DW_AT_low_pc(0x00)
+     714                            .dwattr $C$DW$23, DW_AT_TI_return
+     715                    
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   14
+
+     716 000002ae     81ef             RETNOP          B3,4              ; [] |198| 
+     717                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     718 000002b0 0204a358             MVK     .L1     1,A4              ; [A_L674] |197| 
+     719                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     720                               ; BRANCH OCCURS {B3}              ; [] |198| 
+     721                            .dwattr $C$DW$9, DW_AT_TI_end_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Voca
+     722                            .dwattr $C$DW$9, DW_AT_TI_end_line(0xc6)
+     723                            .dwattr $C$DW$9, DW_AT_TI_end_column(0x01)
+     724                            .dwendentry
+     725                            .dwendtag $C$DW$9
+     726                    
+     727 000002b4                   .sect   ".text"
+     728                            .clink
+     729                            .global SexyPitchShiftInit
+     730                    
+     731                    $C$DW$24        .dwtag  DW_TAG_subprogram
+     732                            .dwattr $C$DW$24, DW_AT_name("SexyPitchShiftInit")
+     733                            .dwattr $C$DW$24, DW_AT_low_pc(SexyPitchShiftInit)
+     734                            .dwattr $C$DW$24, DW_AT_high_pc(0x00)
+     735                            .dwattr $C$DW$24, DW_AT_TI_symbol_name("SexyPitchShiftInit")
+     736                            .dwattr $C$DW$24, DW_AT_external
+     737                            .dwattr $C$DW$24, DW_AT_type(*$C$DW$T$67)
+     738                            .dwattr $C$DW$24, DW_AT_TI_begin_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/V
+     739                            .dwattr $C$DW$24, DW_AT_TI_begin_line(0x4a)
+     740                            .dwattr $C$DW$24, DW_AT_TI_begin_column(0x06)
+     741                            .dwattr $C$DW$24, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Vocal
+     742                            .dwattr $C$DW$24, DW_AT_decl_line(0x4a)
+     743                            .dwattr $C$DW$24, DW_AT_decl_column(0x06)
+     744                            .dwattr $C$DW$24, DW_AT_TI_max_frame_size(0x08)
+     745                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     746                    
+     747                            .dwfde $C$DW$CIE, SexyPitchShiftInit
+     748                    $C$DW$25        .dwtag  DW_TAG_formal_parameter
+     749                            .dwattr $C$DW$25, DW_AT_name("fftSize")
+     750                            .dwattr $C$DW$25, DW_AT_TI_symbol_name("fftSize")
+     751                            .dwattr $C$DW$25, DW_AT_type(*$C$DW$T$53)
+     752                            .dwattr $C$DW$25, DW_AT_location[DW_OP_reg4]
+     753                    
+     754                    $C$DW$26        .dwtag  DW_TAG_formal_parameter
+     755                            .dwattr $C$DW$26, DW_AT_name("overlapAmount")
+     756                            .dwattr $C$DW$26, DW_AT_TI_symbol_name("overlapAmount")
+     757                            .dwattr $C$DW$26, DW_AT_type(*$C$DW$T$53)
+     758                            .dwattr $C$DW$26, DW_AT_location[DW_OP_reg20]
+     759                    
+     760                    
+     761                    ;******************************************************************************
+     762                    ;* FUNCTION NAME: SexyPitchShiftInit                                          *
+     763                    ;*                                                                            *
+     764                    ;*   Regs Modified     : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A16,A17,A18,A19,A20,   *
+     765                    ;*                           A21,A22,A23,A24,A25,A26,A27,A28,A29,A30,A31,B0,  *
+     766                    ;*                           B1,B2,B3,B4,B5,B6,B7,B8,B9,SP,B16,B17,B18,B19,   *
+     767                    ;*                           B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31  *
+     768                    ;*   Regs Used         : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A16,A17,A18,A19,A20,   *
+     769                    ;*                           A21,A22,A23,A24,A25,A26,A27,A28,A29,A30,A31,B0,  *
+     770                    ;*                           B1,B2,B3,B4,B5,B6,B7,B8,B9,DP,SP,B16,B17,B18,B19,*
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   15
+
+     771                    ;*                           B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31  *
+     772                    ;*   Local Frame Size  : 0 Args + 0 Auto + 4 Save = 4 byte                    *
+     773                    ;******************************************************************************
+     774                    SexyPitchShiftInit:
+     775                    ;** --------------------------------------------------------------------------*
+     776                    $C$DW$27        .dwtag  DW_TAG_variable
+     777                            .dwattr $C$DW$27, DW_AT_name("overlapAmount")
+     778                            .dwattr $C$DW$27, DW_AT_TI_symbol_name("overlapAmount")
+     779                            .dwattr $C$DW$27, DW_AT_type(*$C$DW$T$99)
+     780                            .dwattr $C$DW$27, DW_AT_location[DW_OP_reg20]
+     781                    
+     782                    $C$DW$28        .dwtag  DW_TAG_variable
+     783                            .dwattr $C$DW$28, DW_AT_name("fftSize")
+     784                            .dwattr $C$DW$28, DW_AT_TI_symbol_name("fftSize")
+     785                            .dwattr $C$DW$28, DW_AT_type(*$C$DW$T$99)
+     786                            .dwattr $C$DW$28, DW_AT_location[DW_OP_reg4]
+     787                    
+     788                            .dwcfi  cfa_offset, 0
+     789                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     790 000002b4 0210093a             INTSPU  .L2     B4,B4             ; [B_L674] |78| 
+     791 000002b8 0187e828             MVKL    .S1     0x40c90fd0,A3     ; [A_S674] |78| 
+     792                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     793                    
+     794 000002c0 01a064e9             MVKH    .S1     0x40c90fd0,A3     ; [A_S674] |78| 
+     795 000002c4 0200007c! ||         STW     .D2T1   A4,*+DP(FFTSize)  ; [B_D64P] |77| 
+     796                    
+     797                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     798                    $C$DW$29        .dwtag  DW_TAG_TI_branch
+     799                            .dwattr $C$DW$29, DW_AT_low_pc(0x04)
+     800                            .dwattr $C$DW$29, DW_AT_name("__c6xabi_divf")
+     801                            .dwattr $C$DW$29, DW_AT_TI_call
+     802                    
+     803                    
+     804 000002c8     31f7             STW     .D2T2   B3,*SP++(-8)      ; [B_D64P] |75| 
+     805 000002cc 10000012! ||         CALLP   .S2     __c6xabi_divf,B3  ; [B_Sb674] |78| 
+     806 000002ca     81c6  ||         MV      .L1     A3,A4             ; [A_L674] |78| 
+     807                    
+     808                            .dwcfi  cfa_offset, 8
+     809                            .dwcfi  save_reg_to_mem, 19, 0
+     810                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     811 000002d0           $C$RL0:    ; CALLP OCCURS {__c6xabi_divf} {0}  ; [] |78| 
+     812                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     813 000002d0 01bc52e6             LDW     .D2T2   *++SP(8),B3       ; [B_D64P] |81| 
+     814                            .dwcfi  cfa_offset, 0
+     815                            .dwcfi  restore_reg, 19
+     816                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     817 000002d4 0200007c!            STW     .D2T1   A4,*+DP(ExpectedPhaseShift) ; [B_D64P] |78| 
+     818                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     819 000002d8     2626             MVK     .L1     1,A4              ; [A_L674] |80| 
+     820 000002da     2c6e             NOP             2                 ; [A_L674] 
+     821                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/VocalEffects/src/SexyPitch
+     822                    $C$DW$30        .dwtag  DW_TAG_TI_branch
+     823                            .dwattr $C$DW$30, DW_AT_low_pc(0x00)
+     824                            .dwattr $C$DW$30, DW_AT_TI_return
+     825                    
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   16
+
+     826 000002e0 008ca362             RETNOP          B3,5              ; [] |81| 
+     827                               ; BRANCH OCCURS {B3}              ; [] |81| 
+     828                            .dwattr $C$DW$24, DW_AT_TI_end_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Voc
+     829                            .dwattr $C$DW$24, DW_AT_TI_end_line(0x51)
+     830                            .dwattr $C$DW$24, DW_AT_TI_end_column(0x01)
+     831                            .dwendentry
+     832                            .dwendtag $C$DW$24
+     833                    
+     834                    ;*****************************************************************************
+     835                    ;* UNDEFINED EXTERNAL REFERENCES                                             *
+     836                    ;*****************************************************************************
+     837                            .global __c6xabi_divf
+     838                    
+     839                    ;******************************************************************************
+     840                    ;* BUILD ATTRIBUTES                                                           *
+     841                    ;******************************************************************************
+     842                            .battr "TI", Tag_File, 1, Tag_Long_Precision_Bits(2)
+     843                            .battr "TI", Tag_File, 1, Tag_Bitfield_layout(2)
+     844                            .battr "TI", Tag_File, 1, Tag_ABI_enum_size(3)
+     845                            .battr "c6xabi", Tag_File, 1, Tag_ABI_wchar_t(1)
+     846                            .battr "c6xabi", Tag_File, 1, Tag_ABI_array_object_alignment(0)
+     847                            .battr "c6xabi", Tag_File, 1, Tag_ABI_array_object_align_expected(0)
+     848                            .battr "c6xabi", Tag_File, 1, Tag_ABI_PIC(0)
+     849                            .battr "c6xabi", Tag_File, 1, Tag_ABI_PID(0)
+     850                            .battr "c6xabi", Tag_File, 1, Tag_ABI_DSBT(0)
+     851                            .battr "c6xabi", Tag_File, 1, Tag_ABI_stack_align_needed(0)
+     852                            .battr "c6xabi", Tag_File, 1, Tag_ABI_stack_align_preserved(0)
+     853                            .battr "TI", Tag_File, 1, Tag_Tramps_Use_SOC(1)
+     854                    
+     855                    ;******************************************************************************
+     856                    ;* TYPE INFORMATION                                                           *
+     857                    ;******************************************************************************
+     858                    
+     859                    $C$DW$T$22      .dwtag  DW_TAG_union_type
+     860                            .dwattr $C$DW$T$22, DW_AT_byte_size(0x04)
+     861                    $C$DW$31        .dwtag  DW_TAG_member
+     862                            .dwattr $C$DW$31, DW_AT_type(*$C$DW$T$19)
+     863                            .dwattr $C$DW$31, DW_AT_name("f")
+     864                            .dwattr $C$DW$31, DW_AT_TI_symbol_name("f")
+     865                            .dwattr $C$DW$31, DW_AT_data_member_location[DW_OP_plus_uconst 0x0]
+     866                            .dwattr $C$DW$31, DW_AT_accessibility(DW_ACCESS_public)
+     867                            .dwattr $C$DW$31, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+     868                            .dwattr $C$DW$31, DW_AT_decl_line(0xb6)
+     869                            .dwattr $C$DW$31, DW_AT_decl_column(0x0f)
+     870                    
+     871                    $C$DW$32        .dwtag  DW_TAG_member
+     872                            .dwattr $C$DW$32, DW_AT_type(*$C$DW$T$21)
+     873                            .dwattr $C$DW$32, DW_AT_name("a")
+     874                            .dwattr $C$DW$32, DW_AT_TI_symbol_name("a")
+     875                            .dwattr $C$DW$32, DW_AT_data_member_location[DW_OP_plus_uconst 0x0]
+     876                            .dwattr $C$DW$32, DW_AT_accessibility(DW_ACCESS_public)
+     877                            .dwattr $C$DW$32, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+     878                            .dwattr $C$DW$32, DW_AT_decl_line(0xb7)
+     879                            .dwattr $C$DW$32, DW_AT_decl_column(0x0f)
+     880                    
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   17
+
+     881                            .dwattr $C$DW$T$22, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+     882                            .dwattr $C$DW$T$22, DW_AT_decl_line(0xb5)
+     883                            .dwattr $C$DW$T$22, DW_AT_decl_column(0x0f)
+     884                            .dwendtag $C$DW$T$22
+     885                    
+     886                    $C$DW$T$23      .dwtag  DW_TAG_typedef
+     887                            .dwattr $C$DW$T$23, DW_AT_name("xdc_FloatData")
+     888                            .dwattr $C$DW$T$23, DW_AT_type(*$C$DW$T$22)
+     889                            .dwattr $C$DW$T$23, DW_AT_language(DW_LANG_C)
+     890                            .dwattr $C$DW$T$23, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+     891                            .dwattr $C$DW$T$23, DW_AT_decl_line(0xb8)
+     892                            .dwattr $C$DW$T$23, DW_AT_decl_column(0x03)
+     893                    
+     894                    $C$DW$T$2       .dwtag  DW_TAG_unspecified_type
+     895                            .dwattr $C$DW$T$2, DW_AT_name("void")
+     896                    
+     897                    $C$DW$T$3       .dwtag  DW_TAG_pointer_type
+     898                            .dwattr $C$DW$T$3, DW_AT_type(*$C$DW$T$2)
+     899                            .dwattr $C$DW$T$3, DW_AT_address_class(0x20)
+     900                    
+     901                    $C$DW$T$24      .dwtag  DW_TAG_typedef
+     902                            .dwattr $C$DW$T$24, DW_AT_name("xdc_Ptr")
+     903                            .dwattr $C$DW$T$24, DW_AT_type(*$C$DW$T$3)
+     904                            .dwattr $C$DW$T$24, DW_AT_language(DW_LANG_C)
+     905                            .dwattr $C$DW$T$24, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+     906                            .dwattr $C$DW$T$24, DW_AT_decl_line(0x2e)
+     907                            .dwattr $C$DW$T$24, DW_AT_decl_column(0x1a)
+     908                    
+     909                    $C$DW$T$25      .dwtag  DW_TAG_typedef
+     910                            .dwattr $C$DW$T$25, DW_AT_name("Ptr")
+     911                            .dwattr $C$DW$T$25, DW_AT_type(*$C$DW$T$24)
+     912                            .dwattr $C$DW$T$25, DW_AT_language(DW_LANG_C)
+     913                            .dwattr $C$DW$T$25, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+     914                            .dwattr $C$DW$T$25, DW_AT_decl_line(0xf6)
+     915                            .dwattr $C$DW$T$25, DW_AT_decl_column(0x19)
+     916                    
+     917                    $C$DW$T$27      .dwtag  DW_TAG_const_type
+     918                            .dwattr $C$DW$T$27, DW_AT_type(*$C$DW$T$2)
+     919                    
+     920                    $C$DW$T$28      .dwtag  DW_TAG_pointer_type
+     921                            .dwattr $C$DW$T$28, DW_AT_type(*$C$DW$T$27)
+     922                            .dwattr $C$DW$T$28, DW_AT_address_class(0x20)
+     923                    
+     924                    $C$DW$T$29      .dwtag  DW_TAG_typedef
+     925                            .dwattr $C$DW$T$29, DW_AT_name("xdc_CPtr")
+     926                            .dwattr $C$DW$T$29, DW_AT_type(*$C$DW$T$28)
+     927                            .dwattr $C$DW$T$29, DW_AT_language(DW_LANG_C)
+     928                            .dwattr $C$DW$T$29, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+     929                            .dwattr $C$DW$T$29, DW_AT_decl_line(0x2f)
+     930                            .dwattr $C$DW$T$29, DW_AT_decl_column(0x1a)
+     931                    
+     932                    $C$DW$T$30      .dwtag  DW_TAG_typedef
+     933                            .dwattr $C$DW$T$30, DW_AT_name("CPtr")
+     934                            .dwattr $C$DW$T$30, DW_AT_type(*$C$DW$T$29)
+     935                            .dwattr $C$DW$T$30, DW_AT_language(DW_LANG_C)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   18
+
+     936                            .dwattr $C$DW$T$30, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+     937                            .dwattr $C$DW$T$30, DW_AT_decl_line(0xf7)
+     938                            .dwattr $C$DW$T$30, DW_AT_decl_column(0x19)
+     939                    
+     940                    $C$DW$T$4       .dwtag  DW_TAG_base_type
+     941                            .dwattr $C$DW$T$4, DW_AT_encoding(DW_ATE_boolean)
+     942                            .dwattr $C$DW$T$4, DW_AT_name("bool")
+     943                            .dwattr $C$DW$T$4, DW_AT_byte_size(0x01)
+     944                    
+     945                    $C$DW$T$5       .dwtag  DW_TAG_base_type
+     946                            .dwattr $C$DW$T$5, DW_AT_encoding(DW_ATE_signed_char)
+     947                            .dwattr $C$DW$T$5, DW_AT_name("signed char")
+     948                            .dwattr $C$DW$T$5, DW_AT_byte_size(0x01)
+     949                    
+     950                    $C$DW$T$31      .dwtag  DW_TAG_typedef
+     951                            .dwattr $C$DW$T$31, DW_AT_name("int8_t")
+     952                            .dwattr $C$DW$T$31, DW_AT_type(*$C$DW$T$5)
+     953                            .dwattr $C$DW$T$31, DW_AT_language(DW_LANG_C)
+     954                            .dwattr $C$DW$T$31, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+     955                            .dwattr $C$DW$T$31, DW_AT_decl_line(0x2a)
+     956                            .dwattr $C$DW$T$31, DW_AT_decl_column(0x1d)
+     957                    
+     958                    $C$DW$T$32      .dwtag  DW_TAG_typedef
+     959                            .dwattr $C$DW$T$32, DW_AT_name("int_least8_t")
+     960                            .dwattr $C$DW$T$32, DW_AT_type(*$C$DW$T$31)
+     961                            .dwattr $C$DW$T$32, DW_AT_language(DW_LANG_C)
+     962                            .dwattr $C$DW$T$32, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+     963                            .dwattr $C$DW$T$32, DW_AT_decl_line(0x39)
+     964                            .dwattr $C$DW$T$32, DW_AT_decl_column(0x17)
+     965                    
+     966                    $C$DW$T$33      .dwtag  DW_TAG_typedef
+     967                            .dwattr $C$DW$T$33, DW_AT_name("xdc_Int8")
+     968                            .dwattr $C$DW$T$33, DW_AT_type(*$C$DW$T$32)
+     969                            .dwattr $C$DW$T$33, DW_AT_language(DW_LANG_C)
+     970                            .dwattr $C$DW$T$33, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+     971                            .dwattr $C$DW$T$33, DW_AT_decl_line(0x6c)
+     972                            .dwattr $C$DW$T$33, DW_AT_decl_column(0x19)
+     973                    
+     974                    $C$DW$T$34      .dwtag  DW_TAG_typedef
+     975                            .dwattr $C$DW$T$34, DW_AT_name("Int8")
+     976                            .dwattr $C$DW$T$34, DW_AT_type(*$C$DW$T$33)
+     977                            .dwattr $C$DW$T$34, DW_AT_language(DW_LANG_C)
+     978                            .dwattr $C$DW$T$34, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+     979                            .dwattr $C$DW$T$34, DW_AT_decl_line(0xf2)
+     980                            .dwattr $C$DW$T$34, DW_AT_decl_column(0x19)
+     981                    
+     982                    $C$DW$T$6       .dwtag  DW_TAG_base_type
+     983                            .dwattr $C$DW$T$6, DW_AT_encoding(DW_ATE_unsigned_char)
+     984                            .dwattr $C$DW$T$6, DW_AT_name("unsigned char")
+     985                            .dwattr $C$DW$T$6, DW_AT_byte_size(0x01)
+     986                    
+     987                    $C$DW$T$35      .dwtag  DW_TAG_typedef
+     988                            .dwattr $C$DW$T$35, DW_AT_name("uint8_t")
+     989                            .dwattr $C$DW$T$35, DW_AT_type(*$C$DW$T$6)
+     990                            .dwattr $C$DW$T$35, DW_AT_language(DW_LANG_C)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   19
+
+     991                            .dwattr $C$DW$T$35, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+     992                            .dwattr $C$DW$T$35, DW_AT_decl_line(0x2b)
+     993                            .dwattr $C$DW$T$35, DW_AT_decl_column(0x1c)
+     994                    
+     995                    $C$DW$T$36      .dwtag  DW_TAG_typedef
+     996                            .dwattr $C$DW$T$36, DW_AT_name("uint_least8_t")
+     997                            .dwattr $C$DW$T$36, DW_AT_type(*$C$DW$T$35)
+     998                            .dwattr $C$DW$T$36, DW_AT_language(DW_LANG_C)
+     999                            .dwattr $C$DW$T$36, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1000                            .dwattr $C$DW$T$36, DW_AT_decl_line(0x3a)
+    1001                            .dwattr $C$DW$T$36, DW_AT_decl_column(0x16)
+    1002                    
+    1003                    $C$DW$T$37      .dwtag  DW_TAG_typedef
+    1004                            .dwattr $C$DW$T$37, DW_AT_name("xdc_UInt8")
+    1005                            .dwattr $C$DW$T$37, DW_AT_type(*$C$DW$T$36)
+    1006                            .dwattr $C$DW$T$37, DW_AT_language(DW_LANG_C)
+    1007                            .dwattr $C$DW$T$37, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1008                            .dwattr $C$DW$T$37, DW_AT_decl_line(0x6d)
+    1009                            .dwattr $C$DW$T$37, DW_AT_decl_column(0x19)
+    1010                    
+    1011                    $C$DW$T$38      .dwtag  DW_TAG_typedef
+    1012                            .dwattr $C$DW$T$38, DW_AT_name("UInt8")
+    1013                            .dwattr $C$DW$T$38, DW_AT_type(*$C$DW$T$37)
+    1014                            .dwattr $C$DW$T$38, DW_AT_language(DW_LANG_C)
+    1015                            .dwattr $C$DW$T$38, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1016                            .dwattr $C$DW$T$38, DW_AT_decl_line(0xfd)
+    1017                            .dwattr $C$DW$T$38, DW_AT_decl_column(0x19)
+    1018                    
+    1019                    $C$DW$T$39      .dwtag  DW_TAG_typedef
+    1020                            .dwattr $C$DW$T$39, DW_AT_name("Uint8")
+    1021                            .dwattr $C$DW$T$39, DW_AT_type(*$C$DW$T$37)
+    1022                            .dwattr $C$DW$T$39, DW_AT_language(DW_LANG_C)
+    1023                            .dwattr $C$DW$T$39, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1024                            .dwattr $C$DW$T$39, DW_AT_decl_line(0x10a)
+    1025                            .dwattr $C$DW$T$39, DW_AT_decl_column(0x19)
+    1026                    
+    1027                    $C$DW$T$40      .dwtag  DW_TAG_typedef
+    1028                            .dwattr $C$DW$T$40, DW_AT_name("xdc_Bits8")
+    1029                            .dwattr $C$DW$T$40, DW_AT_type(*$C$DW$T$35)
+    1030                            .dwattr $C$DW$T$40, DW_AT_language(DW_LANG_C)
+    1031                            .dwattr $C$DW$T$40, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1032                            .dwattr $C$DW$T$40, DW_AT_decl_line(0x89)
+    1033                            .dwattr $C$DW$T$40, DW_AT_decl_column(0x19)
+    1034                    
+    1035                    $C$DW$T$41      .dwtag  DW_TAG_typedef
+    1036                            .dwattr $C$DW$T$41, DW_AT_name("Bits8")
+    1037                            .dwattr $C$DW$T$41, DW_AT_type(*$C$DW$T$40)
+    1038                            .dwattr $C$DW$T$41, DW_AT_language(DW_LANG_C)
+    1039                            .dwattr $C$DW$T$41, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1040                            .dwattr $C$DW$T$41, DW_AT_decl_line(0x11e)
+    1041                            .dwattr $C$DW$T$41, DW_AT_decl_column(0x19)
+    1042                    
+    1043                    $C$DW$T$42      .dwtag  DW_TAG_typedef
+    1044                            .dwattr $C$DW$T$42, DW_AT_name("xdc_UChar")
+    1045                            .dwattr $C$DW$T$42, DW_AT_type(*$C$DW$T$6)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   20
+
+    1046                            .dwattr $C$DW$T$42, DW_AT_language(DW_LANG_C)
+    1047                            .dwattr $C$DW$T$42, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1048                            .dwattr $C$DW$T$42, DW_AT_decl_line(0x1e)
+    1049                            .dwattr $C$DW$T$42, DW_AT_decl_column(0x19)
+    1050                    
+    1051                    $C$DW$T$43      .dwtag  DW_TAG_typedef
+    1052                            .dwattr $C$DW$T$43, DW_AT_name("UChar")
+    1053                            .dwattr $C$DW$T$43, DW_AT_type(*$C$DW$T$42)
+    1054                            .dwattr $C$DW$T$43, DW_AT_language(DW_LANG_C)
+    1055                            .dwattr $C$DW$T$43, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1056                            .dwattr $C$DW$T$43, DW_AT_decl_line(0xe0)
+    1057                            .dwattr $C$DW$T$43, DW_AT_decl_column(0x19)
+    1058                    
+    1059                    $C$DW$T$7       .dwtag  DW_TAG_base_type
+    1060                            .dwattr $C$DW$T$7, DW_AT_encoding(DW_ATE_signed_char)
+    1061                            .dwattr $C$DW$T$7, DW_AT_name("wchar_t")
+    1062                            .dwattr $C$DW$T$7, DW_AT_byte_size(0x02)
+    1063                    
+    1064                    $C$DW$T$8       .dwtag  DW_TAG_base_type
+    1065                            .dwattr $C$DW$T$8, DW_AT_encoding(DW_ATE_signed)
+    1066                            .dwattr $C$DW$T$8, DW_AT_name("short")
+    1067                            .dwattr $C$DW$T$8, DW_AT_byte_size(0x02)
+    1068                    
+    1069                    $C$DW$T$44      .dwtag  DW_TAG_typedef
+    1070                            .dwattr $C$DW$T$44, DW_AT_name("int16_t")
+    1071                            .dwattr $C$DW$T$44, DW_AT_type(*$C$DW$T$8)
+    1072                            .dwattr $C$DW$T$44, DW_AT_language(DW_LANG_C)
+    1073                            .dwattr $C$DW$T$44, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1074                            .dwattr $C$DW$T$44, DW_AT_decl_line(0x2c)
+    1075                            .dwattr $C$DW$T$44, DW_AT_decl_column(0x1d)
+    1076                    
+    1077                    $C$DW$T$45      .dwtag  DW_TAG_typedef
+    1078                            .dwattr $C$DW$T$45, DW_AT_name("int_least16_t")
+    1079                            .dwattr $C$DW$T$45, DW_AT_type(*$C$DW$T$44)
+    1080                            .dwattr $C$DW$T$45, DW_AT_language(DW_LANG_C)
+    1081                            .dwattr $C$DW$T$45, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1082                            .dwattr $C$DW$T$45, DW_AT_decl_line(0x3c)
+    1083                            .dwattr $C$DW$T$45, DW_AT_decl_column(0x17)
+    1084                    
+    1085                    $C$DW$T$46      .dwtag  DW_TAG_typedef
+    1086                            .dwattr $C$DW$T$46, DW_AT_name("xdc_Int16")
+    1087                            .dwattr $C$DW$T$46, DW_AT_type(*$C$DW$T$45)
+    1088                            .dwattr $C$DW$T$46, DW_AT_language(DW_LANG_C)
+    1089                            .dwattr $C$DW$T$46, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1090                            .dwattr $C$DW$T$46, DW_AT_decl_line(0x6e)
+    1091                            .dwattr $C$DW$T$46, DW_AT_decl_column(0x19)
+    1092                    
+    1093                    $C$DW$T$47      .dwtag  DW_TAG_typedef
+    1094                            .dwattr $C$DW$T$47, DW_AT_name("Int16")
+    1095                            .dwattr $C$DW$T$47, DW_AT_type(*$C$DW$T$46)
+    1096                            .dwattr $C$DW$T$47, DW_AT_language(DW_LANG_C)
+    1097                            .dwattr $C$DW$T$47, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1098                            .dwattr $C$DW$T$47, DW_AT_decl_line(0xf3)
+    1099                            .dwattr $C$DW$T$47, DW_AT_decl_column(0x19)
+    1100                    
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   21
+
+    1101                    $C$DW$T$48      .dwtag  DW_TAG_typedef
+    1102                            .dwattr $C$DW$T$48, DW_AT_name("xdc_Short")
+    1103                            .dwattr $C$DW$T$48, DW_AT_type(*$C$DW$T$8)
+    1104                            .dwattr $C$DW$T$48, DW_AT_language(DW_LANG_C)
+    1105                            .dwattr $C$DW$T$48, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1106                            .dwattr $C$DW$T$48, DW_AT_decl_line(0x1f)
+    1107                            .dwattr $C$DW$T$48, DW_AT_decl_column(0x19)
+    1108                    
+    1109                    $C$DW$T$49      .dwtag  DW_TAG_typedef
+    1110                            .dwattr $C$DW$T$49, DW_AT_name("Short")
+    1111                            .dwattr $C$DW$T$49, DW_AT_type(*$C$DW$T$48)
+    1112                            .dwattr $C$DW$T$49, DW_AT_language(DW_LANG_C)
+    1113                            .dwattr $C$DW$T$49, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1114                            .dwattr $C$DW$T$49, DW_AT_decl_line(0xe1)
+    1115                            .dwattr $C$DW$T$49, DW_AT_decl_column(0x19)
+    1116                    
+    1117                    $C$DW$T$9       .dwtag  DW_TAG_base_type
+    1118                            .dwattr $C$DW$T$9, DW_AT_encoding(DW_ATE_unsigned)
+    1119                            .dwattr $C$DW$T$9, DW_AT_name("unsigned short")
+    1120                            .dwattr $C$DW$T$9, DW_AT_byte_size(0x02)
+    1121                    
+    1122                    $C$DW$T$58      .dwtag  DW_TAG_typedef
+    1123                            .dwattr $C$DW$T$58, DW_AT_name("uint16_t")
+    1124                            .dwattr $C$DW$T$58, DW_AT_type(*$C$DW$T$9)
+    1125                            .dwattr $C$DW$T$58, DW_AT_language(DW_LANG_C)
+    1126                            .dwattr $C$DW$T$58, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1127                            .dwattr $C$DW$T$58, DW_AT_decl_line(0x2d)
+    1128                            .dwattr $C$DW$T$58, DW_AT_decl_column(0x1c)
+    1129                    
+    1130                    $C$DW$T$59      .dwtag  DW_TAG_typedef
+    1131                            .dwattr $C$DW$T$59, DW_AT_name("uint_least16_t")
+    1132                            .dwattr $C$DW$T$59, DW_AT_type(*$C$DW$T$58)
+    1133                            .dwattr $C$DW$T$59, DW_AT_language(DW_LANG_C)
+    1134                            .dwattr $C$DW$T$59, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1135                            .dwattr $C$DW$T$59, DW_AT_decl_line(0x3d)
+    1136                            .dwattr $C$DW$T$59, DW_AT_decl_column(0x16)
+    1137                    
+    1138                    $C$DW$T$60      .dwtag  DW_TAG_typedef
+    1139                            .dwattr $C$DW$T$60, DW_AT_name("xdc_UInt16")
+    1140                            .dwattr $C$DW$T$60, DW_AT_type(*$C$DW$T$59)
+    1141                            .dwattr $C$DW$T$60, DW_AT_language(DW_LANG_C)
+    1142                            .dwattr $C$DW$T$60, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1143                            .dwattr $C$DW$T$60, DW_AT_decl_line(0x6f)
+    1144                            .dwattr $C$DW$T$60, DW_AT_decl_column(0x19)
+    1145                    
+    1146                    $C$DW$T$61      .dwtag  DW_TAG_typedef
+    1147                            .dwattr $C$DW$T$61, DW_AT_name("UInt16")
+    1148                            .dwattr $C$DW$T$61, DW_AT_type(*$C$DW$T$60)
+    1149                            .dwattr $C$DW$T$61, DW_AT_language(DW_LANG_C)
+    1150                            .dwattr $C$DW$T$61, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1151                            .dwattr $C$DW$T$61, DW_AT_decl_line(0xfe)
+    1152                            .dwattr $C$DW$T$61, DW_AT_decl_column(0x19)
+    1153                    
+    1154                    $C$DW$T$62      .dwtag  DW_TAG_typedef
+    1155                            .dwattr $C$DW$T$62, DW_AT_name("Uint16")
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   22
+
+    1156                            .dwattr $C$DW$T$62, DW_AT_type(*$C$DW$T$60)
+    1157                            .dwattr $C$DW$T$62, DW_AT_language(DW_LANG_C)
+    1158                            .dwattr $C$DW$T$62, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1159                            .dwattr $C$DW$T$62, DW_AT_decl_line(0x10b)
+    1160                            .dwattr $C$DW$T$62, DW_AT_decl_column(0x19)
+    1161                    
+    1162                    $C$DW$T$63      .dwtag  DW_TAG_typedef
+    1163                            .dwattr $C$DW$T$63, DW_AT_name("xdc_Bits16")
+    1164                            .dwattr $C$DW$T$63, DW_AT_type(*$C$DW$T$58)
+    1165                            .dwattr $C$DW$T$63, DW_AT_language(DW_LANG_C)
+    1166                            .dwattr $C$DW$T$63, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1167                            .dwattr $C$DW$T$63, DW_AT_decl_line(0x8c)
+    1168                            .dwattr $C$DW$T$63, DW_AT_decl_column(0x19)
+    1169                    
+    1170                    $C$DW$T$64      .dwtag  DW_TAG_typedef
+    1171                            .dwattr $C$DW$T$64, DW_AT_name("Bits16")
+    1172                            .dwattr $C$DW$T$64, DW_AT_type(*$C$DW$T$63)
+    1173                            .dwattr $C$DW$T$64, DW_AT_language(DW_LANG_C)
+    1174                            .dwattr $C$DW$T$64, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1175                            .dwattr $C$DW$T$64, DW_AT_decl_line(0x122)
+    1176                            .dwattr $C$DW$T$64, DW_AT_decl_column(0x19)
+    1177                    
+    1178                    $C$DW$T$65      .dwtag  DW_TAG_typedef
+    1179                            .dwattr $C$DW$T$65, DW_AT_name("wchar_t")
+    1180                            .dwattr $C$DW$T$65, DW_AT_type(*$C$DW$T$9)
+    1181                            .dwattr $C$DW$T$65, DW_AT_language(DW_LANG_C)
+    1182                            .dwattr $C$DW$T$65, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1183                            .dwattr $C$DW$T$65, DW_AT_decl_line(0x41)
+    1184                            .dwattr $C$DW$T$65, DW_AT_decl_column(0x1a)
+    1185                    
+    1186                    $C$DW$T$66      .dwtag  DW_TAG_typedef
+    1187                            .dwattr $C$DW$T$66, DW_AT_name("xdc_Bool")
+    1188                            .dwattr $C$DW$T$66, DW_AT_type(*$C$DW$T$9)
+    1189                            .dwattr $C$DW$T$66, DW_AT_language(DW_LANG_C)
+    1190                            .dwattr $C$DW$T$66, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1191                            .dwattr $C$DW$T$66, DW_AT_decl_line(0x2d)
+    1192                            .dwattr $C$DW$T$66, DW_AT_decl_column(0x19)
+    1193                    
+    1194                    $C$DW$T$67      .dwtag  DW_TAG_typedef
+    1195                            .dwattr $C$DW$T$67, DW_AT_name("Bool")
+    1196                            .dwattr $C$DW$T$67, DW_AT_type(*$C$DW$T$66)
+    1197                            .dwattr $C$DW$T$67, DW_AT_language(DW_LANG_C)
+    1198                            .dwattr $C$DW$T$67, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1199                            .dwattr $C$DW$T$67, DW_AT_decl_line(0xf1)
+    1200                            .dwattr $C$DW$T$67, DW_AT_decl_column(0x19)
+    1201                    
+    1202                    $C$DW$T$70      .dwtag  DW_TAG_typedef
+    1203                            .dwattr $C$DW$T$70, DW_AT_name("xdc_UShort")
+    1204                            .dwattr $C$DW$T$70, DW_AT_type(*$C$DW$T$9)
+    1205                            .dwattr $C$DW$T$70, DW_AT_language(DW_LANG_C)
+    1206                            .dwattr $C$DW$T$70, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1207                            .dwattr $C$DW$T$70, DW_AT_decl_line(0x20)
+    1208                            .dwattr $C$DW$T$70, DW_AT_decl_column(0x19)
+    1209                    
+    1210                    $C$DW$T$71      .dwtag  DW_TAG_typedef
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   23
+
+    1211                            .dwattr $C$DW$T$71, DW_AT_name("UShort")
+    1212                            .dwattr $C$DW$T$71, DW_AT_type(*$C$DW$T$70)
+    1213                            .dwattr $C$DW$T$71, DW_AT_language(DW_LANG_C)
+    1214                            .dwattr $C$DW$T$71, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1215                            .dwattr $C$DW$T$71, DW_AT_decl_line(0xe2)
+    1216                            .dwattr $C$DW$T$71, DW_AT_decl_column(0x19)
+    1217                    
+    1218                    $C$DW$T$10      .dwtag  DW_TAG_base_type
+    1219                            .dwattr $C$DW$T$10, DW_AT_encoding(DW_ATE_signed)
+    1220                            .dwattr $C$DW$T$10, DW_AT_name("int")
+    1221                            .dwattr $C$DW$T$10, DW_AT_byte_size(0x04)
+    1222                    
+    1223                    
+    1224                    $C$DW$T$72      .dwtag  DW_TAG_subroutine_type
+    1225                            .dwattr $C$DW$T$72, DW_AT_type(*$C$DW$T$10)
+    1226                            .dwattr $C$DW$T$72, DW_AT_language(DW_LANG_C)
+    1227                            .dwendtag $C$DW$T$72
+    1228                    
+    1229                    $C$DW$T$73      .dwtag  DW_TAG_pointer_type
+    1230                            .dwattr $C$DW$T$73, DW_AT_type(*$C$DW$T$72)
+    1231                            .dwattr $C$DW$T$73, DW_AT_address_class(0x20)
+    1232                    
+    1233                    $C$DW$T$74      .dwtag  DW_TAG_typedef
+    1234                            .dwattr $C$DW$T$74, DW_AT_name("xdc_Fxn")
+    1235                            .dwattr $C$DW$T$74, DW_AT_type(*$C$DW$T$73)
+    1236                            .dwattr $C$DW$T$74, DW_AT_language(DW_LANG_C)
+    1237                            .dwattr $C$DW$T$74, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1238                            .dwattr $C$DW$T$74, DW_AT_decl_line(0x46)
+    1239                            .dwattr $C$DW$T$74, DW_AT_decl_column(0x1d)
+    1240                    
+    1241                    $C$DW$T$75      .dwtag  DW_TAG_typedef
+    1242                            .dwattr $C$DW$T$75, DW_AT_name("Fxn")
+    1243                            .dwattr $C$DW$T$75, DW_AT_type(*$C$DW$T$74)
+    1244                            .dwattr $C$DW$T$75, DW_AT_language(DW_LANG_C)
+    1245                            .dwattr $C$DW$T$75, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1246                            .dwattr $C$DW$T$75, DW_AT_decl_line(0xf5)
+    1247                            .dwattr $C$DW$T$75, DW_AT_decl_column(0x19)
+    1248                    
+    1249                    $C$DW$T$76      .dwtag  DW_TAG_typedef
+    1250                            .dwattr $C$DW$T$76, DW_AT_name("int32_t")
+    1251                            .dwattr $C$DW$T$76, DW_AT_type(*$C$DW$T$10)
+    1252                            .dwattr $C$DW$T$76, DW_AT_language(DW_LANG_C)
+    1253                            .dwattr $C$DW$T$76, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1254                            .dwattr $C$DW$T$76, DW_AT_decl_line(0x2e)
+    1255                            .dwattr $C$DW$T$76, DW_AT_decl_column(0x1d)
+    1256                    
+    1257                    $C$DW$T$77      .dwtag  DW_TAG_typedef
+    1258                            .dwattr $C$DW$T$77, DW_AT_name("int_fast16_t")
+    1259                            .dwattr $C$DW$T$77, DW_AT_type(*$C$DW$T$76)
+    1260                            .dwattr $C$DW$T$77, DW_AT_language(DW_LANG_C)
+    1261                            .dwattr $C$DW$T$77, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1262                            .dwattr $C$DW$T$77, DW_AT_decl_line(0x4b)
+    1263                            .dwattr $C$DW$T$77, DW_AT_decl_column(0x17)
+    1264                    
+    1265                    $C$DW$T$78      .dwtag  DW_TAG_typedef
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   24
+
+    1266                            .dwattr $C$DW$T$78, DW_AT_name("int_fast32_t")
+    1267                            .dwattr $C$DW$T$78, DW_AT_type(*$C$DW$T$76)
+    1268                            .dwattr $C$DW$T$78, DW_AT_language(DW_LANG_C)
+    1269                            .dwattr $C$DW$T$78, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1270                            .dwattr $C$DW$T$78, DW_AT_decl_line(0x4e)
+    1271                            .dwattr $C$DW$T$78, DW_AT_decl_column(0x17)
+    1272                    
+    1273                    $C$DW$T$79      .dwtag  DW_TAG_typedef
+    1274                            .dwattr $C$DW$T$79, DW_AT_name("int_fast8_t")
+    1275                            .dwattr $C$DW$T$79, DW_AT_type(*$C$DW$T$76)
+    1276                            .dwattr $C$DW$T$79, DW_AT_language(DW_LANG_C)
+    1277                            .dwattr $C$DW$T$79, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1278                            .dwattr $C$DW$T$79, DW_AT_decl_line(0x49)
+    1279                            .dwattr $C$DW$T$79, DW_AT_decl_column(0x17)
+    1280                    
+    1281                    $C$DW$T$80      .dwtag  DW_TAG_typedef
+    1282                            .dwattr $C$DW$T$80, DW_AT_name("int_least32_t")
+    1283                            .dwattr $C$DW$T$80, DW_AT_type(*$C$DW$T$76)
+    1284                            .dwattr $C$DW$T$80, DW_AT_language(DW_LANG_C)
+    1285                            .dwattr $C$DW$T$80, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1286                            .dwattr $C$DW$T$80, DW_AT_decl_line(0x3e)
+    1287                            .dwattr $C$DW$T$80, DW_AT_decl_column(0x17)
+    1288                    
+    1289                    $C$DW$T$81      .dwtag  DW_TAG_typedef
+    1290                            .dwattr $C$DW$T$81, DW_AT_name("xdc_Int32")
+    1291                            .dwattr $C$DW$T$81, DW_AT_type(*$C$DW$T$80)
+    1292                            .dwattr $C$DW$T$81, DW_AT_language(DW_LANG_C)
+    1293                            .dwattr $C$DW$T$81, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1294                            .dwattr $C$DW$T$81, DW_AT_decl_line(0x70)
+    1295                            .dwattr $C$DW$T$81, DW_AT_decl_column(0x19)
+    1296                    
+    1297                    $C$DW$T$82      .dwtag  DW_TAG_typedef
+    1298                            .dwattr $C$DW$T$82, DW_AT_name("Int32")
+    1299                            .dwattr $C$DW$T$82, DW_AT_type(*$C$DW$T$81)
+    1300                            .dwattr $C$DW$T$82, DW_AT_language(DW_LANG_C)
+    1301                            .dwattr $C$DW$T$82, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1302                            .dwattr $C$DW$T$82, DW_AT_decl_line(0xf4)
+    1303                            .dwattr $C$DW$T$82, DW_AT_decl_column(0x19)
+    1304                    
+    1305                    $C$DW$T$20      .dwtag  DW_TAG_typedef
+    1306                            .dwattr $C$DW$T$20, DW_AT_name("intptr_t")
+    1307                            .dwattr $C$DW$T$20, DW_AT_type(*$C$DW$T$10)
+    1308                            .dwattr $C$DW$T$20, DW_AT_language(DW_LANG_C)
+    1309                            .dwattr $C$DW$T$20, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1310                            .dwattr $C$DW$T$20, DW_AT_decl_line(0x58)
+    1311                            .dwattr $C$DW$T$20, DW_AT_decl_column(0x1a)
+    1312                    
+    1313                    $C$DW$T$21      .dwtag  DW_TAG_typedef
+    1314                            .dwattr $C$DW$T$21, DW_AT_name("xdc_IArg")
+    1315                            .dwattr $C$DW$T$21, DW_AT_type(*$C$DW$T$20)
+    1316                            .dwattr $C$DW$T$21, DW_AT_language(DW_LANG_C)
+    1317                            .dwattr $C$DW$T$21, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1318                            .dwattr $C$DW$T$21, DW_AT_decl_line(0x98)
+    1319                            .dwattr $C$DW$T$21, DW_AT_decl_column(0x19)
+    1320                    
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   25
+
+    1321                    $C$DW$T$83      .dwtag  DW_TAG_typedef
+    1322                            .dwattr $C$DW$T$83, DW_AT_name("IArg")
+    1323                            .dwattr $C$DW$T$83, DW_AT_type(*$C$DW$T$21)
+    1324                            .dwattr $C$DW$T$83, DW_AT_language(DW_LANG_C)
+    1325                            .dwattr $C$DW$T$83, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1326                            .dwattr $C$DW$T$83, DW_AT_decl_line(0xef)
+    1327                            .dwattr $C$DW$T$83, DW_AT_decl_column(0x19)
+    1328                    
+    1329                    $C$DW$T$84      .dwtag  DW_TAG_typedef
+    1330                            .dwattr $C$DW$T$84, DW_AT_name("ptrdiff_t")
+    1331                            .dwattr $C$DW$T$84, DW_AT_type(*$C$DW$T$10)
+    1332                            .dwattr $C$DW$T$84, DW_AT_language(DW_LANG_C)
+    1333                            .dwattr $C$DW$T$84, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1334                            .dwattr $C$DW$T$84, DW_AT_decl_line(0x36)
+    1335                            .dwattr $C$DW$T$84, DW_AT_decl_column(0x1c)
+    1336                    
+    1337                    $C$DW$T$85      .dwtag  DW_TAG_typedef
+    1338                            .dwattr $C$DW$T$85, DW_AT_name("xdc_Arg")
+    1339                            .dwattr $C$DW$T$85, DW_AT_type(*$C$DW$T$10)
+    1340                            .dwattr $C$DW$T$85, DW_AT_language(DW_LANG_C)
+    1341                            .dwattr $C$DW$T$85, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1342                            .dwattr $C$DW$T$85, DW_AT_decl_line(0x27)
+    1343                            .dwattr $C$DW$T$85, DW_AT_decl_column(0x15)
+    1344                    
+    1345                    $C$DW$T$86      .dwtag  DW_TAG_typedef
+    1346                            .dwattr $C$DW$T$86, DW_AT_name("Arg")
+    1347                            .dwattr $C$DW$T$86, DW_AT_type(*$C$DW$T$85)
+    1348                            .dwattr $C$DW$T$86, DW_AT_language(DW_LANG_C)
+    1349                            .dwattr $C$DW$T$86, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1350                            .dwattr $C$DW$T$86, DW_AT_decl_line(0x107)
+    1351                            .dwattr $C$DW$T$86, DW_AT_decl_column(0x19)
+    1352                    
+    1353                    $C$DW$T$87      .dwtag  DW_TAG_typedef
+    1354                            .dwattr $C$DW$T$87, DW_AT_name("xdc_Int")
+    1355                            .dwattr $C$DW$T$87, DW_AT_type(*$C$DW$T$10)
+    1356                            .dwattr $C$DW$T$87, DW_AT_language(DW_LANG_C)
+    1357                            .dwattr $C$DW$T$87, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1358                            .dwattr $C$DW$T$87, DW_AT_decl_line(0x21)
+    1359                            .dwattr $C$DW$T$87, DW_AT_decl_column(0x19)
+    1360                    
+    1361                    $C$DW$T$88      .dwtag  DW_TAG_typedef
+    1362                            .dwattr $C$DW$T$88, DW_AT_name("Int")
+    1363                            .dwattr $C$DW$T$88, DW_AT_type(*$C$DW$T$87)
+    1364                            .dwattr $C$DW$T$88, DW_AT_language(DW_LANG_C)
+    1365                            .dwattr $C$DW$T$88, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1366                            .dwattr $C$DW$T$88, DW_AT_decl_line(0xe3)
+    1367                            .dwattr $C$DW$T$88, DW_AT_decl_column(0x19)
+    1368                    
+    1369                    $C$DW$T$89      .dwtag  DW_TAG_typedef
+    1370                            .dwattr $C$DW$T$89, DW_AT_name("xdc_Long")
+    1371                            .dwattr $C$DW$T$89, DW_AT_type(*$C$DW$T$10)
+    1372                            .dwattr $C$DW$T$89, DW_AT_language(DW_LANG_C)
+    1373                            .dwattr $C$DW$T$89, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1374                            .dwattr $C$DW$T$89, DW_AT_decl_line(0x23)
+    1375                            .dwattr $C$DW$T$89, DW_AT_decl_column(0x19)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   26
+
+    1376                    
+    1377                    $C$DW$T$90      .dwtag  DW_TAG_typedef
+    1378                            .dwattr $C$DW$T$90, DW_AT_name("Long")
+    1379                            .dwattr $C$DW$T$90, DW_AT_type(*$C$DW$T$89)
+    1380                            .dwattr $C$DW$T$90, DW_AT_language(DW_LANG_C)
+    1381                            .dwattr $C$DW$T$90, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1382                            .dwattr $C$DW$T$90, DW_AT_decl_line(0xe5)
+    1383                            .dwattr $C$DW$T$90, DW_AT_decl_column(0x19)
+    1384                    
+    1385                    $C$DW$T$11      .dwtag  DW_TAG_base_type
+    1386                            .dwattr $C$DW$T$11, DW_AT_encoding(DW_ATE_unsigned)
+    1387                            .dwattr $C$DW$T$11, DW_AT_name("unsigned int")
+    1388                            .dwattr $C$DW$T$11, DW_AT_byte_size(0x04)
+    1389                    
+    1390                    $C$DW$T$92      .dwtag  DW_TAG_typedef
+    1391                            .dwattr $C$DW$T$92, DW_AT_name("size_t")
+    1392                            .dwattr $C$DW$T$92, DW_AT_type(*$C$DW$T$11)
+    1393                            .dwattr $C$DW$T$92, DW_AT_language(DW_LANG_C)
+    1394                            .dwattr $C$DW$T$92, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1395                            .dwattr $C$DW$T$92, DW_AT_decl_line(0x3a)
+    1396                            .dwattr $C$DW$T$92, DW_AT_decl_column(0x19)
+    1397                    
+    1398                    $C$DW$T$93      .dwtag  DW_TAG_typedef
+    1399                            .dwattr $C$DW$T$93, DW_AT_name("xdc_SizeT")
+    1400                            .dwattr $C$DW$T$93, DW_AT_type(*$C$DW$T$92)
+    1401                            .dwattr $C$DW$T$93, DW_AT_language(DW_LANG_C)
+    1402                            .dwattr $C$DW$T$93, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1403                            .dwattr $C$DW$T$93, DW_AT_decl_line(0x28)
+    1404                            .dwattr $C$DW$T$93, DW_AT_decl_column(0x19)
+    1405                    
+    1406                    $C$DW$T$94      .dwtag  DW_TAG_typedef
+    1407                            .dwattr $C$DW$T$94, DW_AT_name("SizeT")
+    1408                            .dwattr $C$DW$T$94, DW_AT_type(*$C$DW$T$93)
+    1409                            .dwattr $C$DW$T$94, DW_AT_language(DW_LANG_C)
+    1410                            .dwattr $C$DW$T$94, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1411                            .dwattr $C$DW$T$94, DW_AT_decl_line(0xec)
+    1412                            .dwattr $C$DW$T$94, DW_AT_decl_column(0x19)
+    1413                    
+    1414                    $C$DW$T$50      .dwtag  DW_TAG_typedef
+    1415                            .dwattr $C$DW$T$50, DW_AT_name("uint32_t")
+    1416                            .dwattr $C$DW$T$50, DW_AT_type(*$C$DW$T$11)
+    1417                            .dwattr $C$DW$T$50, DW_AT_language(DW_LANG_C)
+    1418                            .dwattr $C$DW$T$50, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1419                            .dwattr $C$DW$T$50, DW_AT_decl_line(0x2f)
+    1420                            .dwattr $C$DW$T$50, DW_AT_decl_column(0x1c)
+    1421                    
+    1422                    $C$DW$T$95      .dwtag  DW_TAG_typedef
+    1423                            .dwattr $C$DW$T$95, DW_AT_name("uint_fast16_t")
+    1424                            .dwattr $C$DW$T$95, DW_AT_type(*$C$DW$T$50)
+    1425                            .dwattr $C$DW$T$95, DW_AT_language(DW_LANG_C)
+    1426                            .dwattr $C$DW$T$95, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1427                            .dwattr $C$DW$T$95, DW_AT_decl_line(0x4c)
+    1428                            .dwattr $C$DW$T$95, DW_AT_decl_column(0x16)
+    1429                    
+    1430                    $C$DW$T$96      .dwtag  DW_TAG_typedef
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   27
+
+    1431                            .dwattr $C$DW$T$96, DW_AT_name("uint_fast32_t")
+    1432                            .dwattr $C$DW$T$96, DW_AT_type(*$C$DW$T$50)
+    1433                            .dwattr $C$DW$T$96, DW_AT_language(DW_LANG_C)
+    1434                            .dwattr $C$DW$T$96, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1435                            .dwattr $C$DW$T$96, DW_AT_decl_line(0x4f)
+    1436                            .dwattr $C$DW$T$96, DW_AT_decl_column(0x16)
+    1437                    
+    1438                    $C$DW$T$97      .dwtag  DW_TAG_typedef
+    1439                            .dwattr $C$DW$T$97, DW_AT_name("uint_fast8_t")
+    1440                            .dwattr $C$DW$T$97, DW_AT_type(*$C$DW$T$50)
+    1441                            .dwattr $C$DW$T$97, DW_AT_language(DW_LANG_C)
+    1442                            .dwattr $C$DW$T$97, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1443                            .dwattr $C$DW$T$97, DW_AT_decl_line(0x4a)
+    1444                            .dwattr $C$DW$T$97, DW_AT_decl_column(0x16)
+    1445                    
+    1446                    $C$DW$T$51      .dwtag  DW_TAG_typedef
+    1447                            .dwattr $C$DW$T$51, DW_AT_name("uint_least32_t")
+    1448                            .dwattr $C$DW$T$51, DW_AT_type(*$C$DW$T$50)
+    1449                            .dwattr $C$DW$T$51, DW_AT_language(DW_LANG_C)
+    1450                            .dwattr $C$DW$T$51, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1451                            .dwattr $C$DW$T$51, DW_AT_decl_line(0x3f)
+    1452                            .dwattr $C$DW$T$51, DW_AT_decl_column(0x16)
+    1453                    
+    1454                    $C$DW$T$52      .dwtag  DW_TAG_typedef
+    1455                            .dwattr $C$DW$T$52, DW_AT_name("xdc_UInt32")
+    1456                            .dwattr $C$DW$T$52, DW_AT_type(*$C$DW$T$51)
+    1457                            .dwattr $C$DW$T$52, DW_AT_language(DW_LANG_C)
+    1458                            .dwattr $C$DW$T$52, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1459                            .dwattr $C$DW$T$52, DW_AT_decl_line(0x71)
+    1460                            .dwattr $C$DW$T$52, DW_AT_decl_column(0x19)
+    1461                    
+    1462                    $C$DW$T$98      .dwtag  DW_TAG_typedef
+    1463                            .dwattr $C$DW$T$98, DW_AT_name("UInt32")
+    1464                            .dwattr $C$DW$T$98, DW_AT_type(*$C$DW$T$52)
+    1465                            .dwattr $C$DW$T$98, DW_AT_language(DW_LANG_C)
+    1466                            .dwattr $C$DW$T$98, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1467                            .dwattr $C$DW$T$98, DW_AT_decl_line(0xff)
+    1468                            .dwattr $C$DW$T$98, DW_AT_decl_column(0x19)
+    1469                    
+    1470                    $C$DW$T$53      .dwtag  DW_TAG_typedef
+    1471                            .dwattr $C$DW$T$53, DW_AT_name("Uint32")
+    1472                            .dwattr $C$DW$T$53, DW_AT_type(*$C$DW$T$52)
+    1473                            .dwattr $C$DW$T$53, DW_AT_language(DW_LANG_C)
+    1474                            .dwattr $C$DW$T$53, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1475                            .dwattr $C$DW$T$53, DW_AT_decl_line(0x10c)
+    1476                            .dwattr $C$DW$T$53, DW_AT_decl_column(0x19)
+    1477                    
+    1478                    $C$DW$T$99      .dwtag  DW_TAG_const_type
+    1479                            .dwattr $C$DW$T$99, DW_AT_type(*$C$DW$T$53)
+    1480                    
+    1481                    $C$DW$T$100     .dwtag  DW_TAG_typedef
+    1482                            .dwattr $C$DW$T$100, DW_AT_name("xdc_Bits32")
+    1483                            .dwattr $C$DW$T$100, DW_AT_type(*$C$DW$T$50)
+    1484                            .dwattr $C$DW$T$100, DW_AT_language(DW_LANG_C)
+    1485                            .dwattr $C$DW$T$100, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   28
+
+    1486                            .dwattr $C$DW$T$100, DW_AT_decl_line(0x8f)
+    1487                            .dwattr $C$DW$T$100, DW_AT_decl_column(0x19)
+    1488                    
+    1489                    $C$DW$T$101     .dwtag  DW_TAG_typedef
+    1490                            .dwattr $C$DW$T$101, DW_AT_name("Bits32")
+    1491                            .dwattr $C$DW$T$101, DW_AT_type(*$C$DW$T$100)
+    1492                            .dwattr $C$DW$T$101, DW_AT_language(DW_LANG_C)
+    1493                            .dwattr $C$DW$T$101, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1494                            .dwattr $C$DW$T$101, DW_AT_decl_line(0x126)
+    1495                            .dwattr $C$DW$T$101, DW_AT_decl_column(0x19)
+    1496                    
+    1497                    $C$DW$T$102     .dwtag  DW_TAG_typedef
+    1498                            .dwattr $C$DW$T$102, DW_AT_name("uintptr_t")
+    1499                            .dwattr $C$DW$T$102, DW_AT_type(*$C$DW$T$11)
+    1500                            .dwattr $C$DW$T$102, DW_AT_language(DW_LANG_C)
+    1501                            .dwattr $C$DW$T$102, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1502                            .dwattr $C$DW$T$102, DW_AT_decl_line(0x59)
+    1503                            .dwattr $C$DW$T$102, DW_AT_decl_column(0x1a)
+    1504                    
+    1505                    $C$DW$T$103     .dwtag  DW_TAG_typedef
+    1506                            .dwattr $C$DW$T$103, DW_AT_name("xdc_UArg")
+    1507                            .dwattr $C$DW$T$103, DW_AT_type(*$C$DW$T$102)
+    1508                            .dwattr $C$DW$T$103, DW_AT_language(DW_LANG_C)
+    1509                            .dwattr $C$DW$T$103, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1510                            .dwattr $C$DW$T$103, DW_AT_decl_line(0x99)
+    1511                            .dwattr $C$DW$T$103, DW_AT_decl_column(0x19)
+    1512                    
+    1513                    $C$DW$T$104     .dwtag  DW_TAG_typedef
+    1514                            .dwattr $C$DW$T$104, DW_AT_name("UArg")
+    1515                            .dwattr $C$DW$T$104, DW_AT_type(*$C$DW$T$103)
+    1516                            .dwattr $C$DW$T$104, DW_AT_language(DW_LANG_C)
+    1517                            .dwattr $C$DW$T$104, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1518                            .dwattr $C$DW$T$104, DW_AT_decl_line(0xf0)
+    1519                            .dwattr $C$DW$T$104, DW_AT_decl_column(0x19)
+    1520                    
+    1521                    $C$DW$T$105     .dwtag  DW_TAG_typedef
+    1522                            .dwattr $C$DW$T$105, DW_AT_name("xdc_UInt")
+    1523                            .dwattr $C$DW$T$105, DW_AT_type(*$C$DW$T$11)
+    1524                            .dwattr $C$DW$T$105, DW_AT_language(DW_LANG_C)
+    1525                            .dwattr $C$DW$T$105, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1526                            .dwattr $C$DW$T$105, DW_AT_decl_line(0x22)
+    1527                            .dwattr $C$DW$T$105, DW_AT_decl_column(0x19)
+    1528                    
+    1529                    $C$DW$T$106     .dwtag  DW_TAG_typedef
+    1530                            .dwattr $C$DW$T$106, DW_AT_name("UInt")
+    1531                            .dwattr $C$DW$T$106, DW_AT_type(*$C$DW$T$105)
+    1532                            .dwattr $C$DW$T$106, DW_AT_language(DW_LANG_C)
+    1533                            .dwattr $C$DW$T$106, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1534                            .dwattr $C$DW$T$106, DW_AT_decl_line(0xe4)
+    1535                            .dwattr $C$DW$T$106, DW_AT_decl_column(0x19)
+    1536                    
+    1537                    $C$DW$T$107     .dwtag  DW_TAG_typedef
+    1538                            .dwattr $C$DW$T$107, DW_AT_name("Uns")
+    1539                            .dwattr $C$DW$T$107, DW_AT_type(*$C$DW$T$105)
+    1540                            .dwattr $C$DW$T$107, DW_AT_language(DW_LANG_C)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   29
+
+    1541                            .dwattr $C$DW$T$107, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1542                            .dwattr $C$DW$T$107, DW_AT_decl_line(0x10d)
+    1543                            .dwattr $C$DW$T$107, DW_AT_decl_column(0x19)
+    1544                    
+    1545                    $C$DW$T$108     .dwtag  DW_TAG_typedef
+    1546                            .dwattr $C$DW$T$108, DW_AT_name("xdc_ULong")
+    1547                            .dwattr $C$DW$T$108, DW_AT_type(*$C$DW$T$11)
+    1548                            .dwattr $C$DW$T$108, DW_AT_language(DW_LANG_C)
+    1549                            .dwattr $C$DW$T$108, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1550                            .dwattr $C$DW$T$108, DW_AT_decl_line(0x24)
+    1551                            .dwattr $C$DW$T$108, DW_AT_decl_column(0x19)
+    1552                    
+    1553                    $C$DW$T$109     .dwtag  DW_TAG_typedef
+    1554                            .dwattr $C$DW$T$109, DW_AT_name("ULong")
+    1555                            .dwattr $C$DW$T$109, DW_AT_type(*$C$DW$T$108)
+    1556                            .dwattr $C$DW$T$109, DW_AT_language(DW_LANG_C)
+    1557                            .dwattr $C$DW$T$109, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1558                            .dwattr $C$DW$T$109, DW_AT_decl_line(0xe6)
+    1559                            .dwattr $C$DW$T$109, DW_AT_decl_column(0x19)
+    1560                    
+    1561                    $C$DW$T$12      .dwtag  DW_TAG_base_type
+    1562                            .dwattr $C$DW$T$12, DW_AT_encoding(DW_ATE_signed)
+    1563                            .dwattr $C$DW$T$12, DW_AT_name("__int40_t")
+    1564                            .dwattr $C$DW$T$12, DW_AT_byte_size(0x08)
+    1565                            .dwattr $C$DW$T$12, DW_AT_bit_size(0x28)
+    1566                            .dwattr $C$DW$T$12, DW_AT_bit_offset(0x18)
+    1567                    
+    1568                    $C$DW$T$110     .dwtag  DW_TAG_typedef
+    1569                            .dwattr $C$DW$T$110, DW_AT_name("int40_t")
+    1570                            .dwattr $C$DW$T$110, DW_AT_type(*$C$DW$T$12)
+    1571                            .dwattr $C$DW$T$110, DW_AT_language(DW_LANG_C)
+    1572                            .dwattr $C$DW$T$110, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1573                            .dwattr $C$DW$T$110, DW_AT_decl_line(0x31)
+    1574                            .dwattr $C$DW$T$110, DW_AT_decl_column(0x21)
+    1575                    
+    1576                    $C$DW$T$111     .dwtag  DW_TAG_typedef
+    1577                            .dwattr $C$DW$T$111, DW_AT_name("int_fast40_t")
+    1578                            .dwattr $C$DW$T$111, DW_AT_type(*$C$DW$T$110)
+    1579                            .dwattr $C$DW$T$111, DW_AT_language(DW_LANG_C)
+    1580                            .dwattr $C$DW$T$111, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1581                            .dwattr $C$DW$T$111, DW_AT_decl_line(0x51)
+    1582                            .dwattr $C$DW$T$111, DW_AT_decl_column(0x17)
+    1583                    
+    1584                    $C$DW$T$112     .dwtag  DW_TAG_typedef
+    1585                            .dwattr $C$DW$T$112, DW_AT_name("int_least40_t")
+    1586                            .dwattr $C$DW$T$112, DW_AT_type(*$C$DW$T$110)
+    1587                            .dwattr $C$DW$T$112, DW_AT_language(DW_LANG_C)
+    1588                            .dwattr $C$DW$T$112, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1589                            .dwattr $C$DW$T$112, DW_AT_decl_line(0x41)
+    1590                            .dwattr $C$DW$T$112, DW_AT_decl_column(0x17)
+    1591                    
+    1592                    $C$DW$T$113     .dwtag  DW_TAG_typedef
+    1593                            .dwattr $C$DW$T$113, DW_AT_name("xdc_Int40")
+    1594                            .dwattr $C$DW$T$113, DW_AT_type(*$C$DW$T$112)
+    1595                            .dwattr $C$DW$T$113, DW_AT_language(DW_LANG_C)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   30
+
+    1596                            .dwattr $C$DW$T$113, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1597                            .dwattr $C$DW$T$113, DW_AT_decl_line(0x79)
+    1598                            .dwattr $C$DW$T$113, DW_AT_decl_column(0x1d)
+    1599                    
+    1600                    $C$DW$T$114     .dwtag  DW_TAG_typedef
+    1601                            .dwattr $C$DW$T$114, DW_AT_name("Int40")
+    1602                            .dwattr $C$DW$T$114, DW_AT_type(*$C$DW$T$113)
+    1603                            .dwattr $C$DW$T$114, DW_AT_language(DW_LANG_C)
+    1604                            .dwattr $C$DW$T$114, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1605                            .dwattr $C$DW$T$114, DW_AT_decl_line(0x80)
+    1606                            .dwattr $C$DW$T$114, DW_AT_decl_column(0x1d)
+    1607                    
+    1608                    $C$DW$T$13      .dwtag  DW_TAG_base_type
+    1609                            .dwattr $C$DW$T$13, DW_AT_encoding(DW_ATE_unsigned)
+    1610                            .dwattr $C$DW$T$13, DW_AT_name("unsigned __int40_t")
+    1611                            .dwattr $C$DW$T$13, DW_AT_byte_size(0x08)
+    1612                            .dwattr $C$DW$T$13, DW_AT_bit_size(0x28)
+    1613                            .dwattr $C$DW$T$13, DW_AT_bit_offset(0x18)
+    1614                    
+    1615                    $C$DW$T$115     .dwtag  DW_TAG_typedef
+    1616                            .dwattr $C$DW$T$115, DW_AT_name("uint40_t")
+    1617                            .dwattr $C$DW$T$115, DW_AT_type(*$C$DW$T$13)
+    1618                            .dwattr $C$DW$T$115, DW_AT_language(DW_LANG_C)
+    1619                            .dwattr $C$DW$T$115, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1620                            .dwattr $C$DW$T$115, DW_AT_decl_line(0x32)
+    1621                            .dwattr $C$DW$T$115, DW_AT_decl_column(0x20)
+    1622                    
+    1623                    $C$DW$T$116     .dwtag  DW_TAG_typedef
+    1624                            .dwattr $C$DW$T$116, DW_AT_name("uint_fast40_t")
+    1625                            .dwattr $C$DW$T$116, DW_AT_type(*$C$DW$T$115)
+    1626                            .dwattr $C$DW$T$116, DW_AT_language(DW_LANG_C)
+    1627                            .dwattr $C$DW$T$116, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1628                            .dwattr $C$DW$T$116, DW_AT_decl_line(0x52)
+    1629                            .dwattr $C$DW$T$116, DW_AT_decl_column(0x16)
+    1630                    
+    1631                    $C$DW$T$117     .dwtag  DW_TAG_typedef
+    1632                            .dwattr $C$DW$T$117, DW_AT_name("uint_least40_t")
+    1633                            .dwattr $C$DW$T$117, DW_AT_type(*$C$DW$T$115)
+    1634                            .dwattr $C$DW$T$117, DW_AT_language(DW_LANG_C)
+    1635                            .dwattr $C$DW$T$117, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1636                            .dwattr $C$DW$T$117, DW_AT_decl_line(0x42)
+    1637                            .dwattr $C$DW$T$117, DW_AT_decl_column(0x16)
+    1638                    
+    1639                    $C$DW$T$118     .dwtag  DW_TAG_typedef
+    1640                            .dwattr $C$DW$T$118, DW_AT_name("xdc_UInt40")
+    1641                            .dwattr $C$DW$T$118, DW_AT_type(*$C$DW$T$117)
+    1642                            .dwattr $C$DW$T$118, DW_AT_language(DW_LANG_C)
+    1643                            .dwattr $C$DW$T$118, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1644                            .dwattr $C$DW$T$118, DW_AT_decl_line(0x7a)
+    1645                            .dwattr $C$DW$T$118, DW_AT_decl_column(0x1d)
+    1646                    
+    1647                    $C$DW$T$119     .dwtag  DW_TAG_typedef
+    1648                            .dwattr $C$DW$T$119, DW_AT_name("UInt40")
+    1649                            .dwattr $C$DW$T$119, DW_AT_type(*$C$DW$T$118)
+    1650                            .dwattr $C$DW$T$119, DW_AT_language(DW_LANG_C)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   31
+
+    1651                            .dwattr $C$DW$T$119, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1652                            .dwattr $C$DW$T$119, DW_AT_decl_line(0x81)
+    1653                            .dwattr $C$DW$T$119, DW_AT_decl_column(0x1d)
+    1654                    
+    1655                    $C$DW$T$14      .dwtag  DW_TAG_base_type
+    1656                            .dwattr $C$DW$T$14, DW_AT_encoding(DW_ATE_signed)
+    1657                            .dwattr $C$DW$T$14, DW_AT_name("long long")
+    1658                            .dwattr $C$DW$T$14, DW_AT_byte_size(0x08)
+    1659                    
+    1660                    $C$DW$T$120     .dwtag  DW_TAG_typedef
+    1661                            .dwattr $C$DW$T$120, DW_AT_name("int64_t")
+    1662                            .dwattr $C$DW$T$120, DW_AT_type(*$C$DW$T$14)
+    1663                            .dwattr $C$DW$T$120, DW_AT_language(DW_LANG_C)
+    1664                            .dwattr $C$DW$T$120, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1665                            .dwattr $C$DW$T$120, DW_AT_decl_line(0x34)
+    1666                            .dwattr $C$DW$T$120, DW_AT_decl_column(0x21)
+    1667                    
+    1668                    $C$DW$T$121     .dwtag  DW_TAG_typedef
+    1669                            .dwattr $C$DW$T$121, DW_AT_name("int_fast64_t")
+    1670                            .dwattr $C$DW$T$121, DW_AT_type(*$C$DW$T$120)
+    1671                            .dwattr $C$DW$T$121, DW_AT_language(DW_LANG_C)
+    1672                            .dwattr $C$DW$T$121, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1673                            .dwattr $C$DW$T$121, DW_AT_decl_line(0x54)
+    1674                            .dwattr $C$DW$T$121, DW_AT_decl_column(0x17)
+    1675                    
+    1676                    $C$DW$T$122     .dwtag  DW_TAG_typedef
+    1677                            .dwattr $C$DW$T$122, DW_AT_name("int_least64_t")
+    1678                            .dwattr $C$DW$T$122, DW_AT_type(*$C$DW$T$120)
+    1679                            .dwattr $C$DW$T$122, DW_AT_language(DW_LANG_C)
+    1680                            .dwattr $C$DW$T$122, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1681                            .dwattr $C$DW$T$122, DW_AT_decl_line(0x44)
+    1682                            .dwattr $C$DW$T$122, DW_AT_decl_column(0x17)
+    1683                    
+    1684                    $C$DW$T$123     .dwtag  DW_TAG_typedef
+    1685                            .dwattr $C$DW$T$123, DW_AT_name("xdc_Int64")
+    1686                            .dwattr $C$DW$T$123, DW_AT_type(*$C$DW$T$122)
+    1687                            .dwattr $C$DW$T$123, DW_AT_language(DW_LANG_C)
+    1688                            .dwattr $C$DW$T$123, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1689                            .dwattr $C$DW$T$123, DW_AT_decl_line(0x74)
+    1690                            .dwattr $C$DW$T$123, DW_AT_decl_column(0x1d)
+    1691                    
+    1692                    $C$DW$T$124     .dwtag  DW_TAG_typedef
+    1693                            .dwattr $C$DW$T$124, DW_AT_name("Int64")
+    1694                            .dwattr $C$DW$T$124, DW_AT_type(*$C$DW$T$123)
+    1695                            .dwattr $C$DW$T$124, DW_AT_language(DW_LANG_C)
+    1696                            .dwattr $C$DW$T$124, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1697                            .dwattr $C$DW$T$124, DW_AT_decl_line(0x115)
+    1698                            .dwattr $C$DW$T$124, DW_AT_decl_column(0x19)
+    1699                    
+    1700                    $C$DW$T$125     .dwtag  DW_TAG_typedef
+    1701                            .dwattr $C$DW$T$125, DW_AT_name("intmax_t")
+    1702                            .dwattr $C$DW$T$125, DW_AT_type(*$C$DW$T$14)
+    1703                            .dwattr $C$DW$T$125, DW_AT_language(DW_LANG_C)
+    1704                            .dwattr $C$DW$T$125, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1705                            .dwattr $C$DW$T$125, DW_AT_decl_line(0x5c)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   32
+
+    1706                            .dwattr $C$DW$T$125, DW_AT_decl_column(0x20)
+    1707                    
+    1708                    $C$DW$T$126     .dwtag  DW_TAG_typedef
+    1709                            .dwattr $C$DW$T$126, DW_AT_name("xdc_LLong")
+    1710                            .dwattr $C$DW$T$126, DW_AT_type(*$C$DW$T$14)
+    1711                            .dwattr $C$DW$T$126, DW_AT_language(DW_LANG_C)
+    1712                            .dwattr $C$DW$T$126, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1713                            .dwattr $C$DW$T$126, DW_AT_decl_line(0x87)
+    1714                            .dwattr $C$DW$T$126, DW_AT_decl_column(0x21)
+    1715                    
+    1716                    $C$DW$T$127     .dwtag  DW_TAG_typedef
+    1717                            .dwattr $C$DW$T$127, DW_AT_name("LLong")
+    1718                            .dwattr $C$DW$T$127, DW_AT_type(*$C$DW$T$126)
+    1719                            .dwattr $C$DW$T$127, DW_AT_language(DW_LANG_C)
+    1720                            .dwattr $C$DW$T$127, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1721                            .dwattr $C$DW$T$127, DW_AT_decl_line(0xe7)
+    1722                            .dwattr $C$DW$T$127, DW_AT_decl_column(0x19)
+    1723                    
+    1724                    $C$DW$T$15      .dwtag  DW_TAG_base_type
+    1725                            .dwattr $C$DW$T$15, DW_AT_encoding(DW_ATE_unsigned)
+    1726                            .dwattr $C$DW$T$15, DW_AT_name("unsigned long long")
+    1727                            .dwattr $C$DW$T$15, DW_AT_byte_size(0x08)
+    1728                    
+    1729                    $C$DW$T$128     .dwtag  DW_TAG_typedef
+    1730                            .dwattr $C$DW$T$128, DW_AT_name("uint64_t")
+    1731                            .dwattr $C$DW$T$128, DW_AT_type(*$C$DW$T$15)
+    1732                            .dwattr $C$DW$T$128, DW_AT_language(DW_LANG_C)
+    1733                            .dwattr $C$DW$T$128, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1734                            .dwattr $C$DW$T$128, DW_AT_decl_line(0x35)
+    1735                            .dwattr $C$DW$T$128, DW_AT_decl_column(0x20)
+    1736                    
+    1737                    $C$DW$T$129     .dwtag  DW_TAG_typedef
+    1738                            .dwattr $C$DW$T$129, DW_AT_name("uint_fast64_t")
+    1739                            .dwattr $C$DW$T$129, DW_AT_type(*$C$DW$T$128)
+    1740                            .dwattr $C$DW$T$129, DW_AT_language(DW_LANG_C)
+    1741                            .dwattr $C$DW$T$129, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1742                            .dwattr $C$DW$T$129, DW_AT_decl_line(0x55)
+    1743                            .dwattr $C$DW$T$129, DW_AT_decl_column(0x16)
+    1744                    
+    1745                    $C$DW$T$130     .dwtag  DW_TAG_typedef
+    1746                            .dwattr $C$DW$T$130, DW_AT_name("uint_least64_t")
+    1747                            .dwattr $C$DW$T$130, DW_AT_type(*$C$DW$T$128)
+    1748                            .dwattr $C$DW$T$130, DW_AT_language(DW_LANG_C)
+    1749                            .dwattr $C$DW$T$130, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1750                            .dwattr $C$DW$T$130, DW_AT_decl_line(0x45)
+    1751                            .dwattr $C$DW$T$130, DW_AT_decl_column(0x16)
+    1752                    
+    1753                    $C$DW$T$131     .dwtag  DW_TAG_typedef
+    1754                            .dwattr $C$DW$T$131, DW_AT_name("xdc_UInt64")
+    1755                            .dwattr $C$DW$T$131, DW_AT_type(*$C$DW$T$130)
+    1756                            .dwattr $C$DW$T$131, DW_AT_language(DW_LANG_C)
+    1757                            .dwattr $C$DW$T$131, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1758                            .dwattr $C$DW$T$131, DW_AT_decl_line(0x75)
+    1759                            .dwattr $C$DW$T$131, DW_AT_decl_column(0x1e)
+    1760                    
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   33
+
+    1761                    $C$DW$T$132     .dwtag  DW_TAG_typedef
+    1762                            .dwattr $C$DW$T$132, DW_AT_name("UInt64")
+    1763                            .dwattr $C$DW$T$132, DW_AT_type(*$C$DW$T$131)
+    1764                            .dwattr $C$DW$T$132, DW_AT_language(DW_LANG_C)
+    1765                            .dwattr $C$DW$T$132, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1766                            .dwattr $C$DW$T$132, DW_AT_decl_line(0x116)
+    1767                            .dwattr $C$DW$T$132, DW_AT_decl_column(0x19)
+    1768                    
+    1769                    $C$DW$T$133     .dwtag  DW_TAG_typedef
+    1770                            .dwattr $C$DW$T$133, DW_AT_name("xdc_Bits64")
+    1771                            .dwattr $C$DW$T$133, DW_AT_type(*$C$DW$T$128)
+    1772                            .dwattr $C$DW$T$133, DW_AT_language(DW_LANG_C)
+    1773                            .dwattr $C$DW$T$133, DW_AT_decl_file("C:/ti/bios_6_50_00_10/packages/ti/targets/std.h")
+    1774                            .dwattr $C$DW$T$133, DW_AT_decl_line(0x92)
+    1775                            .dwattr $C$DW$T$133, DW_AT_decl_column(0x19)
+    1776                    
+    1777                    $C$DW$T$134     .dwtag  DW_TAG_typedef
+    1778                            .dwattr $C$DW$T$134, DW_AT_name("Bits64")
+    1779                            .dwattr $C$DW$T$134, DW_AT_type(*$C$DW$T$133)
+    1780                            .dwattr $C$DW$T$134, DW_AT_language(DW_LANG_C)
+    1781                            .dwattr $C$DW$T$134, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1782                            .dwattr $C$DW$T$134, DW_AT_decl_line(0x12a)
+    1783                            .dwattr $C$DW$T$134, DW_AT_decl_column(0x19)
+    1784                    
+    1785                    $C$DW$T$135     .dwtag  DW_TAG_typedef
+    1786                            .dwattr $C$DW$T$135, DW_AT_name("uintmax_t")
+    1787                            .dwattr $C$DW$T$135, DW_AT_type(*$C$DW$T$15)
+    1788                            .dwattr $C$DW$T$135, DW_AT_language(DW_LANG_C)
+    1789                            .dwattr $C$DW$T$135, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1790                            .dwattr $C$DW$T$135, DW_AT_decl_line(0x5d)
+    1791                            .dwattr $C$DW$T$135, DW_AT_decl_column(0x20)
+    1792                    
+    1793                    $C$DW$T$136     .dwtag  DW_TAG_typedef
+    1794                            .dwattr $C$DW$T$136, DW_AT_name("xdc_ULLong")
+    1795                            .dwattr $C$DW$T$136, DW_AT_type(*$C$DW$T$15)
+    1796                            .dwattr $C$DW$T$136, DW_AT_language(DW_LANG_C)
+    1797                            .dwattr $C$DW$T$136, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1798                            .dwattr $C$DW$T$136, DW_AT_decl_line(0x88)
+    1799                            .dwattr $C$DW$T$136, DW_AT_decl_column(0x21)
+    1800                    
+    1801                    $C$DW$T$137     .dwtag  DW_TAG_typedef
+    1802                            .dwattr $C$DW$T$137, DW_AT_name("ULLong")
+    1803                            .dwattr $C$DW$T$137, DW_AT_type(*$C$DW$T$136)
+    1804                            .dwattr $C$DW$T$137, DW_AT_language(DW_LANG_C)
+    1805                            .dwattr $C$DW$T$137, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1806                            .dwattr $C$DW$T$137, DW_AT_decl_line(0xe8)
+    1807                            .dwattr $C$DW$T$137, DW_AT_decl_column(0x19)
+    1808                    
+    1809                    $C$DW$T$16      .dwtag  DW_TAG_base_type
+    1810                            .dwattr $C$DW$T$16, DW_AT_encoding(DW_ATE_float)
+    1811                            .dwattr $C$DW$T$16, DW_AT_name("float")
+    1812                            .dwattr $C$DW$T$16, DW_AT_byte_size(0x04)
+    1813                    
+    1814                    $C$DW$T$145     .dwtag  DW_TAG_typedef
+    1815                            .dwattr $C$DW$T$145, DW_AT_name("float32_t")
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   34
+
+    1816                            .dwattr $C$DW$T$145, DW_AT_type(*$C$DW$T$16)
+    1817                            .dwattr $C$DW$T$145, DW_AT_language(DW_LANG_C)
+    1818                            .dwattr $C$DW$T$145, DW_AT_decl_file("C:\ti\ccsv7\tools\compiler\ti-cgt-c6000_8.1.3\include\ve
+    1819                            .dwattr $C$DW$T$145, DW_AT_decl_line(0x30)
+    1820                            .dwattr $C$DW$T$145, DW_AT_decl_column(0x0f)
+    1821                    
+    1822                    $C$DW$T$19      .dwtag  DW_TAG_typedef
+    1823                            .dwattr $C$DW$T$19, DW_AT_name("xdc_Float")
+    1824                            .dwattr $C$DW$T$19, DW_AT_type(*$C$DW$T$16)
+    1825                            .dwattr $C$DW$T$19, DW_AT_language(DW_LANG_C)
+    1826                            .dwattr $C$DW$T$19, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1827                            .dwattr $C$DW$T$19, DW_AT_decl_line(0x25)
+    1828                            .dwattr $C$DW$T$19, DW_AT_decl_column(0x19)
+    1829                    
+    1830                    $C$DW$T$55      .dwtag  DW_TAG_typedef
+    1831                            .dwattr $C$DW$T$55, DW_AT_name("Float")
+    1832                            .dwattr $C$DW$T$55, DW_AT_type(*$C$DW$T$19)
+    1833                            .dwattr $C$DW$T$55, DW_AT_language(DW_LANG_C)
+    1834                            .dwattr $C$DW$T$55, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1835                            .dwattr $C$DW$T$55, DW_AT_decl_line(0xe9)
+    1836                            .dwattr $C$DW$T$55, DW_AT_decl_column(0x19)
+    1837                    
+    1838                    $C$DW$T$146     .dwtag  DW_TAG_const_type
+    1839                            .dwattr $C$DW$T$146, DW_AT_type(*$C$DW$T$55)
+    1840                    
+    1841                    $C$DW$T$56      .dwtag  DW_TAG_pointer_type
+    1842                            .dwattr $C$DW$T$56, DW_AT_type(*$C$DW$T$55)
+    1843                            .dwattr $C$DW$T$56, DW_AT_address_class(0x20)
+    1844                    
+    1845                    $C$DW$T$147     .dwtag  DW_TAG_restrict_type
+    1846                            .dwattr $C$DW$T$147, DW_AT_type(*$C$DW$T$56)
+    1847                    
+    1848                    $C$DW$T$148     .dwtag  DW_TAG_const_type
+    1849                            .dwattr $C$DW$T$148, DW_AT_type(*$C$DW$T$56)
+    1850                    
+    1851                    
+    1852                    $C$DW$T$149     .dwtag  DW_TAG_array_type
+    1853                            .dwattr $C$DW$T$149, DW_AT_type(*$C$DW$T$55)
+    1854                            .dwattr $C$DW$T$149, DW_AT_language(DW_LANG_C)
+    1855                            .dwattr $C$DW$T$149, DW_AT_byte_size(0x800)
+    1856                    $C$DW$33        .dwtag  DW_TAG_subrange_type
+    1857                            .dwattr $C$DW$33, DW_AT_upper_bound(0x1ff)
+    1858                    
+    1859                            .dwendtag $C$DW$T$149
+    1860                    
+    1861                    $C$DW$T$17      .dwtag  DW_TAG_base_type
+    1862                            .dwattr $C$DW$T$17, DW_AT_encoding(DW_ATE_float)
+    1863                            .dwattr $C$DW$T$17, DW_AT_name("double")
+    1864                            .dwattr $C$DW$T$17, DW_AT_byte_size(0x08)
+    1865                    
+    1866                    $C$DW$T$151     .dwtag  DW_TAG_typedef
+    1867                            .dwattr $C$DW$T$151, DW_AT_name("__float2_t")
+    1868                            .dwattr $C$DW$T$151, DW_AT_type(*$C$DW$T$17)
+    1869                            .dwattr $C$DW$T$151, DW_AT_language(DW_LANG_C)
+    1870                            .dwattr $C$DW$T$151, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/c6
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   35
+
+    1871                            .dwattr $C$DW$T$151, DW_AT_decl_line(0x5f)
+    1872                            .dwattr $C$DW$T$151, DW_AT_decl_column(0x14)
+    1873                    
+    1874                    $C$DW$T$152     .dwtag  DW_TAG_typedef
+    1875                            .dwattr $C$DW$T$152, DW_AT_name("xdc_Double")
+    1876                            .dwattr $C$DW$T$152, DW_AT_type(*$C$DW$T$17)
+    1877                            .dwattr $C$DW$T$152, DW_AT_language(DW_LANG_C)
+    1878                            .dwattr $C$DW$T$152, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1879                            .dwattr $C$DW$T$152, DW_AT_decl_line(0x26)
+    1880                            .dwattr $C$DW$T$152, DW_AT_decl_column(0x19)
+    1881                    
+    1882                    $C$DW$T$153     .dwtag  DW_TAG_typedef
+    1883                            .dwattr $C$DW$T$153, DW_AT_name("Double")
+    1884                            .dwattr $C$DW$T$153, DW_AT_type(*$C$DW$T$152)
+    1885                            .dwattr $C$DW$T$153, DW_AT_language(DW_LANG_C)
+    1886                            .dwattr $C$DW$T$153, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1887                            .dwattr $C$DW$T$153, DW_AT_decl_line(0xea)
+    1888                            .dwattr $C$DW$T$153, DW_AT_decl_column(0x19)
+    1889                    
+    1890                    $C$DW$T$18      .dwtag  DW_TAG_base_type
+    1891                            .dwattr $C$DW$T$18, DW_AT_encoding(DW_ATE_float)
+    1892                            .dwattr $C$DW$T$18, DW_AT_name("long double")
+    1893                            .dwattr $C$DW$T$18, DW_AT_byte_size(0x08)
+    1894                    
+    1895                    $C$DW$T$154     .dwtag  DW_TAG_typedef
+    1896                            .dwattr $C$DW$T$154, DW_AT_name("xdc_LDouble")
+    1897                            .dwattr $C$DW$T$154, DW_AT_type(*$C$DW$T$18)
+    1898                            .dwattr $C$DW$T$154, DW_AT_language(DW_LANG_C)
+    1899                            .dwattr $C$DW$T$154, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1900                            .dwattr $C$DW$T$154, DW_AT_decl_line(0x27)
+    1901                            .dwattr $C$DW$T$154, DW_AT_decl_column(0x19)
+    1902                    
+    1903                    $C$DW$T$155     .dwtag  DW_TAG_typedef
+    1904                            .dwattr $C$DW$T$155, DW_AT_name("LDouble")
+    1905                            .dwattr $C$DW$T$155, DW_AT_type(*$C$DW$T$154)
+    1906                            .dwattr $C$DW$T$155, DW_AT_language(DW_LANG_C)
+    1907                            .dwattr $C$DW$T$155, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1908                            .dwattr $C$DW$T$155, DW_AT_decl_line(0xeb)
+    1909                            .dwattr $C$DW$T$155, DW_AT_decl_column(0x19)
+    1910                    
+    1911                    $C$DW$T$157     .dwtag  DW_TAG_pointer_type
+    1912                            .dwattr $C$DW$T$157, DW_AT_type(*$C$DW$T$5)
+    1913                            .dwattr $C$DW$T$157, DW_AT_address_class(0x20)
+    1914                    
+    1915                    $C$DW$T$158     .dwtag  DW_TAG_typedef
+    1916                            .dwattr $C$DW$T$158, DW_AT_name("va_list")
+    1917                            .dwattr $C$DW$T$158, DW_AT_type(*$C$DW$T$157)
+    1918                            .dwattr $C$DW$T$158, DW_AT_language(DW_LANG_C)
+    1919                            .dwattr $C$DW$T$158, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/st
+    1920                            .dwattr $C$DW$T$158, DW_AT_decl_line(0x37)
+    1921                            .dwattr $C$DW$T$158, DW_AT_decl_column(0x13)
+    1922                    
+    1923                    $C$DW$T$159     .dwtag  DW_TAG_typedef
+    1924                            .dwattr $C$DW$T$159, DW_AT_name("xdc_VaList")
+    1925                            .dwattr $C$DW$T$159, DW_AT_type(*$C$DW$T$158)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   36
+
+    1926                            .dwattr $C$DW$T$159, DW_AT_language(DW_LANG_C)
+    1927                            .dwattr $C$DW$T$159, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1928                            .dwattr $C$DW$T$159, DW_AT_decl_line(0x29)
+    1929                            .dwattr $C$DW$T$159, DW_AT_decl_column(0x19)
+    1930                    
+    1931                    $C$DW$T$160     .dwtag  DW_TAG_typedef
+    1932                            .dwattr $C$DW$T$160, DW_AT_name("VaList")
+    1933                            .dwattr $C$DW$T$160, DW_AT_type(*$C$DW$T$159)
+    1934                            .dwattr $C$DW$T$160, DW_AT_language(DW_LANG_C)
+    1935                            .dwattr $C$DW$T$160, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1936                            .dwattr $C$DW$T$160, DW_AT_decl_line(0xed)
+    1937                            .dwattr $C$DW$T$160, DW_AT_decl_column(0x19)
+    1938                    
+    1939                    $C$DW$T$161     .dwtag  DW_TAG_typedef
+    1940                            .dwattr $C$DW$T$161, DW_AT_name("xdc_String")
+    1941                            .dwattr $C$DW$T$161, DW_AT_type(*$C$DW$T$157)
+    1942                            .dwattr $C$DW$T$161, DW_AT_language(DW_LANG_C)
+    1943                            .dwattr $C$DW$T$161, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1944                            .dwattr $C$DW$T$161, DW_AT_decl_line(0x30)
+    1945                            .dwattr $C$DW$T$161, DW_AT_decl_column(0x1a)
+    1946                    
+    1947                    $C$DW$T$162     .dwtag  DW_TAG_typedef
+    1948                            .dwattr $C$DW$T$162, DW_AT_name("String")
+    1949                            .dwattr $C$DW$T$162, DW_AT_type(*$C$DW$T$161)
+    1950                            .dwattr $C$DW$T$162, DW_AT_language(DW_LANG_C)
+    1951                            .dwattr $C$DW$T$162, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1952                            .dwattr $C$DW$T$162, DW_AT_decl_line(0xf9)
+    1953                            .dwattr $C$DW$T$162, DW_AT_decl_column(0x19)
+    1954                    
+    1955                    $C$DW$T$163     .dwtag  DW_TAG_const_type
+    1956                            .dwattr $C$DW$T$163, DW_AT_type(*$C$DW$T$5)
+    1957                    
+    1958                    $C$DW$T$164     .dwtag  DW_TAG_pointer_type
+    1959                            .dwattr $C$DW$T$164, DW_AT_type(*$C$DW$T$163)
+    1960                            .dwattr $C$DW$T$164, DW_AT_address_class(0x20)
+    1961                    
+    1962                    $C$DW$T$165     .dwtag  DW_TAG_typedef
+    1963                            .dwattr $C$DW$T$165, DW_AT_name("xdc_CString")
+    1964                            .dwattr $C$DW$T$165, DW_AT_type(*$C$DW$T$164)
+    1965                            .dwattr $C$DW$T$165, DW_AT_language(DW_LANG_C)
+    1966                            .dwattr $C$DW$T$165, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1967                            .dwattr $C$DW$T$165, DW_AT_decl_line(0x31)
+    1968                            .dwattr $C$DW$T$165, DW_AT_decl_column(0x1a)
+    1969                    
+    1970                    $C$DW$T$166     .dwtag  DW_TAG_typedef
+    1971                            .dwattr $C$DW$T$166, DW_AT_name("CString")
+    1972                            .dwattr $C$DW$T$166, DW_AT_type(*$C$DW$T$165)
+    1973                            .dwattr $C$DW$T$166, DW_AT_language(DW_LANG_C)
+    1974                            .dwattr $C$DW$T$166, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1975                            .dwattr $C$DW$T$166, DW_AT_decl_line(0xfb)
+    1976                            .dwattr $C$DW$T$166, DW_AT_decl_column(0x19)
+    1977                    
+    1978                    $C$DW$T$167     .dwtag  DW_TAG_typedef
+    1979                            .dwattr $C$DW$T$167, DW_AT_name("xdc_Char")
+    1980                            .dwattr $C$DW$T$167, DW_AT_type(*$C$DW$T$5)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   37
+
+    1981                            .dwattr $C$DW$T$167, DW_AT_language(DW_LANG_C)
+    1982                            .dwattr $C$DW$T$167, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1983                            .dwattr $C$DW$T$167, DW_AT_decl_line(0x1d)
+    1984                            .dwattr $C$DW$T$167, DW_AT_decl_column(0x19)
+    1985                    
+    1986                    $C$DW$T$168     .dwtag  DW_TAG_typedef
+    1987                            .dwattr $C$DW$T$168, DW_AT_name("Char")
+    1988                            .dwattr $C$DW$T$168, DW_AT_type(*$C$DW$T$167)
+    1989                            .dwattr $C$DW$T$168, DW_AT_language(DW_LANG_C)
+    1990                            .dwattr $C$DW$T$168, DW_AT_decl_file("C:/ti/xdctools_3_50_01_12_core/packages/xdc/std.h")
+    1991                            .dwattr $C$DW$T$168, DW_AT_decl_line(0xdf)
+    1992                            .dwattr $C$DW$T$168, DW_AT_decl_column(0x19)
+    1993                    
+    1994                    $C$DW$T$169     .dwtag  DW_TAG_base_type
+    1995                            .dwattr $C$DW$T$169, DW_AT_encoding(DW_ATE_unsigned_char)
+    1996                            .dwattr $C$DW$T$169, DW_AT_name("unsigned char")
+    1997                            .dwattr $C$DW$T$169, DW_AT_byte_size(0x01)
+    1998                    
+    1999                    $C$DW$T$170     .dwtag  DW_TAG_typedef
+    2000                            .dwattr $C$DW$T$170, DW_AT_name("t_bool")
+    2001                            .dwattr $C$DW$T$170, DW_AT_type(*$C$DW$T$169)
+    2002                            .dwattr $C$DW$T$170, DW_AT_language(DW_LANG_C)
+    2003                            .dwattr $C$DW$T$170, DW_AT_decl_file("C:/ti/mathlib_c674x_3_1_2_1/packages/ti/mathlib/src/comm
+    2004                            .dwattr $C$DW$T$170, DW_AT_decl_line(0x36)
+    2005                            .dwattr $C$DW$T$170, DW_AT_decl_column(0x0e)
+    2006                    
+    2007                    
+    2008                    $C$DW$T$184     .dwtag  DW_TAG_array_type
+    2009                            .dwattr $C$DW$T$184, DW_AT_type(*$C$DW$T$5)
+    2010                            .dwattr $C$DW$T$184, DW_AT_byte_size(0x02)
+    2011                    $C$DW$34        .dwtag  DW_TAG_subrange_type
+    2012                            .dwattr $C$DW$34, DW_AT_upper_bound(0x01)
+    2013                    
+    2014                            .dwendtag $C$DW$T$184
+    2015                    
+    2016                    
+    2017                    $C$DW$T$185     .dwtag  DW_TAG_array_type
+    2018                            .dwattr $C$DW$T$185, DW_AT_type(*$C$DW$T$8)
+    2019                            .dwattr $C$DW$T$185, DW_AT_byte_size(0x04)
+    2020                    $C$DW$35        .dwtag  DW_TAG_subrange_type
+    2021                            .dwattr $C$DW$35, DW_AT_upper_bound(0x01)
+    2022                    
+    2023                            .dwendtag $C$DW$T$185
+    2024                    
+    2025                    
+    2026                    $C$DW$T$186     .dwtag  DW_TAG_array_type
+    2027                            .dwattr $C$DW$T$186, DW_AT_type(*$C$DW$T$10)
+    2028                            .dwattr $C$DW$T$186, DW_AT_byte_size(0x08)
+    2029                    $C$DW$36        .dwtag  DW_TAG_subrange_type
+    2030                            .dwattr $C$DW$36, DW_AT_upper_bound(0x01)
+    2031                    
+    2032                            .dwendtag $C$DW$T$186
+    2033                    
+    2034                    
+    2035                    $C$DW$T$187     .dwtag  DW_TAG_array_type
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   38
+
+    2036                            .dwattr $C$DW$T$187, DW_AT_type(*$C$DW$T$12)
+    2037                            .dwattr $C$DW$T$187, DW_AT_byte_size(0x0a)
+    2038                    $C$DW$37        .dwtag  DW_TAG_subrange_type
+    2039                            .dwattr $C$DW$37, DW_AT_upper_bound(0x01)
+    2040                    
+    2041                            .dwendtag $C$DW$T$187
+    2042                    
+    2043                    
+    2044                    $C$DW$T$188     .dwtag  DW_TAG_array_type
+    2045                            .dwattr $C$DW$T$188, DW_AT_type(*$C$DW$T$14)
+    2046                            .dwattr $C$DW$T$188, DW_AT_byte_size(0x10)
+    2047                    $C$DW$38        .dwtag  DW_TAG_subrange_type
+    2048                            .dwattr $C$DW$38, DW_AT_upper_bound(0x01)
+    2049                    
+    2050                            .dwendtag $C$DW$T$188
+    2051                    
+    2052                    
+    2053                    $C$DW$T$189     .dwtag  DW_TAG_array_type
+    2054                            .dwattr $C$DW$T$189, DW_AT_type(*$C$DW$T$16)
+    2055                            .dwattr $C$DW$T$189, DW_AT_byte_size(0x08)
+    2056                    $C$DW$39        .dwtag  DW_TAG_subrange_type
+    2057                            .dwattr $C$DW$39, DW_AT_upper_bound(0x01)
+    2058                    
+    2059                            .dwendtag $C$DW$T$189
+    2060                    
+    2061                    
+    2062                    $C$DW$T$190     .dwtag  DW_TAG_array_type
+    2063                            .dwattr $C$DW$T$190, DW_AT_type(*$C$DW$T$17)
+    2064                            .dwattr $C$DW$T$190, DW_AT_byte_size(0x10)
+    2065                    $C$DW$40        .dwtag  DW_TAG_subrange_type
+    2066                            .dwattr $C$DW$40, DW_AT_upper_bound(0x01)
+    2067                    
+    2068                            .dwendtag $C$DW$T$190
+    2069                    
+    2070                            .dwattr $C$DW$CU, DW_AT_language(DW_LANG_C)
+    2071                    
+    2072                    ;***************************************************************
+    2073                    ;* DWARF CIE ENTRIES                                           *
+    2074                    ;***************************************************************
+    2075                    
+    2076                    $C$DW$CIE       .dwcie 19
+    2077                            .dwcfi  cfa_register, 31
+    2078                            .dwcfi  cfa_offset, 0
+    2079                            .dwcfi  undefined, 0
+    2080                            .dwcfi  undefined, 1
+    2081                            .dwcfi  undefined, 2
+    2082                            .dwcfi  undefined, 3
+    2083                            .dwcfi  undefined, 4
+    2084                            .dwcfi  undefined, 5
+    2085                            .dwcfi  undefined, 6
+    2086                            .dwcfi  undefined, 7
+    2087                            .dwcfi  undefined, 8
+    2088                            .dwcfi  undefined, 9
+    2089                            .dwcfi  same_value, 10
+    2090                            .dwcfi  same_value, 11
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   39
+
+    2091                            .dwcfi  same_value, 12
+    2092                            .dwcfi  same_value, 13
+    2093                            .dwcfi  same_value, 14
+    2094                            .dwcfi  same_value, 15
+    2095                            .dwcfi  undefined, 32
+    2096                            .dwcfi  undefined, 37
+    2097                            .dwcfi  undefined, 38
+    2098                            .dwcfi  undefined, 39
+    2099                            .dwcfi  undefined, 40
+    2100                            .dwcfi  undefined, 41
+    2101                            .dwcfi  undefined, 42
+    2102                            .dwcfi  undefined, 43
+    2103                            .dwcfi  undefined, 44
+    2104                            .dwcfi  undefined, 45
+    2105                            .dwcfi  undefined, 46
+    2106                            .dwcfi  undefined, 47
+    2107                            .dwcfi  undefined, 48
+    2108                            .dwcfi  undefined, 49
+    2109                            .dwcfi  undefined, 50
+    2110                            .dwcfi  undefined, 51
+    2111                            .dwcfi  undefined, 52
+    2112                            .dwcfi  undefined, 16
+    2113                            .dwcfi  undefined, 17
+    2114                            .dwcfi  undefined, 18
+    2115                            .dwcfi  undefined, 19
+    2116                            .dwcfi  undefined, 20
+    2117                            .dwcfi  undefined, 21
+    2118                            .dwcfi  undefined, 22
+    2119                            .dwcfi  undefined, 23
+    2120                            .dwcfi  undefined, 24
+    2121                            .dwcfi  undefined, 25
+    2122                            .dwcfi  same_value, 26
+    2123                            .dwcfi  same_value, 27
+    2124                            .dwcfi  same_value, 28
+    2125                            .dwcfi  same_value, 29
+    2126                            .dwcfi  same_value, 30
+    2127                            .dwcfi  same_value, 31
+    2128                            .dwcfi  undefined, 53
+    2129                            .dwcfi  undefined, 54
+    2130                            .dwcfi  undefined, 55
+    2131                            .dwcfi  undefined, 56
+    2132                            .dwcfi  undefined, 57
+    2133                            .dwcfi  undefined, 58
+    2134                            .dwcfi  undefined, 59
+    2135                            .dwcfi  undefined, 60
+    2136                            .dwcfi  undefined, 61
+    2137                            .dwcfi  undefined, 62
+    2138                            .dwcfi  undefined, 63
+    2139                            .dwcfi  undefined, 64
+    2140                            .dwcfi  undefined, 65
+    2141                            .dwcfi  undefined, 66
+    2142                            .dwcfi  undefined, 67
+    2143                            .dwcfi  undefined, 68
+    2144                            .dwcfi  undefined, 33
+    2145                            .dwcfi  undefined, 34
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   40
+
+    2146                            .dwcfi  undefined, 35
+    2147                            .dwcfi  undefined, 36
+    2148                            .dwcfi  undefined, 70
+    2149                            .dwcfi  undefined, 70
+    2150                            .dwcfi  undefined, 91
+    2151                            .dwcfi  undefined, 70
+    2152                            .dwcfi  undefined, 69
+    2153                            .dwcfi  undefined, 71
+    2154                            .dwcfi  undefined, 72
+    2155                            .dwcfi  undefined, 73
+    2156                            .dwcfi  undefined, 74
+    2157                            .dwcfi  undefined, 75
+    2158                            .dwcfi  undefined, 76
+    2159                            .dwcfi  undefined, 77
+    2160                            .dwcfi  undefined, 78
+    2161                            .dwcfi  undefined, 79
+    2162                            .dwcfi  undefined, 80
+    2163                            .dwcfi  undefined, 81
+    2164                            .dwcfi  undefined, 82
+    2165                            .dwcfi  undefined, 83
+    2166                            .dwcfi  undefined, 84
+    2167                            .dwcfi  undefined, 85
+    2168                            .dwcfi  undefined, 86
+    2169                            .dwcfi  undefined, 87
+    2170                            .dwcfi  undefined, 88
+    2171                            .dwcfi  undefined, 89
+    2172                            .dwcfi  undefined, 90
+    2173                            .dwcfi  undefined, 92
+    2174                            .dwcfi  undefined, 93
+    2175                            .dwcfi  undefined, 94
+    2176                            .dwcfi  undefined, 95
+    2177                            .dwcfi  undefined, 96
+    2178                            .dwcfi  undefined, 97
+    2179                            .dwcfi  undefined, 98
+    2180                            .dwcfi  undefined, 99
+    2181                            .dwcfi  undefined, 100
+    2182                            .dwcfi  undefined, 101
+    2183                            .dwcfi  undefined, 102
+    2184                            .dwcfi  undefined, 103
+    2185                            .dwcfi  undefined, 104
+    2186                            .dwcfi  undefined, 105
+    2187                            .dwcfi  undefined, 106
+    2188                            .dwcfi  undefined, 107
+    2189                            .dwcfi  undefined, 108
+    2190                            .dwcfi  undefined, 109
+    2191                            .dwcfi  undefined, 110
+    2192                            .dwcfi  undefined, 111
+    2193                            .dwcfi  undefined, 112
+    2194                            .dwcfi  undefined, 113
+    2195                            .dwcfi  undefined, 114
+    2196                            .dwcfi  undefined, 115
+    2197                            .dwcfi  undefined, 116
+    2198                            .dwcfi  undefined, 117
+    2199                            .dwcfi  undefined, 118
+    2200                            .dwcfi  undefined, 119
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+SexyPitchShift.asm                                                   PAGE   41
+
+    2201                            .dwcfi  undefined, 120
+    2202                            .dwcfi  undefined, 121
+    2203                            .dwcfi  undefined, 122
+    2204                            .dwcfi  undefined, 123
+    2205                            .dwcfi  undefined, 124
+    2206                            .dwcfi  undefined, 125
+    2207                            .dwcfi  undefined, 126
+    2208                            .dwcfi  undefined, 127
+    2209                            .dwendentry
+    2210                            .dwendtag $C$DW$CU
+    2211                    
+
+No Assembly Errors, No Assembly Warnings

@@ -1,0 +1,1209 @@
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE    1
+
+       1                    ;******************************************************************************
+       2                    ;* G3 TMS320C6x C/C++ Codegen                                       PC v8.1.3 *
+       3                    ;* Date/Time created: Thu Apr 20 04:41:38 2017                                *
+       4                    ;******************************************************************************
+       5                            .compiler_opts --abi=eabi --array_alignment=8 --diag_wrap=off --endian=little --hll_source=on 
+       6                    
+       7                    ;******************************************************************************
+       8                    ;* GLOBAL FILE PARAMETERS                                                     *
+       9                    ;*                                                                            *
+      10                    ;*   Architecture      : TMS320C674x                                          *
+      11                    ;*   Optimization      : Enabled at level 3                                   *
+      12                    ;*   Optimizing for    : Speed                                                *
+      13                    ;*                       Based on options: -o3, no -ms                        *
+      14                    ;*   Endian            : Little                                               *
+      15                    ;*   Interrupt Thrshld : Disabled                                             *
+      16                    ;*   Data Access Model : Far Aggregate Data                                   *
+      17                    ;*   Pipelining        : Enabled                                              *
+      18                    ;*   Speculate Loads   : Enabled with threshold = 0                           *
+      19                    ;*   Memory Aliases    : Presume are aliases (pessimistic)                    *
+      20                    ;*   Debug Info        : DWARF Debug                                          *
+      21                    ;*                                                                            *
+      22                    ;******************************************************************************
+      23                    
+      24                            .asg    A15, FP
+      25                            .asg    B14, DP
+      26                            .asg    B15, SP
+      27                            .global $bss
+      28                    
+      29                    
+      30                    $C$DW$CU        .dwtag  DW_TAG_compile_unit
+      31                            .dwattr $C$DW$CU, DW_AT_name("C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c")
+      32                            .dwattr $C$DW$CU, DW_AT_producer("TI G3 TMS320C6x C/C++ Codegen PC v8.1.3 Copyright (c) 1996-2
+      33                            .dwattr $C$DW$CU, DW_AT_TI_version(0x01)
+      34                            .dwattr $C$DW$CU, DW_AT_comp_dir("C:\Users\Raz Aloni\OneDrive\School\EEL4924\DSP\DSP_Workspace
+      35                    ;       C:\ti\ccsv7\tools\compiler\ti-cgt-c6000_8.1.3\bin\opt6x.exe C:\\Users\\RAZALO~1\\AppData\\Loca
+      36 00000000                   .sect   ".text"
+      37                            .clink
+      38                            .global PSCModuleControl
+      39                    
+      40                    $C$DW$1 .dwtag  DW_TAG_subprogram
+      41                            .dwattr $C$DW$1, DW_AT_name("PSCModuleControl")
+      42                            .dwattr $C$DW$1, DW_AT_low_pc(PSCModuleControl)
+      43                            .dwattr $C$DW$1, DW_AT_high_pc(0x00)
+      44                            .dwattr $C$DW$1, DW_AT_TI_symbol_name("PSCModuleControl")
+      45                            .dwattr $C$DW$1, DW_AT_external
+      46                            .dwattr $C$DW$1, DW_AT_type(*$C$DW$T$10)
+      47                            .dwattr $C$DW$1, DW_AT_TI_begin_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c")
+      48                            .dwattr $C$DW$1, DW_AT_TI_begin_line(0x48)
+      49                            .dwattr $C$DW$1, DW_AT_TI_begin_column(0x05)
+      50                            .dwattr $C$DW$1, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c")
+      51                            .dwattr $C$DW$1, DW_AT_decl_line(0x48)
+      52                            .dwattr $C$DW$1, DW_AT_decl_column(0x05)
+      53                            .dwattr $C$DW$1, DW_AT_TI_max_frame_size(0x08)
+      54                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 74,column 1,is_stmt,ad
+      55                    
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE    2
+
+      56                            .dwfde $C$DW$CIE, PSCModuleControl
+      57                    $C$DW$2 .dwtag  DW_TAG_formal_parameter
+      58                            .dwattr $C$DW$2, DW_AT_name("baseAdd")
+      59                            .dwattr $C$DW$2, DW_AT_TI_symbol_name("baseAdd")
+      60                            .dwattr $C$DW$2, DW_AT_type(*$C$DW$T$11)
+      61                            .dwattr $C$DW$2, DW_AT_location[DW_OP_reg4]
+      62                    
+      63                    $C$DW$3 .dwtag  DW_TAG_formal_parameter
+      64                            .dwattr $C$DW$3, DW_AT_name("moduleId")
+      65                            .dwattr $C$DW$3, DW_AT_TI_symbol_name("moduleId")
+      66                            .dwattr $C$DW$3, DW_AT_type(*$C$DW$T$11)
+      67                            .dwattr $C$DW$3, DW_AT_location[DW_OP_reg20]
+      68                    
+      69                    $C$DW$4 .dwtag  DW_TAG_formal_parameter
+      70                            .dwattr $C$DW$4, DW_AT_name("powerDomain")
+      71                            .dwattr $C$DW$4, DW_AT_TI_symbol_name("powerDomain")
+      72                            .dwattr $C$DW$4, DW_AT_type(*$C$DW$T$11)
+      73                            .dwattr $C$DW$4, DW_AT_location[DW_OP_reg6]
+      74                    
+      75                    $C$DW$5 .dwtag  DW_TAG_formal_parameter
+      76                            .dwattr $C$DW$5, DW_AT_name("flags")
+      77                            .dwattr $C$DW$5, DW_AT_TI_symbol_name("flags")
+      78                            .dwattr $C$DW$5, DW_AT_type(*$C$DW$T$11)
+      79                            .dwattr $C$DW$5, DW_AT_location[DW_OP_reg22]
+      80                    
+      81                    
+      82                    ;******************************************************************************
+      83                    ;* FUNCTION NAME: PSCModuleControl                                            *
+      84                    ;*                                                                            *
+      85                    ;*   Regs Modified     : A0,A3,A4,A5,A6,A7,A8,B0,B1,B2,B4,B5,B6,B7,B8,B9,SP   *
+      86                    ;*   Regs Used         : A0,A3,A4,A5,A6,A7,A8,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,  *
+      87                    ;*                           SP                                               *
+      88                    ;*   Local Frame Size  : 0 Args + 4 Auto + 0 Save = 4 byte                    *
+      89                    ;******************************************************************************
+      90                    PSCModuleControl:
+      91                    ;** --------------------------------------------------------------------------*
+      92                    $C$DW$6 .dwtag  DW_TAG_variable
+      93                            .dwattr $C$DW$6, DW_AT_name("status")
+      94                            .dwattr $C$DW$6, DW_AT_TI_symbol_name("status")
+      95                            .dwattr $C$DW$6, DW_AT_type(*$C$DW$T$11)
+      96                            .dwattr $C$DW$6, DW_AT_location[DW_OP_reg20]
+      97                    
+      98                    $C$DW$7 .dwtag  DW_TAG_variable
+      99                            .dwattr $C$DW$7, DW_AT_name("flags")
+     100                            .dwattr $C$DW$7, DW_AT_TI_symbol_name("flags")
+     101                            .dwattr $C$DW$7, DW_AT_type(*$C$DW$T$25)
+     102                            .dwattr $C$DW$7, DW_AT_location[DW_OP_reg22]
+     103                    
+     104                    $C$DW$8 .dwtag  DW_TAG_variable
+     105                            .dwattr $C$DW$8, DW_AT_name("powerDomain")
+     106                            .dwattr $C$DW$8, DW_AT_TI_symbol_name("powerDomain")
+     107                            .dwattr $C$DW$8, DW_AT_type(*$C$DW$T$25)
+     108                            .dwattr $C$DW$8, DW_AT_location[DW_OP_reg0]
+     109                    
+     110                    $C$DW$9 .dwtag  DW_TAG_variable
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE    3
+
+     111                            .dwattr $C$DW$9, DW_AT_name("moduleId")
+     112                            .dwattr $C$DW$9, DW_AT_TI_symbol_name("moduleId")
+     113                            .dwattr $C$DW$9, DW_AT_type(*$C$DW$T$25)
+     114                            .dwattr $C$DW$9, DW_AT_location[DW_OP_reg20]
+     115                    
+     116                    $C$DW$10        .dwtag  DW_TAG_variable
+     117                            .dwattr $C$DW$10, DW_AT_name("baseAdd")
+     118                            .dwattr $C$DW$10, DW_AT_TI_symbol_name("baseAdd")
+     119                            .dwattr $C$DW$10, DW_AT_type(*$C$DW$T$25)
+     120                            .dwattr $C$DW$10, DW_AT_location[DW_OP_reg23]
+     121                    
+     122                    $C$DW$11        .dwtag  DW_TAG_variable
+     123                            .dwattr $C$DW$11, DW_AT_name("retVal")
+     124                            .dwattr $C$DW$11, DW_AT_TI_symbol_name("retVal")
+     125                            .dwattr $C$DW$11, DW_AT_type(*$C$DW$T$10)
+     126                            .dwattr $C$DW$11, DW_AT_location[DW_OP_reg8]
+     127                    
+     128                    $C$DW$12        .dwtag  DW_TAG_variable
+     129                            .dwattr $C$DW$12, DW_AT_name("timeout")
+     130                            .dwattr $C$DW$12, DW_AT_TI_symbol_name("timeout")
+     131                            .dwattr $C$DW$12, DW_AT_type(*$C$DW$T$26)
+     132                            .dwattr $C$DW$12, DW_AT_location[DW_OP_breg31 4]
+     133                    
+     134                            .dwcfi  cfa_offset, 0
+     135                    
+     136 00000000     0346             MV      .L1     A6,A0             ; [A_L674] |74| 
+     137 00000002     0312  ||         ZERO    .S1     A6                ; [A_S674] |75| 
+     138 00000004     f247  ||         MV      .L2X    A4,B7             ; [B_L674] |74| 
+     139 00000008 049b7b0b  ||         EXTU    .S2     B6,27,27,B9       ; [B_Sb674] |79| 
+     140 00000006     4cf7  ||         SUB     .D2     SP,8,SP           ; [B_D64P] |74| 
+     141 0000000c 01802040  ||         MVK     .D1     1,A3              ; [A_D64P] |83| 
+     142                    
+     143                            .dwcfi  cfa_offset, 8
+     144                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 75,column 35,is_stmt,i
+     145                    
+     146 00000010 03181789             SET     .S1     A6,0,23,A6        ; [A_S674] |75| 
+     147 00000014 041c9c43  ||         ADDAW   .D2     B7,B4,B8          ; [B_D64P] |79| 
+     148 00000018 0281402b  ||         MVK     .S2     640,B5            ; [B_Sb674] |79| 
+     149 00000020 0400a358  ||         ZERO    .L1     A8                ; [A_L674] |76| 
+     150                    
+     151 00000024 c0000e11     [ A0]   B       .S1     $C$L2             ; [A_S674] |90| 
+     152 00000028     ac65  ||         STW     .D2T1   A6,*SP(4)         ; [B_D64P] |75| 
+     153 0000002a     0a53  ||         MVK     .S2     72,B4             ; [B_Sb674] |83| 
+     154 0000002c c29c1fd8  || [ A0]   MV      .L1X    B7,A5             ; [A_L674] 
+     155                    
+     156                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 79,column 5,is_stmt,is
+     157                    
+     158 00000030 04a0aaf7             STW     .D2T2   B9,*+B8[B5]       ; [B_D64P] |79| 
+     159 00000034 c2002528  || [ A0]   MVK     .S1     74,A4             ; [A_S674] |99| 
+     160                    
+     161                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 83,column 9,is_stmt,is
+     162                    
+     163 00000038 d19c8af5     [!A0]   STW     .D2T1   A3,*+B7[B4]       ; [B_D64P] |83| 
+     164 00000040 d200252b  || [!A0]   MVK     .S2     74,B4             ; [B_Sb674] |93| 
+     165 00000044 0188a358  ||         MVK     .L1     2,A3              ; [A_L674] |87| 
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE    4
+
+     166                    
+     167                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 93,column 13,is_stmt,i
+     168 00000048 d21c8ae6     [!A0]   LDW     .D2T2   *+B7[B4],B4       ; [B_D64P] |93| 
+     169                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 87,column 9,is_stmt,is
+     170                    
+     171 0000004c c19c8af5     [ A0]   STW     .D2T1   A3,*+B7[B4]       ; [B_D64P] |87| 
+     172 00000050 028fb05a  ||         ADD     .L2X    -3,A3,B5          ; [B_L674] 
+     173                    
+     174                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 99,column 13,is_stmt,i
+     175 00000054 c1948a64     [ A0]   LDW     .D1T1   *+A5[A4],A3       ; [A_D64P] |99| (P) <0,0>  ^ 
+     176                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 90,column 5,is_stmt,is
+     177                               ; BRANCHCC OCCURS {$C$L2}         ; [] |90| 
+     178                    ;** --------------------------------------------------------------------------*
+     179 00000058 00002000             NOP             2                 ; [A_L674] 
+     180                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 93,column 13,is_stmt,i
+     181 0000005c 00102f5a             AND     .L2     1,B4,B0           ; [B_L674] |93| 
+     182                    ;*----------------------------------------------------------------------------*
+     183                    ;*   SOFTWARE PIPELINE INFORMATION
+     184                    ;*      Disqualified loop: Loop contains control code
+     185                    ;*          (Performance) Loop at line 92 cannot be scheduled efficiently, as it contains complex cond
+     186                    ;*----------------------------------------------------------------------------*
+     187 00000060           $C$L1:    
+     188                    
+     189 00000060 304c8121     [!B0]   BNOP            $C$L6,4           ; [] |93| 
+     190 00000064 223c22e6  || [ B0]   LDW     .D2T2   *SP(4),B4         ; [B_D64P] |95| 
+     191                    
+     192                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 95,column 5,is_stmt,is
+     193 00000068     a241             ADD     .L2     B5,B4,B4          ; [B_L674] |95| 
+     194                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 93,column 13,is_stmt,i
+     195                               ; BRANCHCC OCCURS {$C$L6}         ; [] |93| 
+     196                    ;** --------------------------------------------------------------------------*
+     197                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 95,column 5,is_stmt,is
+     198 0000006a     bc45             STW     .D2T2   B4,*SP(4)         ; [B_D64P] |95| 
+     199 0000006c     bc4d             LDW     .D2T2   *SP(4),B4         ; [B_D64P] |95| 
+     200 0000006e     6c6e             NOP             4                 ; [A_L674] 
+     201                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 93,column 13,is_stmt,i
+     202                    
+     203 00000070     86e9             CMPEQ   .L2     B4,B5,B0          ; [B_L674] |95| 
+     204 00000072     4a53  ||         MVK     .S2     74,B4             ; [B_Sb674] |93| 
+     205                    
+     206 00000074 30008121     [!B0]   BNOP            $C$L1,4           ; [] |95| 
+     207 00000078 321c8ae6  || [!B0]   LDW     .D2T2   *+B7[B4],B4       ; [B_D64P] |93| 
+     208                    
+     209 00000080 00102f5a             AND     .L2     1,B4,B0           ; [B_L674] |93| 
+     210                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 95,column 5,is_stmt,is
+     211                               ; BRANCHCC OCCURS {$C$L1}         ; [] |95| 
+     212                    ;** --------------------------------------------------------------------------*
+     213                    
+     214 00000084 00448121             BNOP            $C$L7,4           ; [] |95| 
+     215 00000088     bc0d  ||         LDW     .D2T2   *SP(4),B0         ; [B_D64P] |103| 
+     216 0000008a     8487  ||         MV      .L2     B9,B4             ; [B_L674] |106| 
+     217                    
+     218                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 103,column 5,is_stmt,i
+     219 0000008c 30001d90     [!B0]   B       .S1     $C$L11            ; [A_S674] |103| 
+     220                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 95,column 5,is_stmt,is
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE    5
+
+     221                               ; BRANCH OCCURS {$C$L7}           ; [] |95| 
+     222                    ;** --------------------------------------------------------------------------*
+     223 00000090           $C$L2:    
+     224 00000090     24a7             MVK     .L2     1,B1              ; [B_L674] 
+     225 00000092     00c7             MV      .L2     B1,B0             ; [B_L674] 
+     226 00000094 00002000             NOP             2                 ; [A_L674] 
+     227                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 99,column 13,is_stmt,i
+     228 00000098 000c4f58             AND     .L1     2,A3,A0           ; [A_L674] |99| (P) <0,5>  ^ 
+     229                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 100,column 18,is_stmt,
+     230 000000a0 c3bc22e6     [ A0]   LDW     .D2T2   *SP(4),B7         ; [B_D64P] |100| (P) <0,7>  ^ 
+     231 000000a4 00006000             NOP             4                 ; [A_L674] 
+     232 000000a8 c31ca07a     [ A0]   ADD     .L2     B5,B7,B6          ; [B_L674] |100| (P) <0,12>  ^ 
+     233 000000ac c33c22f6     [ A0]   STW     .D2T2   B6,*SP(4)         ; [B_D64P] |100| (P) <0,13>  ^ 
+     234 000000b0 c23c22e6     [ A0]   LDW     .D2T2   *SP(4),B4         ; [B_D64P] |100| (P) <0,14>  ^ 
+     235 000000b4 00006000             NOP             4                 ; [A_L674] 
+     236 000000b8 c0148a7a     [ A0]   CMPEQ   .L2     B4,B5,B0          ; [B_L674] |100| (P) <0,19>  ^ 
+     237 000000bc 20a01fda     [ B0]   MV      .L2X    A8,B1             ; [B_L674] |100| 
+     238                    ;*----------------------------------------------------------------------------*
+     239                    ;*   SOFTWARE PIPELINE INFORMATION
+     240                    ;*
+     241                    ;*      Loop found in file               : C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c
+     242                    ;*      Loop source line                 : 98
+     243                    ;*      Loop opening brace source line   : 98
+     244                    ;*      Loop closing brace source line   : 100
+     245                    ;*      Known Minimum Trip Count         : 1                    
+     246                    ;*      Known Max Trip Count Factor      : 1
+     247                    ;*      Loop Carried Dependency Bound(^) : 21
+     248                    ;*      Unpartitioned Resource Bound     : 4
+     249                    ;*      Partitioned Resource Bound(*)    : 4
+     250                    ;*      Resource Partition:
+     251                    ;*                                A-side   B-side
+     252                    ;*      .L units                     0        1     
+     253                    ;*      .S units                     1        0     
+     254                    ;*      .D units                     1        3     
+     255                    ;*      .M units                     0        0     
+     256                    ;*      .X cross paths               0        0     
+     257                    ;*      .T address paths             1        3     
+     258                    ;*      Logical  ops (.LS)           0        0     (.L or .S unit)
+     259                    ;*      Addition ops (.LSD)          2        6     (.L or .S or .D unit)
+     260                    ;*      Bound(.L .S .LS)             1        1     
+     261                    ;*      Bound(.L .S .D .LS .LSD)     2        4*    
+     262                    ;*
+     263                    ;*      Searching for software pipeline schedule at ...
+     264                    ;*         ii = 21 Schedule found with 2 iterations in parallel
+     265                    ;*      Done
+     266                    ;*
+     267                    ;*      Loop is interruptible
+     268                    ;*      Collapsed epilog stages       : 1
+     269                    ;*      Prolog not removed
+     270                    ;*      Collapsed prolog stages       : 0
+     271                    ;*
+     272                    ;*      Minimum required memory pad   : 0 bytes
+     273                    ;*
+     274                    ;*      Minimum safe trip count       : 1
+     275                    ;*----------------------------------------------------------------------------*
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE    6
+
+     276 000000c0           $C$L3:    ; PIPED LOOP PROLOG
+     277                    ;** --------------------------------------------------------------------------*
+     278 000000c0           $C$L4:    ; PIPED LOOP KERNEL
+     279                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 99,column 13,is_stmt,i
+     280 000000c0 41948a64     [ B1]   LDW     .D1T1   *+A5[A4],A3       ; [A_D64P] |99| <1,0>  ^ 
+     281 000000c4     2c6e             NOP             2                 ; [A_L674] 
+     282                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 100,column 18,is_stmt,
+     283 000000c6     00c7             MV      .L2     B1,B0             ; [B_L674] |100| <0,24> Split a long life (split-join)
+     284 000000c8 00000000             NOP             1                 ; [A_L674] 
+     285                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 99,column 13,is_stmt,i
+     286 000000cc 000c4f58             AND     .L1     2,A3,A0           ; [A_L674] |99| <1,5>  ^ 
+     287 000000d0 3000a358     [!B0]   ZERO    .L1     A0                ; [A_L674] <1,6>  ^ 
+     288                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 100,column 18,is_stmt,
+     289 000000d4 c3bc22e6     [ A0]   LDW     .D2T2   *SP(4),B7         ; [B_D64P] |100| <1,7>  ^ 
+     290 000000d8 00006000             NOP             4                 ; [A_L674] 
+     291 000000e0 c31ca07a     [ A0]   ADD     .L2     B5,B7,B6          ; [B_L674] |100| <1,12>  ^ 
+     292 000000e4 c33c22f6     [ A0]   STW     .D2T2   B6,*SP(4)         ; [B_D64P] |100| <1,13>  ^ 
+     293 000000e8 c23c22e6     [ A0]   LDW     .D2T2   *SP(4),B4         ; [B_D64P] |100| <1,14>  ^ 
+     294 000000ec 4ff06120     [ B1]   BNOP            $C$L4,3           ; [] |100| <0,36> 
+     295                    
+     296 000000f4     686f     [!A0]   MVK     .S2     1,B0              ; [B_Sb674] |100| <1,19> 
+     297 000000f0 c0148a7b  || [ A0]   CMPEQ   .L2     B4,B5,B0          ; [B_L674] |100| <1,19>  ^ 
+     298                    
+     299 000000f6     88e7     [ B0]   ZERO    .L2     B1                ; [B_L674] |100| <1,20>  ^ 
+     300                    ;** --------------------------------------------------------------------------*
+     301 000000f8           $C$L5:    ; PIPED LOOP EPILOG
+     302                    ;** --------------------------------------------------------------------------*
+     303 000000f8           $C$L6:    
+     304                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 103,column 5,is_stmt,i
+     305 000000f8     bc0d             LDW     .D2T2   *SP(4),B0         ; [B_D64P] |103| 
+     306                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 106,column 9,is_stmt,i
+     307 000000fa     8487             MV      .L2     B9,B4             ; [B_L674] |106| 
+     308 00000100 00004000             NOP             3                 ; [A_L674] 
+     309                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 103,column 5,is_stmt,i
+     310 00000104 30000d90     [!B0]   B       .S1     $C$L11            ; [A_S674] |103| 
+     311                    ;** --------------------------------------------------------------------------*
+     312 00000108           $C$L7:    
+     313                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 105,column 9,is_stmt,i
+     314                    
+     315 00000108 233c22f5     [ B0]   STW     .D2T1   A6,*SP(4)         ; [B_D64P] |105| 
+     316 0000010c 23140fda  || [ B0]   MV      .L2     B5,B6             ; [B_L674] 
+     317                    
+     318                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 108,column 13,is_stmt,
+     319 00000110 22bc22e6     [ B0]   LDW     .D2T2   *SP(4),B5         ; [B_D64P] |108| (P) <0,0>  ^ 
+     320 00000114     a8e7     [ B0]   MVK     .L2     1,B1              ; [B_L674] 
+     321 00000116     2c6e             NOP             2                 ; [A_L674] 
+     322                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 103,column 5,is_stmt,i
+     323                               ; BRANCHCC OCCURS {$C$L11}        ; [] |103| 
+     324                    ;** --------------------------------------------------------------------------*
+     325                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 109,column 17,is_stmt,
+     326                    
+     327 00000118     d246             MV      .L1X    B4,A6             ; [A_L674] 
+     328 00000120 02010029  ||         MVK     .S1     512,A4            ; [A_S674] |109| 
+     329 0000011a     00c7  ||         MV      .L2     B1,B0             ; [B_L674] 
+     330 00000124     80cf  ||         MV      .S2     B1,B4             ; [B_Sb674] 
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE    7
+
+     331                    
+     332                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 108,column 13,is_stmt,
+     333                    
+     334 00000126     c2f1             ADD     .L2     B6,B5,B7          ; [B_L674] |108| (P) <0,5>  ^ 
+     335 00000128 02a01fd8  ||         MV      .L1X    B8,A5             ; [A_L674] 
+     336                    
+     337                    ;*----------------------------------------------------------------------------*
+     338                    ;*   SOFTWARE PIPELINE INFORMATION
+     339                    ;*
+     340                    ;*      Loop found in file               : C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c
+     341                    ;*      Loop source line                 : 107
+     342                    ;*      Loop opening brace source line   : 107
+     343                    ;*      Loop closing brace source line   : 109
+     344                    ;*      Known Minimum Trip Count         : 1                    
+     345                    ;*      Known Max Trip Count Factor      : 1
+     346                    ;*      Loop Carried Dependency Bound(^) : 21
+     347                    ;*      Unpartitioned Resource Bound     : 5
+     348                    ;*      Partitioned Resource Bound(*)    : 5
+     349                    ;*      Resource Partition:
+     350                    ;*                                A-side   B-side
+     351                    ;*      .L units                     1        0     
+     352                    ;*      .S units                     2        0     
+     353                    ;*      .D units                     1        3     
+     354                    ;*      .M units                     0        0     
+     355                    ;*      .X cross paths               0        0     
+     356                    ;*      .T address paths             1        3     
+     357                    ;*      Logical  ops (.LS)           0        0     (.L or .S unit)
+     358                    ;*      Addition ops (.LSD)          1       10     (.L or .S or .D unit)
+     359                    ;*      Bound(.L .S .LS)             2        0     
+     360                    ;*      Bound(.L .S .D .LS .LSD)     2        5*    
+     361                    ;*
+     362                    ;*      Searching for software pipeline schedule at ...
+     363                    ;*         ii = 21 Cannot allocate machine registers
+     364                    ;*                   Regs Live Always   :  5/ 3/ 1/
+     365                    ;*                   Max Regs Live      : 11/ 5/ 6/
+     366                    ;*                   Max Cond Regs Live :  3/ 1/ 3/
+     367                    ;*         ii = 21 Schedule found with 2 iterations in parallel
+     368                    ;*      Done
+     369                    ;*
+     370                    ;*      Loop is interruptible
+     371                    ;*      Collapsed epilog stages       : 1
+     372                    ;*      Prolog not removed
+     373                    ;*      Collapsed prolog stages       : 0
+     374                    ;*
+     375                    ;*      Minimum required memory pad   : 0 bytes
+     376                    ;*
+     377                    ;*      Minimum safe trip count       : 1
+     378                    ;*----------------------------------------------------------------------------*
+     379 0000012c           $C$L8:    ; PIPED LOOP PROLOG
+     380                    ;** --------------------------------------------------------------------------*
+     381 0000012c           $C$L9:    ; PIPED LOOP KERNEL
+     382 0000012c 23bc22f6     [ B0]   STW     .D2T2   B7,*SP(4)         ; [B_D64P] |108| <0,6>  ^ 
+     383                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 109,column 17,is_stmt,
+     384 00000130 213c22e6     [ B0]   LDW     .D2T2   *SP(4),B2         ; [B_D64P] |109| <0,7>  ^ 
+     385 00000134 001340f2             MVD     .M2     B4,B0             ; [B_M674] |109| <0,8> Post-sched spill
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE    8
+
+     386 00000138     4c6e             NOP             3                 ; [A_L674] 
+     387 0000013a     c967     [!B0]   ZERO    .L2     B2                ; [B_L674] <0,12>  ^ 
+     388 00000140 61948a64     [ B2]   LDW     .D1T1   *+A5[A4],A3       ; [A_D64P] |109| <0,13>  ^ 
+     389 00000144 00006000             NOP             4                 ; [A_L674] 
+     390 00000148 638f5a08     [ B2]   EXTU    .S1     A3,26,26,A7       ; [A_S674] |109| <0,18>  ^ 
+     391                    
+     392 0000014c 700000a9     [!B2]   MVK     .S1     1,A0              ; [A_S674] |109| <0,19> 
+     393 00000150 6018ea78  || [ B2]   CMPEQ   .L1     A7,A6,A0          ; [A_L674] |109| <0,19>  ^ 
+     394                    
+     395 00000154 c080a35a     [ A0]   ZERO    .L2     B1                ; [B_L674] |109| <0,20>  ^ 
+     396                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 108,column 13,is_stmt,
+     397                    
+     398 00000158 4ffb2121     [ B1]   BNOP            $C$L9,1           ; [] |109| <0,21> 
+     399 0000015c 42bc22e6  || [ B1]   LDW     .D2T2   *SP(4),B5         ; [B_D64P] |108| <1,0>  ^ 
+     400                    
+     401                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 109,column 17,is_stmt,
+     402 00000160     80c7             MV      .L2     B1,B4             ; [B_L674] |109| <0,23> Split a long life (split-join)
+     403 00000162     00cf             MV      .S2     B1,B0             ; [B_Sb674] |109| <0,24> Split a long life (split-join)
+     404 00000164 00000000             NOP             1                 ; [A_L674] 
+     405                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 108,column 13,is_stmt,
+     406 00000168 0398a842             ADD     .D2     B6,B5,B7          ; [B_D64P] |108| <1,5>  ^ 
+     407                    ;** --------------------------------------------------------------------------*
+     408 0000016c           $C$L10:    ; PIPED LOOP EPILOG
+     409                    ;** --------------------------------------------------------------------------*
+     410 0000016c           $C$L11:    
+     411                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 113,column 5,is_stmt,i
+     412 0000016c     bc0d             LDW     .D2T2   *SP(4),B0         ; [B_D64P] |113| 
+     413                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 119,column 1,is_stmt,i
+     414                    $C$DW$13        .dwtag  DW_TAG_TI_branch
+     415                            .dwattr $C$DW$13, DW_AT_low_pc(0x00)
+     416                            .dwattr $C$DW$13, DW_AT_TI_return
+     417                    
+     418 0000016e     61ef             RETNOP          B3,3              ; [] |119| 
+     419                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 115,column 9,is_stmt,i
+     420 00000170 347ca358     [!B0]   MVK     .L1     -1,A8             ; [A_L674] |115| 
+     421                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 118,column 5,is_stmt,i
+     422                    
+     423 00000178 02200fd8             MV      .L1     A8,A4             ; [A_L674] |118| 
+     424 00000174 07bd005b  ||         ADD     .L2     8,SP,SP           ; [B_L674] |119| 
+     425                    
+     426                            .dwcfi  cfa_offset, 0
+     427                            .dwpsn  file "C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c",line 119,column 1,is_stmt,i
+     428                               ; BRANCH OCCURS {B3}              ; [] |119| 
+     429                            .dwattr $C$DW$1, DW_AT_TI_end_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/drivers/psc.c")
+     430                            .dwattr $C$DW$1, DW_AT_TI_end_line(0x77)
+     431                            .dwattr $C$DW$1, DW_AT_TI_end_column(0x01)
+     432                            .dwendentry
+     433                            .dwendtag $C$DW$1
+     434                    
+     435                    
+     436                    ;******************************************************************************
+     437                    ;* BUILD ATTRIBUTES                                                           *
+     438                    ;******************************************************************************
+     439                            .battr "TI", Tag_File, 1, Tag_Long_Precision_Bits(2)
+     440                            .battr "TI", Tag_File, 1, Tag_Bitfield_layout(2)
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE    9
+
+     441                            .battr "TI", Tag_File, 1, Tag_ABI_enum_size(2)
+     442                            .battr "c6xabi", Tag_File, 1, Tag_ABI_wchar_t(1)
+     443                            .battr "c6xabi", Tag_File, 1, Tag_ABI_array_object_alignment(0)
+     444                            .battr "c6xabi", Tag_File, 1, Tag_ABI_array_object_align_expected(0)
+     445                            .battr "c6xabi", Tag_File, 1, Tag_ABI_PIC(0)
+     446                            .battr "c6xabi", Tag_File, 1, Tag_ABI_PID(0)
+     447                            .battr "c6xabi", Tag_File, 1, Tag_ABI_DSBT(0)
+     448                            .battr "c6xabi", Tag_File, 1, Tag_ABI_stack_align_needed(0)
+     449                            .battr "c6xabi", Tag_File, 1, Tag_ABI_stack_align_preserved(0)
+     450                            .battr "TI", Tag_File, 1, Tag_Tramps_Use_SOC(1)
+     451                    
+     452                    ;******************************************************************************
+     453                    ;* TYPE INFORMATION                                                           *
+     454                    ;******************************************************************************
+     455                    
+     456                    $C$DW$T$19      .dwtag  DW_TAG_enumeration_type
+     457                            .dwattr $C$DW$T$19, DW_AT_byte_size(0x04)
+     458                    $C$DW$14        .dwtag  DW_TAG_enumerator
+     459                            .dwattr $C$DW$14, DW_AT_name("HW_PSC_CC0")
+     460                            .dwattr $C$DW$14, DW_AT_const_value(0x00)
+     461                            .dwattr $C$DW$14, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     462                            .dwattr $C$DW$14, DW_AT_decl_line(0x3c)
+     463                            .dwattr $C$DW$14, DW_AT_decl_column(0x05)
+     464                    
+     465                    $C$DW$15        .dwtag  DW_TAG_enumerator
+     466                            .dwattr $C$DW$15, DW_AT_name("HW_PSC_TC0")
+     467                            .dwattr $C$DW$15, DW_AT_const_value(0x01)
+     468                            .dwattr $C$DW$15, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     469                            .dwattr $C$DW$15, DW_AT_decl_line(0x3d)
+     470                            .dwattr $C$DW$15, DW_AT_decl_column(0x05)
+     471                    
+     472                    $C$DW$16        .dwtag  DW_TAG_enumerator
+     473                            .dwattr $C$DW$16, DW_AT_name("HW_PSC_TC1")
+     474                            .dwattr $C$DW$16, DW_AT_const_value(0x02)
+     475                            .dwattr $C$DW$16, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     476                            .dwattr $C$DW$16, DW_AT_decl_line(0x3e)
+     477                            .dwattr $C$DW$16, DW_AT_decl_column(0x05)
+     478                    
+     479                    $C$DW$17        .dwtag  DW_TAG_enumerator
+     480                            .dwattr $C$DW$17, DW_AT_name("HW_PSC_EMIFA")
+     481                            .dwattr $C$DW$17, DW_AT_const_value(0x03)
+     482                            .dwattr $C$DW$17, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     483                            .dwattr $C$DW$17, DW_AT_decl_line(0x3f)
+     484                            .dwattr $C$DW$17, DW_AT_decl_column(0x05)
+     485                    
+     486                    $C$DW$18        .dwtag  DW_TAG_enumerator
+     487                            .dwattr $C$DW$18, DW_AT_name("HW_PSC_SPI0")
+     488                            .dwattr $C$DW$18, DW_AT_const_value(0x04)
+     489                            .dwattr $C$DW$18, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     490                            .dwattr $C$DW$18, DW_AT_decl_line(0x40)
+     491                            .dwattr $C$DW$18, DW_AT_decl_column(0x05)
+     492                    
+     493                    $C$DW$19        .dwtag  DW_TAG_enumerator
+     494                            .dwattr $C$DW$19, DW_AT_name("HW_PSC_MMCSD0")
+     495                            .dwattr $C$DW$19, DW_AT_const_value(0x05)
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE   10
+
+     496                            .dwattr $C$DW$19, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     497                            .dwattr $C$DW$19, DW_AT_decl_line(0x41)
+     498                            .dwattr $C$DW$19, DW_AT_decl_column(0x05)
+     499                    
+     500                    $C$DW$20        .dwtag  DW_TAG_enumerator
+     501                            .dwattr $C$DW$20, DW_AT_name("HW_PSC_AINTC")
+     502                            .dwattr $C$DW$20, DW_AT_const_value(0x06)
+     503                            .dwattr $C$DW$20, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     504                            .dwattr $C$DW$20, DW_AT_decl_line(0x42)
+     505                            .dwattr $C$DW$20, DW_AT_decl_column(0x05)
+     506                    
+     507                    $C$DW$21        .dwtag  DW_TAG_enumerator
+     508                            .dwattr $C$DW$21, DW_AT_name("HW_PSC_ARM_RAMROM")
+     509                            .dwattr $C$DW$21, DW_AT_const_value(0x07)
+     510                            .dwattr $C$DW$21, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     511                            .dwattr $C$DW$21, DW_AT_decl_line(0x43)
+     512                            .dwattr $C$DW$21, DW_AT_decl_column(0x05)
+     513                    
+     514                    $C$DW$22        .dwtag  DW_TAG_enumerator
+     515                            .dwattr $C$DW$22, DW_AT_name("HW_PSC_UART0")
+     516                            .dwattr $C$DW$22, DW_AT_const_value(0x09)
+     517                            .dwattr $C$DW$22, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     518                            .dwattr $C$DW$22, DW_AT_decl_line(0x44)
+     519                            .dwattr $C$DW$22, DW_AT_decl_column(0x05)
+     520                    
+     521                    $C$DW$23        .dwtag  DW_TAG_enumerator
+     522                            .dwattr $C$DW$23, DW_AT_name("HW_PSC_SCR0_SS")
+     523                            .dwattr $C$DW$23, DW_AT_const_value(0x0a)
+     524                            .dwattr $C$DW$23, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     525                            .dwattr $C$DW$23, DW_AT_decl_line(0x45)
+     526                            .dwattr $C$DW$23, DW_AT_decl_column(0x05)
+     527                    
+     528                    $C$DW$24        .dwtag  DW_TAG_enumerator
+     529                            .dwattr $C$DW$24, DW_AT_name("HW_PSC_SCR1_SS")
+     530                            .dwattr $C$DW$24, DW_AT_const_value(0x0b)
+     531                            .dwattr $C$DW$24, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     532                            .dwattr $C$DW$24, DW_AT_decl_line(0x46)
+     533                            .dwattr $C$DW$24, DW_AT_decl_column(0x05)
+     534                    
+     535                    $C$DW$25        .dwtag  DW_TAG_enumerator
+     536                            .dwattr $C$DW$25, DW_AT_name("HW_PSC_SCR2_SS")
+     537                            .dwattr $C$DW$25, DW_AT_const_value(0x0c)
+     538                            .dwattr $C$DW$25, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     539                            .dwattr $C$DW$25, DW_AT_decl_line(0x47)
+     540                            .dwattr $C$DW$25, DW_AT_decl_column(0x05)
+     541                    
+     542                    $C$DW$26        .dwtag  DW_TAG_enumerator
+     543                            .dwattr $C$DW$26, DW_AT_name("HW_PSC_PRU")
+     544                            .dwattr $C$DW$26, DW_AT_const_value(0x0d)
+     545                            .dwattr $C$DW$26, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     546                            .dwattr $C$DW$26, DW_AT_decl_line(0x48)
+     547                            .dwattr $C$DW$26, DW_AT_decl_column(0x05)
+     548                    
+     549                    $C$DW$27        .dwtag  DW_TAG_enumerator
+     550                            .dwattr $C$DW$27, DW_AT_name("HW_PSC_ARM")
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE   11
+
+     551                            .dwattr $C$DW$27, DW_AT_const_value(0x0e)
+     552                            .dwattr $C$DW$27, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     553                            .dwattr $C$DW$27, DW_AT_decl_line(0x49)
+     554                            .dwattr $C$DW$27, DW_AT_decl_column(0x05)
+     555                    
+     556                    $C$DW$28        .dwtag  DW_TAG_enumerator
+     557                            .dwattr $C$DW$28, DW_AT_name("HW_PSC_DSP")
+     558                            .dwattr $C$DW$28, DW_AT_const_value(0x0f)
+     559                            .dwattr $C$DW$28, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     560                            .dwattr $C$DW$28, DW_AT_decl_line(0x4a)
+     561                            .dwattr $C$DW$28, DW_AT_decl_column(0x05)
+     562                    
+     563                            .dwattr $C$DW$T$19, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C
+     564                            .dwattr $C$DW$T$19, DW_AT_decl_line(0x3b)
+     565                            .dwattr $C$DW$T$19, DW_AT_decl_column(0x0e)
+     566                            .dwendtag $C$DW$T$19
+     567                    
+     568                    $C$DW$T$20      .dwtag  DW_TAG_typedef
+     569                            .dwattr $C$DW$T$20, DW_AT_name("Psc0Peripheral")
+     570                            .dwattr $C$DW$T$20, DW_AT_type(*$C$DW$T$19)
+     571                            .dwattr $C$DW$T$20, DW_AT_language(DW_LANG_C)
+     572                            .dwattr $C$DW$T$20, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C
+     573                            .dwattr $C$DW$T$20, DW_AT_decl_line(0x4c)
+     574                            .dwattr $C$DW$T$20, DW_AT_decl_column(0x03)
+     575                    
+     576                    
+     577                    $C$DW$T$21      .dwtag  DW_TAG_enumeration_type
+     578                            .dwattr $C$DW$T$21, DW_AT_byte_size(0x04)
+     579                    $C$DW$29        .dwtag  DW_TAG_enumerator
+     580                            .dwattr $C$DW$29, DW_AT_name("HW_PSC_CC1")
+     581                            .dwattr $C$DW$29, DW_AT_const_value(0x00)
+     582                            .dwattr $C$DW$29, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     583                            .dwattr $C$DW$29, DW_AT_decl_line(0x4f)
+     584                            .dwattr $C$DW$29, DW_AT_decl_column(0x05)
+     585                    
+     586                    $C$DW$30        .dwtag  DW_TAG_enumerator
+     587                            .dwattr $C$DW$30, DW_AT_name("HW_PSC_USB0")
+     588                            .dwattr $C$DW$30, DW_AT_const_value(0x01)
+     589                            .dwattr $C$DW$30, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     590                            .dwattr $C$DW$30, DW_AT_decl_line(0x50)
+     591                            .dwattr $C$DW$30, DW_AT_decl_column(0x05)
+     592                    
+     593                    $C$DW$31        .dwtag  DW_TAG_enumerator
+     594                            .dwattr $C$DW$31, DW_AT_name("HW_PSC_USB1")
+     595                            .dwattr $C$DW$31, DW_AT_const_value(0x02)
+     596                            .dwattr $C$DW$31, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     597                            .dwattr $C$DW$31, DW_AT_decl_line(0x51)
+     598                            .dwattr $C$DW$31, DW_AT_decl_column(0x05)
+     599                    
+     600                    $C$DW$32        .dwtag  DW_TAG_enumerator
+     601                            .dwattr $C$DW$32, DW_AT_name("HW_PSC_GPIO")
+     602                            .dwattr $C$DW$32, DW_AT_const_value(0x03)
+     603                            .dwattr $C$DW$32, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     604                            .dwattr $C$DW$32, DW_AT_decl_line(0x52)
+     605                            .dwattr $C$DW$32, DW_AT_decl_column(0x05)
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE   12
+
+     606                    
+     607                    $C$DW$33        .dwtag  DW_TAG_enumerator
+     608                            .dwattr $C$DW$33, DW_AT_name("HW_PSC_UHPI")
+     609                            .dwattr $C$DW$33, DW_AT_const_value(0x04)
+     610                            .dwattr $C$DW$33, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     611                            .dwattr $C$DW$33, DW_AT_decl_line(0x53)
+     612                            .dwattr $C$DW$33, DW_AT_decl_column(0x05)
+     613                    
+     614                    $C$DW$34        .dwtag  DW_TAG_enumerator
+     615                            .dwattr $C$DW$34, DW_AT_name("HW_PSC_EMAC")
+     616                            .dwattr $C$DW$34, DW_AT_const_value(0x05)
+     617                            .dwattr $C$DW$34, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     618                            .dwattr $C$DW$34, DW_AT_decl_line(0x54)
+     619                            .dwattr $C$DW$34, DW_AT_decl_column(0x05)
+     620                    
+     621                    $C$DW$35        .dwtag  DW_TAG_enumerator
+     622                            .dwattr $C$DW$35, DW_AT_name("HW_PSC_DDR2_MDDR")
+     623                            .dwattr $C$DW$35, DW_AT_const_value(0x06)
+     624                            .dwattr $C$DW$35, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     625                            .dwattr $C$DW$35, DW_AT_decl_line(0x55)
+     626                            .dwattr $C$DW$35, DW_AT_decl_column(0x05)
+     627                    
+     628                    $C$DW$36        .dwtag  DW_TAG_enumerator
+     629                            .dwattr $C$DW$36, DW_AT_name("HW_PSC_MCASP0")
+     630                            .dwattr $C$DW$36, DW_AT_const_value(0x07)
+     631                            .dwattr $C$DW$36, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     632                            .dwattr $C$DW$36, DW_AT_decl_line(0x56)
+     633                            .dwattr $C$DW$36, DW_AT_decl_column(0x05)
+     634                    
+     635                    $C$DW$37        .dwtag  DW_TAG_enumerator
+     636                            .dwattr $C$DW$37, DW_AT_name("HW_PSC_SATA")
+     637                            .dwattr $C$DW$37, DW_AT_const_value(0x08)
+     638                            .dwattr $C$DW$37, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     639                            .dwattr $C$DW$37, DW_AT_decl_line(0x57)
+     640                            .dwattr $C$DW$37, DW_AT_decl_column(0x05)
+     641                    
+     642                    $C$DW$38        .dwtag  DW_TAG_enumerator
+     643                            .dwattr $C$DW$38, DW_AT_name("HW_PSC_VPIF")
+     644                            .dwattr $C$DW$38, DW_AT_const_value(0x09)
+     645                            .dwattr $C$DW$38, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     646                            .dwattr $C$DW$38, DW_AT_decl_line(0x58)
+     647                            .dwattr $C$DW$38, DW_AT_decl_column(0x05)
+     648                    
+     649                    $C$DW$39        .dwtag  DW_TAG_enumerator
+     650                            .dwattr $C$DW$39, DW_AT_name("HW_PSC_SPI1")
+     651                            .dwattr $C$DW$39, DW_AT_const_value(0x0a)
+     652                            .dwattr $C$DW$39, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     653                            .dwattr $C$DW$39, DW_AT_decl_line(0x59)
+     654                            .dwattr $C$DW$39, DW_AT_decl_column(0x05)
+     655                    
+     656                    $C$DW$40        .dwtag  DW_TAG_enumerator
+     657                            .dwattr $C$DW$40, DW_AT_name("HW_PSC_I2C1")
+     658                            .dwattr $C$DW$40, DW_AT_const_value(0x0b)
+     659                            .dwattr $C$DW$40, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     660                            .dwattr $C$DW$40, DW_AT_decl_line(0x5a)
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE   13
+
+     661                            .dwattr $C$DW$40, DW_AT_decl_column(0x05)
+     662                    
+     663                    $C$DW$41        .dwtag  DW_TAG_enumerator
+     664                            .dwattr $C$DW$41, DW_AT_name("HW_PSC_UART1")
+     665                            .dwattr $C$DW$41, DW_AT_const_value(0x0c)
+     666                            .dwattr $C$DW$41, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     667                            .dwattr $C$DW$41, DW_AT_decl_line(0x5b)
+     668                            .dwattr $C$DW$41, DW_AT_decl_column(0x05)
+     669                    
+     670                    $C$DW$42        .dwtag  DW_TAG_enumerator
+     671                            .dwattr $C$DW$42, DW_AT_name("HW_PSC_UART2")
+     672                            .dwattr $C$DW$42, DW_AT_const_value(0x0d)
+     673                            .dwattr $C$DW$42, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     674                            .dwattr $C$DW$42, DW_AT_decl_line(0x5c)
+     675                            .dwattr $C$DW$42, DW_AT_decl_column(0x05)
+     676                    
+     677                    $C$DW$43        .dwtag  DW_TAG_enumerator
+     678                            .dwattr $C$DW$43, DW_AT_name("HW_PSC_MCBSP0")
+     679                            .dwattr $C$DW$43, DW_AT_const_value(0x0e)
+     680                            .dwattr $C$DW$43, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     681                            .dwattr $C$DW$43, DW_AT_decl_line(0x5d)
+     682                            .dwattr $C$DW$43, DW_AT_decl_column(0x05)
+     683                    
+     684                    $C$DW$44        .dwtag  DW_TAG_enumerator
+     685                            .dwattr $C$DW$44, DW_AT_name("HW_PSC_MCBSP1")
+     686                            .dwattr $C$DW$44, DW_AT_const_value(0x0f)
+     687                            .dwattr $C$DW$44, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     688                            .dwattr $C$DW$44, DW_AT_decl_line(0x5e)
+     689                            .dwattr $C$DW$44, DW_AT_decl_column(0x05)
+     690                    
+     691                    $C$DW$45        .dwtag  DW_TAG_enumerator
+     692                            .dwattr $C$DW$45, DW_AT_name("HW_PSC_LCDC")
+     693                            .dwattr $C$DW$45, DW_AT_const_value(0x10)
+     694                            .dwattr $C$DW$45, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     695                            .dwattr $C$DW$45, DW_AT_decl_line(0x5f)
+     696                            .dwattr $C$DW$45, DW_AT_decl_column(0x05)
+     697                    
+     698                    $C$DW$46        .dwtag  DW_TAG_enumerator
+     699                            .dwattr $C$DW$46, DW_AT_name("HW_PSC_EHRPWM")
+     700                            .dwattr $C$DW$46, DW_AT_const_value(0x11)
+     701                            .dwattr $C$DW$46, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     702                            .dwattr $C$DW$46, DW_AT_decl_line(0x60)
+     703                            .dwattr $C$DW$46, DW_AT_decl_column(0x05)
+     704                    
+     705                    $C$DW$47        .dwtag  DW_TAG_enumerator
+     706                            .dwattr $C$DW$47, DW_AT_name("HW_PSC_MMCSD1")
+     707                            .dwattr $C$DW$47, DW_AT_const_value(0x12)
+     708                            .dwattr $C$DW$47, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     709                            .dwattr $C$DW$47, DW_AT_decl_line(0x61)
+     710                            .dwattr $C$DW$47, DW_AT_decl_column(0x05)
+     711                    
+     712                    $C$DW$48        .dwtag  DW_TAG_enumerator
+     713                            .dwattr $C$DW$48, DW_AT_name("HW_PSC_UPP")
+     714                            .dwattr $C$DW$48, DW_AT_const_value(0x13)
+     715                            .dwattr $C$DW$48, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE   14
+
+     716                            .dwattr $C$DW$48, DW_AT_decl_line(0x62)
+     717                            .dwattr $C$DW$48, DW_AT_decl_column(0x05)
+     718                    
+     719                    $C$DW$49        .dwtag  DW_TAG_enumerator
+     720                            .dwattr $C$DW$49, DW_AT_name("HW_PSC_ECAP0_1_2")
+     721                            .dwattr $C$DW$49, DW_AT_const_value(0x14)
+     722                            .dwattr $C$DW$49, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     723                            .dwattr $C$DW$49, DW_AT_decl_line(0x63)
+     724                            .dwattr $C$DW$49, DW_AT_decl_column(0x05)
+     725                    
+     726                    $C$DW$50        .dwtag  DW_TAG_enumerator
+     727                            .dwattr $C$DW$50, DW_AT_name("HW_PSC_TC2")
+     728                            .dwattr $C$DW$50, DW_AT_const_value(0x15)
+     729                            .dwattr $C$DW$50, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     730                            .dwattr $C$DW$50, DW_AT_decl_line(0x64)
+     731                            .dwattr $C$DW$50, DW_AT_decl_column(0x05)
+     732                    
+     733                    $C$DW$51        .dwtag  DW_TAG_enumerator
+     734                            .dwattr $C$DW$51, DW_AT_name("HW_PSC_SCRF0_SS")
+     735                            .dwattr $C$DW$51, DW_AT_const_value(0x18)
+     736                            .dwattr $C$DW$51, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     737                            .dwattr $C$DW$51, DW_AT_decl_line(0x65)
+     738                            .dwattr $C$DW$51, DW_AT_decl_column(0x05)
+     739                    
+     740                    $C$DW$52        .dwtag  DW_TAG_enumerator
+     741                            .dwattr $C$DW$52, DW_AT_name("HW_PSC_SCRF1_SS")
+     742                            .dwattr $C$DW$52, DW_AT_const_value(0x19)
+     743                            .dwattr $C$DW$52, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     744                            .dwattr $C$DW$52, DW_AT_decl_line(0x66)
+     745                            .dwattr $C$DW$52, DW_AT_decl_column(0x05)
+     746                    
+     747                    $C$DW$53        .dwtag  DW_TAG_enumerator
+     748                            .dwattr $C$DW$53, DW_AT_name("HW_PSC_SCRF2_SS")
+     749                            .dwattr $C$DW$53, DW_AT_const_value(0x1a)
+     750                            .dwattr $C$DW$53, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     751                            .dwattr $C$DW$53, DW_AT_decl_line(0x67)
+     752                            .dwattr $C$DW$53, DW_AT_decl_column(0x05)
+     753                    
+     754                    $C$DW$54        .dwtag  DW_TAG_enumerator
+     755                            .dwattr $C$DW$54, DW_AT_name("HW_PSC_SCRF6_SS")
+     756                            .dwattr $C$DW$54, DW_AT_const_value(0x1b)
+     757                            .dwattr $C$DW$54, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     758                            .dwattr $C$DW$54, DW_AT_decl_line(0x68)
+     759                            .dwattr $C$DW$54, DW_AT_decl_column(0x05)
+     760                    
+     761                    $C$DW$55        .dwtag  DW_TAG_enumerator
+     762                            .dwattr $C$DW$55, DW_AT_name("HW_PSC_SCRF7_SS")
+     763                            .dwattr $C$DW$55, DW_AT_const_value(0x1c)
+     764                            .dwattr $C$DW$55, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     765                            .dwattr $C$DW$55, DW_AT_decl_line(0x69)
+     766                            .dwattr $C$DW$55, DW_AT_decl_column(0x05)
+     767                    
+     768                    $C$DW$56        .dwtag  DW_TAG_enumerator
+     769                            .dwattr $C$DW$56, DW_AT_name("HW_PSC_SCRF8_SS")
+     770                            .dwattr $C$DW$56, DW_AT_const_value(0x1d)
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE   15
+
+     771                            .dwattr $C$DW$56, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     772                            .dwattr $C$DW$56, DW_AT_decl_line(0x6a)
+     773                            .dwattr $C$DW$56, DW_AT_decl_column(0x05)
+     774                    
+     775                    $C$DW$57        .dwtag  DW_TAG_enumerator
+     776                            .dwattr $C$DW$57, DW_AT_name("HW_PSC_BR_F7")
+     777                            .dwattr $C$DW$57, DW_AT_const_value(0x1e)
+     778                            .dwattr $C$DW$57, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     779                            .dwattr $C$DW$57, DW_AT_decl_line(0x6b)
+     780                            .dwattr $C$DW$57, DW_AT_decl_column(0x05)
+     781                    
+     782                    $C$DW$58        .dwtag  DW_TAG_enumerator
+     783                            .dwattr $C$DW$58, DW_AT_name("HW_PSC_SHRAM")
+     784                            .dwattr $C$DW$58, DW_AT_const_value(0x1f)
+     785                            .dwattr $C$DW$58, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C67
+     786                            .dwattr $C$DW$58, DW_AT_decl_line(0x6c)
+     787                            .dwattr $C$DW$58, DW_AT_decl_column(0x05)
+     788                    
+     789                            .dwattr $C$DW$T$21, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C
+     790                            .dwattr $C$DW$T$21, DW_AT_decl_line(0x4e)
+     791                            .dwattr $C$DW$T$21, DW_AT_decl_column(0x0e)
+     792                            .dwendtag $C$DW$T$21
+     793                    
+     794                    $C$DW$T$22      .dwtag  DW_TAG_typedef
+     795                            .dwattr $C$DW$T$22, DW_AT_name("Psc1Peripheral")
+     796                            .dwattr $C$DW$T$22, DW_AT_type(*$C$DW$T$21)
+     797                            .dwattr $C$DW$T$22, DW_AT_language(DW_LANG_C)
+     798                            .dwattr $C$DW$T$22, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_psc_C
+     799                            .dwattr $C$DW$T$22, DW_AT_decl_line(0x6d)
+     800                            .dwattr $C$DW$T$22, DW_AT_decl_column(0x03)
+     801                    
+     802                    $C$DW$T$2       .dwtag  DW_TAG_unspecified_type
+     803                            .dwattr $C$DW$T$2, DW_AT_name("void")
+     804                    
+     805                    $C$DW$T$4       .dwtag  DW_TAG_base_type
+     806                            .dwattr $C$DW$T$4, DW_AT_encoding(DW_ATE_boolean)
+     807                            .dwattr $C$DW$T$4, DW_AT_name("bool")
+     808                            .dwattr $C$DW$T$4, DW_AT_byte_size(0x01)
+     809                    
+     810                    $C$DW$T$5       .dwtag  DW_TAG_base_type
+     811                            .dwattr $C$DW$T$5, DW_AT_encoding(DW_ATE_signed_char)
+     812                            .dwattr $C$DW$T$5, DW_AT_name("signed char")
+     813                            .dwattr $C$DW$T$5, DW_AT_byte_size(0x01)
+     814                    
+     815                    $C$DW$T$6       .dwtag  DW_TAG_base_type
+     816                            .dwattr $C$DW$T$6, DW_AT_encoding(DW_ATE_unsigned_char)
+     817                            .dwattr $C$DW$T$6, DW_AT_name("unsigned char")
+     818                            .dwattr $C$DW$T$6, DW_AT_byte_size(0x01)
+     819                    
+     820                    $C$DW$T$23      .dwtag  DW_TAG_typedef
+     821                            .dwattr $C$DW$T$23, DW_AT_name("tBoolean")
+     822                            .dwattr $C$DW$T$23, DW_AT_type(*$C$DW$T$6)
+     823                            .dwattr $C$DW$T$23, DW_AT_language(DW_LANG_C)
+     824                            .dwattr $C$DW$T$23, DW_AT_decl_file("C:/ti/OMAPL138_StarterWare_1_10_04_01/include/hw/hw_types
+     825                            .dwattr $C$DW$T$23, DW_AT_decl_line(0x32)
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE   16
+
+     826                            .dwattr $C$DW$T$23, DW_AT_decl_column(0x17)
+     827                    
+     828                    $C$DW$T$7       .dwtag  DW_TAG_base_type
+     829                            .dwattr $C$DW$T$7, DW_AT_encoding(DW_ATE_signed_char)
+     830                            .dwattr $C$DW$T$7, DW_AT_name("wchar_t")
+     831                            .dwattr $C$DW$T$7, DW_AT_byte_size(0x02)
+     832                    
+     833                    $C$DW$T$8       .dwtag  DW_TAG_base_type
+     834                            .dwattr $C$DW$T$8, DW_AT_encoding(DW_ATE_signed)
+     835                            .dwattr $C$DW$T$8, DW_AT_name("short")
+     836                            .dwattr $C$DW$T$8, DW_AT_byte_size(0x02)
+     837                    
+     838                    $C$DW$T$9       .dwtag  DW_TAG_base_type
+     839                            .dwattr $C$DW$T$9, DW_AT_encoding(DW_ATE_unsigned)
+     840                            .dwattr $C$DW$T$9, DW_AT_name("unsigned short")
+     841                            .dwattr $C$DW$T$9, DW_AT_byte_size(0x02)
+     842                    
+     843                    $C$DW$T$10      .dwtag  DW_TAG_base_type
+     844                            .dwattr $C$DW$T$10, DW_AT_encoding(DW_ATE_signed)
+     845                            .dwattr $C$DW$T$10, DW_AT_name("int")
+     846                            .dwattr $C$DW$T$10, DW_AT_byte_size(0x04)
+     847                    
+     848                    $C$DW$T$11      .dwtag  DW_TAG_base_type
+     849                            .dwattr $C$DW$T$11, DW_AT_encoding(DW_ATE_unsigned)
+     850                            .dwattr $C$DW$T$11, DW_AT_name("unsigned int")
+     851                            .dwattr $C$DW$T$11, DW_AT_byte_size(0x04)
+     852                    
+     853                    $C$DW$T$25      .dwtag  DW_TAG_const_type
+     854                            .dwattr $C$DW$T$25, DW_AT_type(*$C$DW$T$11)
+     855                    
+     856                    $C$DW$T$26      .dwtag  DW_TAG_volatile_type
+     857                            .dwattr $C$DW$T$26, DW_AT_type(*$C$DW$T$11)
+     858                    
+     859                    $C$DW$T$12      .dwtag  DW_TAG_base_type
+     860                            .dwattr $C$DW$T$12, DW_AT_encoding(DW_ATE_signed)
+     861                            .dwattr $C$DW$T$12, DW_AT_name("__int40_t")
+     862                            .dwattr $C$DW$T$12, DW_AT_byte_size(0x08)
+     863                            .dwattr $C$DW$T$12, DW_AT_bit_size(0x28)
+     864                            .dwattr $C$DW$T$12, DW_AT_bit_offset(0x18)
+     865                    
+     866                    $C$DW$T$13      .dwtag  DW_TAG_base_type
+     867                            .dwattr $C$DW$T$13, DW_AT_encoding(DW_ATE_unsigned)
+     868                            .dwattr $C$DW$T$13, DW_AT_name("unsigned __int40_t")
+     869                            .dwattr $C$DW$T$13, DW_AT_byte_size(0x08)
+     870                            .dwattr $C$DW$T$13, DW_AT_bit_size(0x28)
+     871                            .dwattr $C$DW$T$13, DW_AT_bit_offset(0x18)
+     872                    
+     873                    $C$DW$T$14      .dwtag  DW_TAG_base_type
+     874                            .dwattr $C$DW$T$14, DW_AT_encoding(DW_ATE_signed)
+     875                            .dwattr $C$DW$T$14, DW_AT_name("long long")
+     876                            .dwattr $C$DW$T$14, DW_AT_byte_size(0x08)
+     877                    
+     878                    $C$DW$T$15      .dwtag  DW_TAG_base_type
+     879                            .dwattr $C$DW$T$15, DW_AT_encoding(DW_ATE_unsigned)
+     880                            .dwattr $C$DW$T$15, DW_AT_name("unsigned long long")
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE   17
+
+     881                            .dwattr $C$DW$T$15, DW_AT_byte_size(0x08)
+     882                    
+     883                    $C$DW$T$16      .dwtag  DW_TAG_base_type
+     884                            .dwattr $C$DW$T$16, DW_AT_encoding(DW_ATE_float)
+     885                            .dwattr $C$DW$T$16, DW_AT_name("float")
+     886                            .dwattr $C$DW$T$16, DW_AT_byte_size(0x04)
+     887                    
+     888                    $C$DW$T$17      .dwtag  DW_TAG_base_type
+     889                            .dwattr $C$DW$T$17, DW_AT_encoding(DW_ATE_float)
+     890                            .dwattr $C$DW$T$17, DW_AT_name("double")
+     891                            .dwattr $C$DW$T$17, DW_AT_byte_size(0x08)
+     892                    
+     893                    $C$DW$T$18      .dwtag  DW_TAG_base_type
+     894                            .dwattr $C$DW$T$18, DW_AT_encoding(DW_ATE_float)
+     895                            .dwattr $C$DW$T$18, DW_AT_name("long double")
+     896                            .dwattr $C$DW$T$18, DW_AT_byte_size(0x08)
+     897                    
+     898                    
+     899                    $C$DW$T$39      .dwtag  DW_TAG_array_type
+     900                            .dwattr $C$DW$T$39, DW_AT_type(*$C$DW$T$5)
+     901                            .dwattr $C$DW$T$39, DW_AT_byte_size(0x02)
+     902                    $C$DW$59        .dwtag  DW_TAG_subrange_type
+     903                            .dwattr $C$DW$59, DW_AT_upper_bound(0x01)
+     904                    
+     905                            .dwendtag $C$DW$T$39
+     906                    
+     907                    
+     908                    $C$DW$T$40      .dwtag  DW_TAG_array_type
+     909                            .dwattr $C$DW$T$40, DW_AT_type(*$C$DW$T$8)
+     910                            .dwattr $C$DW$T$40, DW_AT_byte_size(0x04)
+     911                    $C$DW$60        .dwtag  DW_TAG_subrange_type
+     912                            .dwattr $C$DW$60, DW_AT_upper_bound(0x01)
+     913                    
+     914                            .dwendtag $C$DW$T$40
+     915                    
+     916                    
+     917                    $C$DW$T$41      .dwtag  DW_TAG_array_type
+     918                            .dwattr $C$DW$T$41, DW_AT_type(*$C$DW$T$10)
+     919                            .dwattr $C$DW$T$41, DW_AT_byte_size(0x08)
+     920                    $C$DW$61        .dwtag  DW_TAG_subrange_type
+     921                            .dwattr $C$DW$61, DW_AT_upper_bound(0x01)
+     922                    
+     923                            .dwendtag $C$DW$T$41
+     924                    
+     925                    
+     926                    $C$DW$T$42      .dwtag  DW_TAG_array_type
+     927                            .dwattr $C$DW$T$42, DW_AT_type(*$C$DW$T$12)
+     928                            .dwattr $C$DW$T$42, DW_AT_byte_size(0x0a)
+     929                    $C$DW$62        .dwtag  DW_TAG_subrange_type
+     930                            .dwattr $C$DW$62, DW_AT_upper_bound(0x01)
+     931                    
+     932                            .dwendtag $C$DW$T$42
+     933                    
+     934                    
+     935                    $C$DW$T$43      .dwtag  DW_TAG_array_type
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE   18
+
+     936                            .dwattr $C$DW$T$43, DW_AT_type(*$C$DW$T$14)
+     937                            .dwattr $C$DW$T$43, DW_AT_byte_size(0x10)
+     938                    $C$DW$63        .dwtag  DW_TAG_subrange_type
+     939                            .dwattr $C$DW$63, DW_AT_upper_bound(0x01)
+     940                    
+     941                            .dwendtag $C$DW$T$43
+     942                    
+     943                    
+     944                    $C$DW$T$44      .dwtag  DW_TAG_array_type
+     945                            .dwattr $C$DW$T$44, DW_AT_type(*$C$DW$T$16)
+     946                            .dwattr $C$DW$T$44, DW_AT_byte_size(0x08)
+     947                    $C$DW$64        .dwtag  DW_TAG_subrange_type
+     948                            .dwattr $C$DW$64, DW_AT_upper_bound(0x01)
+     949                    
+     950                            .dwendtag $C$DW$T$44
+     951                    
+     952                    
+     953                    $C$DW$T$45      .dwtag  DW_TAG_array_type
+     954                            .dwattr $C$DW$T$45, DW_AT_type(*$C$DW$T$17)
+     955                            .dwattr $C$DW$T$45, DW_AT_byte_size(0x10)
+     956                    $C$DW$65        .dwtag  DW_TAG_subrange_type
+     957                            .dwattr $C$DW$65, DW_AT_upper_bound(0x01)
+     958                    
+     959                            .dwendtag $C$DW$T$45
+     960                    
+     961                            .dwattr $C$DW$CU, DW_AT_language(DW_LANG_C)
+     962                    
+     963                    ;***************************************************************
+     964                    ;* DWARF CIE ENTRIES                                           *
+     965                    ;***************************************************************
+     966                    
+     967                    $C$DW$CIE       .dwcie 19
+     968                            .dwcfi  cfa_register, 31
+     969                            .dwcfi  cfa_offset, 0
+     970                            .dwcfi  undefined, 0
+     971                            .dwcfi  undefined, 1
+     972                            .dwcfi  undefined, 2
+     973                            .dwcfi  undefined, 3
+     974                            .dwcfi  undefined, 4
+     975                            .dwcfi  undefined, 5
+     976                            .dwcfi  undefined, 6
+     977                            .dwcfi  undefined, 7
+     978                            .dwcfi  undefined, 8
+     979                            .dwcfi  undefined, 9
+     980                            .dwcfi  same_value, 10
+     981                            .dwcfi  same_value, 11
+     982                            .dwcfi  same_value, 12
+     983                            .dwcfi  same_value, 13
+     984                            .dwcfi  same_value, 14
+     985                            .dwcfi  same_value, 15
+     986                            .dwcfi  undefined, 32
+     987                            .dwcfi  undefined, 37
+     988                            .dwcfi  undefined, 38
+     989                            .dwcfi  undefined, 39
+     990                            .dwcfi  undefined, 40
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE   19
+
+     991                            .dwcfi  undefined, 41
+     992                            .dwcfi  undefined, 42
+     993                            .dwcfi  undefined, 43
+     994                            .dwcfi  undefined, 44
+     995                            .dwcfi  undefined, 45
+     996                            .dwcfi  undefined, 46
+     997                            .dwcfi  undefined, 47
+     998                            .dwcfi  undefined, 48
+     999                            .dwcfi  undefined, 49
+    1000                            .dwcfi  undefined, 50
+    1001                            .dwcfi  undefined, 51
+    1002                            .dwcfi  undefined, 52
+    1003                            .dwcfi  undefined, 16
+    1004                            .dwcfi  undefined, 17
+    1005                            .dwcfi  undefined, 18
+    1006                            .dwcfi  undefined, 19
+    1007                            .dwcfi  undefined, 20
+    1008                            .dwcfi  undefined, 21
+    1009                            .dwcfi  undefined, 22
+    1010                            .dwcfi  undefined, 23
+    1011                            .dwcfi  undefined, 24
+    1012                            .dwcfi  undefined, 25
+    1013                            .dwcfi  same_value, 26
+    1014                            .dwcfi  same_value, 27
+    1015                            .dwcfi  same_value, 28
+    1016                            .dwcfi  same_value, 29
+    1017                            .dwcfi  same_value, 30
+    1018                            .dwcfi  same_value, 31
+    1019                            .dwcfi  undefined, 53
+    1020                            .dwcfi  undefined, 54
+    1021                            .dwcfi  undefined, 55
+    1022                            .dwcfi  undefined, 56
+    1023                            .dwcfi  undefined, 57
+    1024                            .dwcfi  undefined, 58
+    1025                            .dwcfi  undefined, 59
+    1026                            .dwcfi  undefined, 60
+    1027                            .dwcfi  undefined, 61
+    1028                            .dwcfi  undefined, 62
+    1029                            .dwcfi  undefined, 63
+    1030                            .dwcfi  undefined, 64
+    1031                            .dwcfi  undefined, 65
+    1032                            .dwcfi  undefined, 66
+    1033                            .dwcfi  undefined, 67
+    1034                            .dwcfi  undefined, 68
+    1035                            .dwcfi  undefined, 33
+    1036                            .dwcfi  undefined, 34
+    1037                            .dwcfi  undefined, 35
+    1038                            .dwcfi  undefined, 36
+    1039                            .dwcfi  undefined, 70
+    1040                            .dwcfi  undefined, 70
+    1041                            .dwcfi  undefined, 91
+    1042                            .dwcfi  undefined, 70
+    1043                            .dwcfi  undefined, 69
+    1044                            .dwcfi  undefined, 71
+    1045                            .dwcfi  undefined, 72
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE   20
+
+    1046                            .dwcfi  undefined, 73
+    1047                            .dwcfi  undefined, 74
+    1048                            .dwcfi  undefined, 75
+    1049                            .dwcfi  undefined, 76
+    1050                            .dwcfi  undefined, 77
+    1051                            .dwcfi  undefined, 78
+    1052                            .dwcfi  undefined, 79
+    1053                            .dwcfi  undefined, 80
+    1054                            .dwcfi  undefined, 81
+    1055                            .dwcfi  undefined, 82
+    1056                            .dwcfi  undefined, 83
+    1057                            .dwcfi  undefined, 84
+    1058                            .dwcfi  undefined, 85
+    1059                            .dwcfi  undefined, 86
+    1060                            .dwcfi  undefined, 87
+    1061                            .dwcfi  undefined, 88
+    1062                            .dwcfi  undefined, 89
+    1063                            .dwcfi  undefined, 90
+    1064                            .dwcfi  undefined, 92
+    1065                            .dwcfi  undefined, 93
+    1066                            .dwcfi  undefined, 94
+    1067                            .dwcfi  undefined, 95
+    1068                            .dwcfi  undefined, 96
+    1069                            .dwcfi  undefined, 97
+    1070                            .dwcfi  undefined, 98
+    1071                            .dwcfi  undefined, 99
+    1072                            .dwcfi  undefined, 100
+    1073                            .dwcfi  undefined, 101
+    1074                            .dwcfi  undefined, 102
+    1075                            .dwcfi  undefined, 103
+    1076                            .dwcfi  undefined, 104
+    1077                            .dwcfi  undefined, 105
+    1078                            .dwcfi  undefined, 106
+    1079                            .dwcfi  undefined, 107
+    1080                            .dwcfi  undefined, 108
+    1081                            .dwcfi  undefined, 109
+    1082                            .dwcfi  undefined, 110
+    1083                            .dwcfi  undefined, 111
+    1084                            .dwcfi  undefined, 112
+    1085                            .dwcfi  undefined, 113
+    1086                            .dwcfi  undefined, 114
+    1087                            .dwcfi  undefined, 115
+    1088                            .dwcfi  undefined, 116
+    1089                            .dwcfi  undefined, 117
+    1090                            .dwcfi  undefined, 118
+    1091                            .dwcfi  undefined, 119
+    1092                            .dwcfi  undefined, 120
+    1093                            .dwcfi  undefined, 121
+    1094                            .dwcfi  undefined, 122
+    1095                            .dwcfi  undefined, 123
+    1096                            .dwcfi  undefined, 124
+    1097                            .dwcfi  undefined, 125
+    1098                            .dwcfi  undefined, 126
+    1099                            .dwcfi  undefined, 127
+    1100                            .dwendentry
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:39 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+psc.asm                                                              PAGE   21
+
+    1101                            .dwendtag $C$DW$CU
+    1102                    
+
+No Assembly Errors, No Assembly Warnings

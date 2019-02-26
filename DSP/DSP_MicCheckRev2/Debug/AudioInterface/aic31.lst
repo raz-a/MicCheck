@@ -1,0 +1,2077 @@
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE    1
+
+       1                    ;******************************************************************************
+       2                    ;* G3 TMS320C6x C/C++ Codegen                                       PC v8.1.3 *
+       3                    ;* Date/Time created: Fri Apr 14 08:40:19 2017                                *
+       4                    ;******************************************************************************
+       5                            .compiler_opts --abi=eabi --array_alignment=8 --diag_wrap=off --endian=little --hll_source=on 
+       6                    
+       7                    ;******************************************************************************
+       8                    ;* GLOBAL FILE PARAMETERS                                                     *
+       9                    ;*                                                                            *
+      10                    ;*   Architecture      : TMS320C674x                                          *
+      11                    ;*   Optimization      : Enabled at level 3                                   *
+      12                    ;*   Optimizing for    : Speed                                                *
+      13                    ;*                       Based on options: -o3, no -ms                        *
+      14                    ;*   Endian            : Little                                               *
+      15                    ;*   Interrupt Thrshld : Disabled                                             *
+      16                    ;*   Data Access Model : Far Aggregate Data                                   *
+      17                    ;*   Pipelining        : Enabled                                              *
+      18                    ;*   Speculate Loads   : Enabled with threshold = 0                           *
+      19                    ;*   Memory Aliases    : Presume are aliases (pessimistic)                    *
+      20                    ;*   Debug Info        : DWARF Debug                                          *
+      21                    ;*                                                                            *
+      22                    ;******************************************************************************
+      23                    
+      24                            .asg    A15, FP
+      25                            .asg    B14, DP
+      26                            .asg    B15, SP
+      27                            .global $bss
+      28                    
+      29                    
+      30                    $C$DW$CU        .dwtag  DW_TAG_compile_unit
+      31                            .dwattr $C$DW$CU, DW_AT_name("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInter
+      32                            .dwattr $C$DW$CU, DW_AT_producer("TI G3 TMS320C6x C/C++ Codegen PC v8.1.3 Copyright (c) 1996-2
+      33                            .dwattr $C$DW$CU, DW_AT_TI_version(0x01)
+      34                            .dwattr $C$DW$CU, DW_AT_comp_dir("C:\Users\Raz Aloni\OneDrive\School\EEL4924\DSP\DSP_Workspace
+      35                    
+      36                    $C$DW$1 .dwtag  DW_TAG_subprogram
+      37                            .dwattr $C$DW$1, DW_AT_name("CodecRegWrite")
+      38                            .dwattr $C$DW$1, DW_AT_TI_symbol_name("CodecRegWrite")
+      39                            .dwattr $C$DW$1, DW_AT_declaration
+      40                            .dwattr $C$DW$1, DW_AT_external
+      41                            .dwattr $C$DW$1, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioI
+      42                            .dwattr $C$DW$1, DW_AT_decl_line(0x3a)
+      43                            .dwattr $C$DW$1, DW_AT_decl_column(0x0d)
+      44                    $C$DW$2 .dwtag  DW_TAG_formal_parameter
+      45                            .dwattr $C$DW$2, DW_AT_type(*$C$DW$T$11)
+      46                    
+      47                    $C$DW$3 .dwtag  DW_TAG_formal_parameter
+      48                            .dwattr $C$DW$3, DW_AT_type(*$C$DW$T$6)
+      49                    
+      50                    $C$DW$4 .dwtag  DW_TAG_formal_parameter
+      51                            .dwattr $C$DW$4, DW_AT_type(*$C$DW$T$6)
+      52                    
+      53                            .dwendtag $C$DW$1
+      54                    
+      55                    
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE    2
+
+      56                    $C$DW$5 .dwtag  DW_TAG_subprogram
+      57                            .dwattr $C$DW$5, DW_AT_name("CodecRegBitClr")
+      58                            .dwattr $C$DW$5, DW_AT_TI_symbol_name("CodecRegBitClr")
+      59                            .dwattr $C$DW$5, DW_AT_declaration
+      60                            .dwattr $C$DW$5, DW_AT_external
+      61                            .dwattr $C$DW$5, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioI
+      62                            .dwattr $C$DW$5, DW_AT_decl_line(0x3e)
+      63                            .dwattr $C$DW$5, DW_AT_decl_column(0x0d)
+      64                    $C$DW$6 .dwtag  DW_TAG_formal_parameter
+      65                            .dwattr $C$DW$6, DW_AT_type(*$C$DW$T$11)
+      66                    
+      67                    $C$DW$7 .dwtag  DW_TAG_formal_parameter
+      68                            .dwattr $C$DW$7, DW_AT_type(*$C$DW$T$6)
+      69                    
+      70                    $C$DW$8 .dwtag  DW_TAG_formal_parameter
+      71                            .dwattr $C$DW$8, DW_AT_type(*$C$DW$T$6)
+      72                    
+      73                            .dwendtag $C$DW$5
+      74                    
+      75                    ;       C:\ti\ccsv7\tools\compiler\ti-cgt-c6000_8.1.3\bin\opt6x.exe C:\\Users\\RAZALO~1\\AppData\\Loca
+      76 00000000                   .sect   ".text"
+      77                            .clink
+      78                            .global AIC31SampleRateConfig
+      79                    
+      80                    $C$DW$9 .dwtag  DW_TAG_subprogram
+      81                            .dwattr $C$DW$9, DW_AT_name("AIC31SampleRateConfig")
+      82                            .dwattr $C$DW$9, DW_AT_low_pc(AIC31SampleRateConfig)
+      83                            .dwattr $C$DW$9, DW_AT_high_pc(0x00)
+      84                            .dwattr $C$DW$9, DW_AT_TI_symbol_name("AIC31SampleRateConfig")
+      85                            .dwattr $C$DW$9, DW_AT_external
+      86                            .dwattr $C$DW$9, DW_AT_TI_begin_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Au
+      87                            .dwattr $C$DW$9, DW_AT_TI_begin_line(0xfd)
+      88                            .dwattr $C$DW$9, DW_AT_TI_begin_column(0x06)
+      89                            .dwattr $C$DW$9, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioI
+      90                            .dwattr $C$DW$9, DW_AT_decl_line(0xfd)
+      91                            .dwattr $C$DW$9, DW_AT_decl_column(0x06)
+      92                            .dwattr $C$DW$9, DW_AT_TI_max_frame_size(0x20)
+      93                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+      94                    
+      95                            .dwfde $C$DW$CIE, AIC31SampleRateConfig
+      96                    $C$DW$10        .dwtag  DW_TAG_formal_parameter
+      97                            .dwattr $C$DW$10, DW_AT_name("baseAddr")
+      98                            .dwattr $C$DW$10, DW_AT_TI_symbol_name("baseAddr")
+      99                            .dwattr $C$DW$10, DW_AT_type(*$C$DW$T$11)
+     100                            .dwattr $C$DW$10, DW_AT_location[DW_OP_reg4]
+     101                    
+     102                    $C$DW$11        .dwtag  DW_TAG_formal_parameter
+     103                            .dwattr $C$DW$11, DW_AT_name("mode")
+     104                            .dwattr $C$DW$11, DW_AT_TI_symbol_name("mode")
+     105                            .dwattr $C$DW$11, DW_AT_type(*$C$DW$T$11)
+     106                            .dwattr $C$DW$11, DW_AT_location[DW_OP_reg20]
+     107                    
+     108                    $C$DW$12        .dwtag  DW_TAG_formal_parameter
+     109                            .dwattr $C$DW$12, DW_AT_name("sampleRate")
+     110                            .dwattr $C$DW$12, DW_AT_TI_symbol_name("sampleRate")
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE    3
+
+     111                            .dwattr $C$DW$12, DW_AT_type(*$C$DW$T$11)
+     112                            .dwattr $C$DW$12, DW_AT_location[DW_OP_reg6]
+     113                    
+     114                    
+     115                    ;******************************************************************************
+     116                    ;* FUNCTION NAME: AIC31SampleRateConfig                                       *
+     117                    ;*                                                                            *
+     118                    ;*   Regs Modified     : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A16,   *
+     119                    ;*                           A17,A18,A19,A20,A21,A22,A23,A24,A25,A26,A27,A28, *
+     120                    ;*                           A29,A30,A31,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,   *
+     121                    ;*                           B11,SP,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,  *
+     122                    ;*                           B26,B27,B28,B29,B30,B31                          *
+     123                    ;*   Regs Used         : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A16,   *
+     124                    ;*                           A17,A18,A19,A20,A21,A22,A23,A24,A25,A26,A27,A28, *
+     125                    ;*                           A29,A30,A31,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,   *
+     126                    ;*                           B11,DP,SP,B16,B17,B18,B19,B20,B21,B22,B23,B24,   *
+     127                    ;*                           B25,B26,B27,B28,B29,B30,B31                      *
+     128                    ;*   Local Frame Size  : 0 Args + 0 Auto + 32 Save = 32 byte                  *
+     129                    ;******************************************************************************
+     130                    AIC31SampleRateConfig:
+     131                    ;** --------------------------------------------------------------------------*
+     132                    $C$DW$13        .dwtag  DW_TAG_variable
+     133                            .dwattr $C$DW$13, DW_AT_name("mode")
+     134                            .dwattr $C$DW$13, DW_AT_TI_symbol_name("mode")
+     135                            .dwattr $C$DW$13, DW_AT_type(*$C$DW$T$26)
+     136                            .dwattr $C$DW$13, DW_AT_location[DW_OP_reg20]
+     137                    
+     138                    $C$DW$14        .dwtag  DW_TAG_variable
+     139                            .dwattr $C$DW$14, DW_AT_name("baseAddr")
+     140                            .dwattr $C$DW$14, DW_AT_TI_symbol_name("baseAddr")
+     141                            .dwattr $C$DW$14, DW_AT_type(*$C$DW$T$26)
+     142                            .dwattr $C$DW$14, DW_AT_location[DW_OP_reg10]
+     143                    
+     144                    $C$DW$15        .dwtag  DW_TAG_variable
+     145                            .dwattr $C$DW$15, DW_AT_name("fs")
+     146                            .dwattr $C$DW$15, DW_AT_TI_symbol_name("fs")
+     147                            .dwattr $C$DW$15, DW_AT_type(*$C$DW$T$6)
+     148                            .dwattr $C$DW$15, DW_AT_location[DW_OP_reg21]
+     149                    
+     150                    $C$DW$16        .dwtag  DW_TAG_variable
+     151                            .dwattr $C$DW$16, DW_AT_name("ref")
+     152                            .dwattr $C$DW$16, DW_AT_TI_symbol_name("ref")
+     153                            .dwattr $C$DW$16, DW_AT_type(*$C$DW$T$6)
+     154                            .dwattr $C$DW$16, DW_AT_location[DW_OP_reg11]
+     155                    
+     156                    $C$DW$17        .dwtag  DW_TAG_variable
+     157                            .dwattr $C$DW$17, DW_AT_name("pllJval")
+     158                            .dwattr $C$DW$17, DW_AT_TI_symbol_name("pllJval")
+     159                            .dwattr $C$DW$17, DW_AT_type(*$C$DW$T$6)
+     160                            .dwattr $C$DW$17, DW_AT_location[DW_OP_reg12]
+     161                    
+     162                    $C$DW$18        .dwtag  DW_TAG_variable
+     163                            .dwattr $C$DW$18, DW_AT_name("pllDval")
+     164                            .dwattr $C$DW$18, DW_AT_TI_symbol_name("pllDval")
+     165                            .dwattr $C$DW$18, DW_AT_type(*$C$DW$T$9)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE    4
+
+     166                            .dwattr $C$DW$18, DW_AT_location[DW_OP_reg26]
+     167                    
+     168                            .dwcfi  cfa_offset, 0
+     169                    
+     170 00000000 02aee02b             MVK     .S2     24000,B5          ; [B_Sb674] |265| 
+     171 0000000c     25f7  ||         STW     .D2T1   A11,*SP++(-8)     ; [B_D64P] |255| 
+     172 00000008 01be8029  ||         MVK     .S1     32000,A3          ; [A_S674] |265| 
+     173 00000004 05a8a359  ||         MVK     .L1     10,A11            ; [A_L674] |257| 
+     174                            .dwcfi  cfa_offset, 8
+     175                            .dwcfi  save_reg_to_mem, 11, 0
+     176                    
+     177 0000000e     bf19             CMPGT   .L2X    A6,B5,B1          ; [B_L674] |265| 
+     178 00000010     9577  ||         STDW    .D2T2   B11:B10,*SP++(-8) ; [B_D64P] |255| 
+     179 00000012     c5e8  ||         CMPEQ   .L1     A6,A3,A0          ; [A_L674] |265| 
+     180 00000014 0500002a  ||         ZERO    .S2     B10               ; [B_Sb674] |262| 
+     181                            .dwcfi  cfa_offset, 16
+     182                            .dwcfi  save_reg_to_mem, 27, -4
+     183                            .dwcfi  save_reg_to_mem, 26, -8
+     184                    
+     185 00000018 40001a93     [ B1]   B       .S2     $C$L1             ; [B_Sb674] |265| 
+     186 00000020     b769  ||         CMPEQ   .L2X    A6,B5,B0          ; [B_L674] |265| 
+     187 00000022     8677  ||         STDW    .D2T1   A13:A12,*SP++(-8) ; [B_D64P] |255| 
+     188 00000024 5000a359  || [!B1]   ZERO    .L1     A0                ; [A_L674] nullify predicate
+     189 00000028 518fa029  || [!B1]   MVK     .S1     8000,A3           ; [A_S674] |265| 
+     190 0000002c     b5d6  ||         MV      .D1X    B3,A13            ; [A_D64P] |255| 
+     191                            .dwcfi  cfa_offset, 24
+     192                            .dwcfi  save_reg_to_mem, 13, -12
+     193                            .dwcfi  save_reg_to_mem, 12, -16
+     194                            .dwcfi  save_reg_to_reg, 19, 13
+     195                    
+     196 00000034 4000a35b     [ B1]   ZERO    .L2     B0                ; [B_L674] nullify predicate
+     197 00000030 508cca79  || [!B1]   CMPEQ   .L1     A6,A3,A1          ; [A_L674] |265| 
+     198 0000002e     2577  ||         STW     .D2T1   A10,*SP++(-8)     ; [B_D64P] |255| 
+     199 00000038 5280112b  || [!B1]   MVK     .S2     0x22,B5           ; [B_Sb674] |290| 
+     200 00000040 41d62229  || [ B1]   MVKL    .S1     0xac44,A3         ; [A_S674] |265| 
+     201 00000044 051008f0  ||         MV      .D1     A4,A10            ; [A_D64P] |255| 
+     202                    
+     203                            .dwcfi  cfa_offset, 32
+     204                            .dwcfi  save_reg_to_mem, 10, -24
+     205                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     206                    
+     207 00000048 20002011     [ B0]   B       .S1     $C$L7             ; [A_S674] |265| 
+     208 0000004c 5580332a  || [!B1]   MVK     .S2     0x66,B11          ; [B_Sb674] 
+     209                    
+     210 00000050 c0002011     [ A0]   B       .S1     $C$L7             ; [A_S674] |265| 
+     211 00000054 428008aa  || [ B1]   MVK     .S2     0x11,B5           ; [B_Sb674] |294| 
+     212                    
+     213 00000058 41800069     [ B1]   MVKH    .S1     0xac44,A3         ; [A_S674] |265| 
+     214 0000005c 4580332a  || [ B1]   MVK     .S2     0x66,B11          ; [B_Sb674] 
+     215                    
+     216                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     217                    
+     218 00000060 06000829             MVK     .S1     0x10,A12          ; [A_S674] |261| 
+     219 00000064 408cca78  || [ B1]   CMPEQ   .L1     A6,A3,A1          ; [A_L674] |265| 
+     220                    
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE    5
+
+     221                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     222                               ; BRANCHCC OCCURS {$C$L1}         ; [] |265| 
+     223                    ;** --------------------------------------------------------------------------*
+     224                    
+     225 00000068 2080a359     [ B0]   ZERO    .L1     A1                ; [A_L674] |268| nullify predicate
+     226 0000006c 319588a9  || [!B0]   MVK     .S1     11025,A3          ; [A_S674] |265| 
+     227 00000070 3280552a  || [!B0]   MVK     .S2     0xaa,B5           ; [B_Sb674] |268| 
+     228                    
+     229 00000074 80001c11     [ A1]   B       .S1     $C$L7             ; [A_S674] |265| 
+     230 00000078 300cca78  || [!B0]   CMPEQ   .L1     A6,A3,A0          ; [A_L674] |265| 
+     231                    
+     232                               ; BRANCHCC OCCURS {$C$L7}         ; [] |265| 
+     233                    ;** --------------------------------------------------------------------------*
+     234                    
+     235 0000007c 01040fd9             MV      .L1     A1,A2             ; [A_L674] guard predicate rewrite
+     236 00000080 919f4028  || [!A1]   MVK     .S1     16000,A3          ; [A_S674] |265| 
+     237                    
+     238 00000084 a0000029     [ A2]   ZERO    .S1     A0                ; [A_S674] |272| nullify predicate
+     239 00000088 908cca79  || [!A1]   CMPEQ   .L1     A6,A3,A1          ; [A_L674] |265| 
+     240 0000008c b2af180a  || [!A2]   EXTU    .S2     B11,24,24,B5      ; [B_Sb674] |272| 
+     241                    
+     242 00000090 c02c4120     [ A0]   BNOP            $C$L6,2           ; [] |265| 
+     243                               ; BRANCHCC OCCURS {$C$L7}         ; [] |265| 
+     244                    ;** --------------------------------------------------------------------------*
+     245                    
+     246 00000094 01000fd9             MV      .L1     A0,A2             ; [A_L674] guard predicate rewrite
+     247 00000098 d1ab1128  || [!A0]   MVK     .S1     22050,A3          ; [A_S674] |265| 
+     248                    
+     249 0000009c a0800029     [ A2]   ZERO    .S1     A1                ; [A_S674] |279| nullify predicate
+     250 000000a0 b280222b  || [!A2]   MVK     .S2     0x44,B5           ; [B_Sb674] |279| 
+     251 000000a4 d00cca78  || [!A0]   CMPEQ   .L1     A6,A3,A0          ; [A_L674] |265| 
+     252                    
+     253 000000a8 80001410     [ A1]   B       .S1     $C$L7             ; [A_S674] |265| 
+     254                               ; BRANCHCC OCCURS {$C$L6}         ; [] |265| 
+     255                    ;** --------------------------------------------------------------------------*
+     256                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     257                    
+     258 000000ac 8000a359     [ A1]   ZERO    .L1     A0                ; [A_L674] |283| nullify predicate
+     259 000000b0 9280112a  || [!A1]   MVK     .S2     0x22,B5           ; [B_Sb674] |283| 
+     260                    
+     261                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     262 000000b4 c0236120     [ A0]   BNOP            $C$L5,3           ; [] |265| 
+     263                               ; BRANCHCC OCCURS {$C$L7}         ; [] |265| 
+     264                    ;** --------------------------------------------------------------------------*
+     265                    
+     266 000000b8 d0000e91     [!A0]   B       .S1     $C$L2             ; [A_S674] |265| 
+     267 000000bc c638a359  || [ A0]   MVK     .L1     14,A12            ; [A_L674] |285| 
+     268 000000c0 c50dac2a  || [ A0]   MVK     .S2     0x1b58,B10        ; [B_Sb674] |286| 
+     269                    
+     270                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     271                    
+     272 000000c4 c0001013     [ A0]   B       .S2     $C$L7             ; [B_Sb674] |287| 
+     273 000000c8 c5804528  || [ A0]   MVK     .S1     0x8a,A11          ; [A_S674] |284| 
+     274                    
+     275                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE    6
+
+     276                               ; BRANCHCC OCCURS {$C$L5}         ; [] |265| 
+     277                    ;** --------------------------------------------------------------------------*
+     278                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     279                    
+     280 000000cc 00206121             BNOP            $C$L7,3           ; [] |306| 
+     281 000000d0 02a80fda  ||         MV      .L2     B10,B5            ; [B_L674] 
+     282                    
+     283                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     284                               ; BRANCH OCCURS {$C$L2}           ; [] |265| 
+     285                    ;** --------------------------------------------------------------------------*
+     286 000000d4           $C$L1:    
+     287                    
+     288 000000d4 01000fd9             MV      .L1     A0,A2             ; [A_L674] guard predicate rewrite
+     289 000000d8 d1bb8028  || [!A0]   MVKL    .S1     0x17700,A3        ; [A_S674] |265| 
+     290                    
+     291 000000dc a080a359     [ A2]   ZERO    .L1     A1                ; [A_L674] |265| nullify predicate
+     292 000000e0 d18000e9  || [!A0]   MVKH    .S1     0x17700,A3        ; [A_S674] |265| 
+     293 000000e4 b2a80fda  || [!A2]   MV      .L2     B10,B5            ; [B_L674] |265| 
+     294                    
+     295 000000e8 80000813     [ A1]   B       .S2     $C$L4             ; [B_Sb674] |265| 
+     296 000000ec d00cca78  || [!A0]   CMPEQ   .L1     A6,A3,A0          ; [A_L674] |265| 
+     297                    
+     298                               ; BRANCHCC OCCURS {$C$L7}         ; [] |265| 
+     299                    ;** --------------------------------------------------------------------------*
+     300                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     301                    
+     302 000000f0 8000a359     [ A1]   ZERO    .L1     A0                ; [A_L674] nullify predicate
+     303 000000f4 850dac2b  || [ A1]   MVK     .S2     0x1b58,B10        ; [B_Sb674] |301| 
+     304 000000f8 8601c041  || [ A1]   MVK     .D1     14,A12            ; [A_D64P] |300| 
+     305 000000fc 85804528  || [ A1]   MVK     .S1     0x8a,A11          ; [A_S674] |298| 
+     306                    
+     307                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     308 00000100 c0000310     [ A0]   B       .S1     $C$L3             ; [A_S674] |265| 
+     309                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     310 00000104 80264120     [ A1]   BNOP            $C$L8,2           ; [] |302| 
+     311                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     312                               ; BRANCHCC OCCURS {$C$L4}         ; [] |265| 
+     313                    ;** --------------------------------------------------------------------------*
+     314                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     315                    
+     316 0000010c     282a     [ A0]   BNOP            $C$L7,1           ; [] |311| 
+     317 00000108 c5803529  || [ A0]   MVK     .S1     0x6a,A11          ; [A_S674] |309| 
+     318                    
+     319                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     320                               ; BRANCHCC OCCURS {$C$L3}         ; [] |265| 
+     321                    ;** --------------------------------------------------------------------------*
+     322                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     323                    
+     324 0000010e     680a             BNOP            $C$L7,3           ; [] |306| 
+     325 00000110 02a80fda  ||         MV      .L2     B10,B5            ; [B_L674] 
+     326                    
+     327                    ;** --------------------------------------------------------------------------*
+     328 00000114           $C$L2:    
+     329 00000114 00002000             NOP             2                 ; [A_L674] 
+     330                               ; BRANCH OCCURS {$C$L7}           ; [] |306| 
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE    7
+
+     331                    ;** --------------------------------------------------------------------------*
+     332 00000118           $C$L3:    
+     333 00000118 00006000             NOP             4                 ; [A_L674] 
+     334                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     335                               ; BRANCH OCCURS {$C$L7}           ; [] |311| 
+     336                    ;** --------------------------------------------------------------------------*
+     337 00000120           $C$L4:    
+     338                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     339                    $C$DW$19        .dwtag  DW_TAG_TI_branch
+     340                            .dwattr $C$DW$19, DW_AT_low_pc(0x00)
+     341                            .dwattr $C$DW$19, DW_AT_name("CodecRegWrite")
+     342                            .dwattr $C$DW$19, DW_AT_TI_call
+     343                    
+     344                    
+     345 00000120 00000011!            CALL    .S1     CodecRegWrite     ; [A_S674] |321| 
+     346 00000124 02148f7a  ||         AND     .L2     B4,B5,B4          ; [B_L674] |321| 
+     347                    
+     348 00000128     ba63             EXTU    .S2     B4,24,24,B5       ; [B_Sb674] |321| 
+     349 0000012a     4627             MVK     .L2     2,B4              ; [B_L674] |321| 
+     350                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     351                               ; BRANCH OCCURS {$C$L8}           ; [] |302| 
+     352                    ;** --------------------------------------------------------------------------*
+     353 0000012c           $C$L5:    
+     354 0000012c 00008000             NOP             5                 ; [A_L674] 
+     355                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     356                               ; BRANCH OCCURS {$C$L7}           ; [] |287| 
+     357                    ;** --------------------------------------------------------------------------*
+     358 00000130           $C$L6:    
+     359                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     360                    
+     361 00000130 050dac2b             MVK     .S2     0x1b58,B10        ; [B_Sb674] |275| 
+     362 00000134 0638a359  ||         MVK     .L1     14,A12            ; [A_L674] |274| 
+     363 00000138 05804528  ||         MVK     .S1     0x8a,A11          ; [A_S674] |273| 
+     364                    
+     365                    ;** --------------------------------------------------------------------------*
+     366 00000140           $C$L7:    
+     367                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     368                    $C$DW$20        .dwtag  DW_TAG_TI_branch
+     369                            .dwattr $C$DW$20, DW_AT_low_pc(0x00)
+     370                            .dwattr $C$DW$20, DW_AT_name("CodecRegWrite")
+     371                            .dwattr $C$DW$20, DW_AT_TI_call
+     372                    
+     373                    
+     374 00000140 00000011!            CALL    .S1     CodecRegWrite     ; [A_S674] |321| 
+     375 00000144 02148f7a  ||         AND     .L2     B4,B5,B4          ; [B_L674] |321| 
+     376                    
+     377 00000148     ba63             EXTU    .S2     B4,24,24,B5       ; [B_Sb674] |321| 
+     378 0000014a     4627             MVK     .L2     2,B4              ; [B_L674] |321| 
+     379                    ;** --------------------------------------------------------------------------*
+     380 0000014c           $C$L8:    
+     381 0000014c 03141fd8             MV      .L1X    B5,A6             ; [A_L674] |321| 
+     382 00000150 01880162             ADDKPC  .S2     $C$RL0,B3,0       ; [B_Sb674] |321| 
+     383 00000154     8506             MV      .L1     A10,A4            ; [A_L674] |321| 
+     384 00000160           $C$RL0:    ; CALL OCCURS {CodecRegWrite} {0}  ; [] |321| 
+     385                    ;** --------------------------------------------------------------------------*
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE    8
+
+     386                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     387                    $C$DW$21        .dwtag  DW_TAG_TI_branch
+     388                            .dwattr $C$DW$21, DW_AT_low_pc(0x00)
+     389                            .dwattr $C$DW$21, DW_AT_name("CodecRegWrite")
+     390                            .dwattr $C$DW$21, DW_AT_TI_call
+     391                    
+     392                    
+     393 00000160 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |323| 
+     394 00000164     6627  ||         MVK     .L2     3,B4              ; [B_L674] |323| 
+     395 00000166     8712  ||         MVK     .S1     0x84,A6           ; [A_S674] |323| 
+     396 00000168 02280fd8  ||         MV      .L1     A10,A4            ; [A_L674] |323| 
+     397                    
+     398 0000016c           $C$RL2:    ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |323| 
+     399                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     400 0000016c 022f180a             EXTU    .S2     B11,24,24,B4      ; [B_Sb674] |326| 
+     401                    $C$DW$22        .dwtag  DW_TAG_TI_branch
+     402                            .dwattr $C$DW$22, DW_AT_low_pc(0x00)
+     403                            .dwattr $C$DW$22, DW_AT_name("CodecRegWrite")
+     404                            .dwattr $C$DW$22, DW_AT_TI_call
+     405                    
+     406                    
+     407 00000170 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |326| 
+     408 00000174     0f26  ||         MVK     .L1     8,A6              ; [A_L674] |326| 
+     409 00000176     850e  ||         MV      .S1     A10,A4            ; [A_S674] |326| 
+     410                    
+     411 00000178           $C$RL4:    ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |326| 
+     412                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     413 00000178     a273             MVK     .S2     0x65,B4           ; [B_Sb674] |329| 
+     414                    $C$DW$23        .dwtag  DW_TAG_TI_branch
+     415                            .dwattr $C$DW$23, DW_AT_low_pc(0x00)
+     416                            .dwattr $C$DW$23, DW_AT_name("CodecRegBitClr")
+     417                            .dwattr $C$DW$23, DW_AT_TI_call
+     418                    
+     419                    
+     420 00000180 10000013!            CALLP   .S2     CodecRegBitClr,B3 ; [B_Sb674] |329| 
+     421 0000017a     2726  ||         MVK     .L1     1,A6              ; [A_L674] |329| 
+     422 00000184     850e  ||         MV      .S1     A10,A4            ; [A_S674] |329| 
+     423                    
+     424 00000186           $C$RL6:    ; CALLP OCCURS {CodecRegBitClr} {0}  ; [] |329| 
+     425                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     426 00000186     4273             MVK     .S2     0x62,B4           ; [B_Sb674] |332| 
+     427                    $C$DW$24        .dwtag  DW_TAG_TI_branch
+     428                            .dwattr $C$DW$24, DW_AT_low_pc(0x00)
+     429                            .dwattr $C$DW$24, DW_AT_name("CodecRegWrite")
+     430                            .dwattr $C$DW$24, DW_AT_TI_call
+     431                    
+     432                    
+     433 00000188 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |332| 
+     434 0000018c     0332  ||         MVK     .S1     0x20,A6           ; [A_S674] |332| 
+     435 0000018e     8506  ||         MV      .L1     A10,A4            ; [A_L674] |332| 
+     436                    
+     437 00000190           $C$RL8:    ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |332| 
+     438                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     439                    $C$DW$25        .dwtag  DW_TAG_TI_branch
+     440                            .dwattr $C$DW$25, DW_AT_low_pc(0x00)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE    9
+
+     441                            .dwattr $C$DW$25, DW_AT_name("CodecRegWrite")
+     442                            .dwattr $C$DW$25, DW_AT_TI_call
+     443                    
+     444                    
+     445 00000190 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |335| 
+     446 00000194     8627  ||         MVK     .L2     4,B4              ; [B_L674] |335| 
+     447 00000198 03335808  ||         EXTU    .S1     A12,26,24,A6      ; [A_S674] |335| 
+     448 00000196     8506  ||         MV      .L1     A10,A4            ; [A_L674] |335| 
+     449                    
+     450 000001a0           $C$RL10:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |335| 
+     451                    ;** --------------------------------------------------------------------------*
+     452                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     453 000001a0 02aa580a             EXTU    .S2     B10,18,24,B5      ; [B_Sb674] |338| 
+     454 000001a4 02280fd8             MV      .L1     A10,A4            ; [A_L674] |338| 
+     455                    $C$DW$26        .dwtag  DW_TAG_TI_branch
+     456                            .dwattr $C$DW$26, DW_AT_low_pc(0x04)
+     457                            .dwattr $C$DW$26, DW_AT_name("CodecRegWrite")
+     458                            .dwattr $C$DW$26, DW_AT_TI_call
+     459                    
+     460                    
+     461 000001a8 0214a35b             MVK     .L2     5,B4              ; [B_L674] |338| 
+     462 000001ac 10000013! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |338| 
+     463 000001b0 03141fd8  ||         MV      .L1X    B5,A6             ; [A_L674] |338| 
+     464                    
+     465 000001b4           $C$RL12:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |338| 
+     466                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     467 000001b4 022b5a0a             EXTU    .S2     B10,26,26,B4      ; [B_Sb674] |339| 
+     468 000001b8 0293580a             EXTU    .S2     B4,26,24,B5       ; [B_Sb674] |339| 
+     469 000001bc 0218a35a             MVK     .L2     6,B4              ; [B_L674] |339| 
+     470                    $C$DW$27        .dwtag  DW_TAG_TI_branch
+     471                            .dwattr $C$DW$27, DW_AT_low_pc(0x00)
+     472                            .dwattr $C$DW$27, DW_AT_name("CodecRegWrite")
+     473                            .dwattr $C$DW$27, DW_AT_TI_call
+     474                    
+     475                    
+     476 000001c8 10000012!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |339| 
+     477 000001c0 02280fd9  ||         MV      .L1     A10,A4            ; [A_L674] |339| 
+     478 000001c4 031416a1  ||         MV      .S1X    B5,A6             ; [A_S674] |339| 
+     479                    
+     480 000001cc           $C$RL14:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |339| 
+     481                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     482                    $C$DW$28        .dwtag  DW_TAG_TI_branch
+     483                            .dwattr $C$DW$28, DW_AT_low_pc(0x00)
+     484                            .dwattr $C$DW$28, DW_AT_name("CodecRegWrite")
+     485                            .dwattr $C$DW$28, DW_AT_TI_call
+     486                    
+     487                    
+     488 000001cc 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |342| 
+     489 000001d0 022ca35b  ||         MVK     .L2     11,B4             ; [B_L674] |342| 
+     490 000001d4 0304a359  ||         MVK     .L1     1,A6              ; [A_L674] |342| 
+     491 000001d8 022806a1  ||         MV      .S1     A10,A4            ; [A_S674] |342| 
+     492                    
+     493 000001e0           $C$RL16:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |342| 
+     494                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     495                    $C$DW$29        .dwtag  DW_TAG_TI_branch
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   10
+
+     496                            .dwattr $C$DW$29, DW_AT_low_pc(0x00)
+     497                            .dwattr $C$DW$29, DW_AT_name("CodecRegWrite")
+     498                            .dwattr $C$DW$29, DW_AT_TI_call
+     499                    
+     500                    
+     501 000001e0 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |345| 
+     502 000001e4     0e27  ||         MVK     .L2     8,B4              ; [B_L674] |345| 
+     503 000001e6     1752  ||         MVK     .S1     0xd0,A6           ; [A_S674] |345| 
+     504 000001e8 02280fd8  ||         MV      .L1     A10,A4            ; [A_L674] |345| 
+     505                    
+     506 000001ec           $C$RL18:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |345| 
+     507                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     508                    $C$DW$30        .dwtag  DW_TAG_TI_branch
+     509                            .dwattr $C$DW$30, DW_AT_low_pc(0x00)
+     510                            .dwattr $C$DW$30, DW_AT_name("CodecRegWrite")
+     511                            .dwattr $C$DW$30, DW_AT_TI_call
+     512                    
+     513                    
+     514 000001ec 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |347| 
+     515 000001f0     e627  ||         MVK     .L2     7,B4              ; [B_L674] |347| 
+     516 000001f2     c586  ||         MV      .L1     A11,A6            ; [A_L674] |347| 
+     517 000001f4     850e  ||         MV      .S1     A10,A4            ; [A_S674] |347| 
+     518                    
+     519 000001f6           $C$RL20:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |347| 
+     520                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     521 000001f6     6577             LDW     .D2T1   *++SP(8),A10      ; [B_D64P] |348| 
+     522                            .dwcfi  cfa_offset, 24
+     523                            .dwcfi  restore_reg, 10
+     524                    
+     525 000001f8     7687             MV      .L2X    A13,B3            ; [B_L674] |348| 
+     526 000001fa     c677  ||         LDDW    .D2T1   *++SP(8),A13:A12  ; [B_D64P] |348| 
+     527                    
+     528                            .dwcfi  restore_reg, 19
+     529                            .dwcfi  cfa_offset, 16
+     530                            .dwcfi  restore_reg, 13
+     531                            .dwcfi  restore_reg, 12
+     532                    $C$DW$31        .dwtag  DW_TAG_TI_branch
+     533                            .dwattr $C$DW$31, DW_AT_low_pc(0x04)
+     534                            .dwattr $C$DW$31, DW_AT_TI_return
+     535                    
+     536                    
+     537 00000200     d577             LDDW    .D2T2   *++SP(8),B11:B10  ; [B_D64P] |348| 
+     538 00000202     01ef  ||         RET     .S2     B3                ; [B_Sb674] |348| 
+     539                    
+     540                            .dwcfi  cfa_offset, 8
+     541                            .dwcfi  restore_reg, 27
+     542                            .dwcfi  restore_reg, 26
+     543 00000204     65f7             LDW     .D2T1   *++SP(8),A11      ; [B_D64P] |348| 
+     544                            .dwcfi  cfa_offset, 0
+     545                            .dwcfi  restore_reg, 11
+     546 00000206     6c6e             NOP             4                 ; [A_L674] 
+     547                               ; BRANCH OCCURS {B3}              ; [] |348| 
+     548                            .dwattr $C$DW$9, DW_AT_TI_end_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Audi
+     549                            .dwattr $C$DW$9, DW_AT_TI_end_line(0x15c)
+     550                            .dwattr $C$DW$9, DW_AT_TI_end_column(0x01)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   11
+
+     551                            .dwendentry
+     552                            .dwendtag $C$DW$9
+     553                    
+     554 00000208                   .sect   ".text"
+     555                            .clink
+     556                            .global AIC31Reset
+     557                    
+     558                    $C$DW$32        .dwtag  DW_TAG_subprogram
+     559                            .dwattr $C$DW$32, DW_AT_name("AIC31Reset")
+     560                            .dwattr $C$DW$32, DW_AT_low_pc(AIC31Reset)
+     561                            .dwattr $C$DW$32, DW_AT_high_pc(0x00)
+     562                            .dwattr $C$DW$32, DW_AT_TI_symbol_name("AIC31Reset")
+     563                            .dwattr $C$DW$32, DW_AT_external
+     564                            .dwattr $C$DW$32, DW_AT_TI_begin_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/A
+     565                            .dwattr $C$DW$32, DW_AT_TI_begin_line(0xaa)
+     566                            .dwattr $C$DW$32, DW_AT_TI_begin_column(0x06)
+     567                            .dwattr $C$DW$32, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Audio
+     568                            .dwattr $C$DW$32, DW_AT_decl_line(0xaa)
+     569                            .dwattr $C$DW$32, DW_AT_decl_column(0x06)
+     570                            .dwattr $C$DW$32, DW_AT_TI_max_frame_size(0x08)
+     571                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     572                    
+     573                            .dwfde $C$DW$CIE, AIC31Reset
+     574                    $C$DW$33        .dwtag  DW_TAG_formal_parameter
+     575                            .dwattr $C$DW$33, DW_AT_name("baseAddr")
+     576                            .dwattr $C$DW$33, DW_AT_TI_symbol_name("baseAddr")
+     577                            .dwattr $C$DW$33, DW_AT_type(*$C$DW$T$11)
+     578                            .dwattr $C$DW$33, DW_AT_location[DW_OP_reg4]
+     579                    
+     580                    
+     581                    ;******************************************************************************
+     582                    ;* FUNCTION NAME: AIC31Reset                                                  *
+     583                    ;*                                                                            *
+     584                    ;*   Regs Modified     : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A16,A17,A18,   *
+     585                    ;*                           A19,A20,A21,A22,A23,A24,A25,A26,A27,A28,A29,A30, *
+     586                    ;*                           A31,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,SP,B16,B17,B18,*
+     587                    ;*                           B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30, *
+     588                    ;*                           B31                                              *
+     589                    ;*   Regs Used         : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A16,A17,A18,   *
+     590                    ;*                           A19,A20,A21,A22,A23,A24,A25,A26,A27,A28,A29,A30, *
+     591                    ;*                           A31,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,DP,SP,B16,B17, *
+     592                    ;*                           B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29, *
+     593                    ;*                           B30,B31                                          *
+     594                    ;*   Local Frame Size  : 0 Args + 0 Auto + 8 Save = 8 byte                    *
+     595                    ;******************************************************************************
+     596                    AIC31Reset:
+     597                    ;** --------------------------------------------------------------------------*
+     598                    $C$DW$34        .dwtag  DW_TAG_variable
+     599                            .dwattr $C$DW$34, DW_AT_name("baseAddr")
+     600                            .dwattr $C$DW$34, DW_AT_TI_symbol_name("baseAddr")
+     601                            .dwattr $C$DW$34, DW_AT_type(*$C$DW$T$26)
+     602                            .dwattr $C$DW$34, DW_AT_location[DW_OP_reg10]
+     603                    
+     604                            .dwcfi  cfa_offset, 0
+     605 00000208     25f7             STW     .D2T1   A11,*SP++(-8)     ; [B_D64P] |171| 
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   12
+
+     606                            .dwcfi  cfa_offset, 8
+     607                            .dwcfi  save_reg_to_mem, 11, 0
+     608                    $C$DW$35        .dwtag  DW_TAG_TI_branch
+     609                            .dwattr $C$DW$35, DW_AT_low_pc(0x0c)
+     610                            .dwattr $C$DW$35, DW_AT_name("CodecRegWrite")
+     611                            .dwattr $C$DW$35, DW_AT_TI_call
+     612                    
+     613                    
+     614 0000020c 053c22f5             STW     .D2T1   A10,*SP(4)        ; [B_D64P] |171| 
+     615 0000020a     4646  ||         MV      .L1     A4,A10            ; [A_L674] |171| 
+     616 00000210     75ce  ||         MV      .S1X    B3,A11            ; [A_S674] |171| 
+     617 00000214 10000013! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |173| 
+     618 00000212     1b76  ||         ZERO    .D1     A6                ; [A_D64P] |173| 
+     619 00000218     0627  ||         ZERO    .L2     B4                ; [B_L674] |173| 
+     620                    
+     621                            .dwcfi  save_reg_to_mem, 10, -4
+     622                            .dwcfi  save_reg_to_reg, 19, 11
+     623                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     624 00000220           $C$RL22:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |173| 
+     625                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     626                    $C$DW$36        .dwtag  DW_TAG_TI_branch
+     627                            .dwattr $C$DW$36, DW_AT_low_pc(0x04)
+     628                            .dwattr $C$DW$36, DW_AT_name("CodecRegWrite")
+     629                            .dwattr $C$DW$36, DW_AT_TI_call
+     630                    
+     631                    
+     632 00000220     8506             MV      .L1     A10,A4            ; [A_L674] |176| 
+     633 00000224 10000013! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |176| 
+     634 00000222     2627  ||         MVK     .L2     1,B4              ; [B_L674] |176| 
+     635 00000228     0712  ||         MVK     .S1     0x80,A6           ; [A_S674] |176| 
+     636                    
+     637 0000022a           $C$RL24:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |176| 
+     638                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     639 0000022a     7587             MV      .L2X    A11,B3            ; [B_L674] |177| 
+     640                            .dwcfi  restore_reg, 19
+     641                    $C$DW$37        .dwtag  DW_TAG_TI_branch
+     642                            .dwattr $C$DW$37, DW_AT_low_pc(0x00)
+     643                            .dwattr $C$DW$37, DW_AT_TI_return
+     644                    
+     645                    
+     646 00000230     01ef             RET     .S2     B3                ; [B_Sb674] |177| 
+     647 0000022c 053c22e5  ||         LDW     .D2T1   *SP(4),A10        ; [B_D64P] |177| 
+     648                    
+     649                            .dwcfi  restore_reg, 10
+     650 00000232     65f7             LDW     .D2T1   *++SP(8),A11      ; [B_D64P] |177| 
+     651                            .dwcfi  cfa_offset, 0
+     652                            .dwcfi  restore_reg, 11
+     653 00000234 00006000             NOP             4                 ; [A_L674] 
+     654                               ; BRANCH OCCURS {B3}              ; [] |177| 
+     655                            .dwattr $C$DW$32, DW_AT_TI_end_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Aud
+     656                            .dwattr $C$DW$32, DW_AT_TI_end_line(0xb1)
+     657                            .dwattr $C$DW$32, DW_AT_TI_end_column(0x01)
+     658                            .dwendentry
+     659                            .dwendtag $C$DW$32
+     660                    
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   13
+
+     661 00000238                   .sect   ".text"
+     662                            .clink
+     663                            .global AIC31LeftPGAGain
+     664                    
+     665                    $C$DW$38        .dwtag  DW_TAG_subprogram
+     666                            .dwattr $C$DW$38, DW_AT_name("AIC31LeftPGAGain")
+     667                            .dwattr $C$DW$38, DW_AT_low_pc(AIC31LeftPGAGain)
+     668                            .dwattr $C$DW$38, DW_AT_high_pc(0x00)
+     669                            .dwattr $C$DW$38, DW_AT_TI_symbol_name("AIC31LeftPGAGain")
+     670                            .dwattr $C$DW$38, DW_AT_external
+     671                            .dwattr $C$DW$38, DW_AT_TI_begin_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/A
+     672                            .dwattr $C$DW$38, DW_AT_TI_begin_line(0x1fc)
+     673                            .dwattr $C$DW$38, DW_AT_TI_begin_column(0x06)
+     674                            .dwattr $C$DW$38, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Audio
+     675                            .dwattr $C$DW$38, DW_AT_decl_line(0x1fc)
+     676                            .dwattr $C$DW$38, DW_AT_decl_column(0x06)
+     677                            .dwattr $C$DW$38, DW_AT_TI_max_frame_size(0x08)
+     678                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     679                    
+     680                            .dwfde $C$DW$CIE, AIC31LeftPGAGain
+     681                    $C$DW$39        .dwtag  DW_TAG_formal_parameter
+     682                            .dwattr $C$DW$39, DW_AT_name("baseAddr")
+     683                            .dwattr $C$DW$39, DW_AT_TI_symbol_name("baseAddr")
+     684                            .dwattr $C$DW$39, DW_AT_type(*$C$DW$T$11)
+     685                            .dwattr $C$DW$39, DW_AT_location[DW_OP_reg4]
+     686                    
+     687                    $C$DW$40        .dwtag  DW_TAG_formal_parameter
+     688                            .dwattr $C$DW$40, DW_AT_name("gain")
+     689                            .dwattr $C$DW$40, DW_AT_TI_symbol_name("gain")
+     690                            .dwattr $C$DW$40, DW_AT_type(*$C$DW$T$6)
+     691                            .dwattr $C$DW$40, DW_AT_location[DW_OP_reg20]
+     692                    
+     693                    
+     694                    ;******************************************************************************
+     695                    ;* FUNCTION NAME: AIC31LeftPGAGain                                            *
+     696                    ;*                                                                            *
+     697                    ;*   Regs Modified     : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A16,A17,A18,A19,A20,   *
+     698                    ;*                           A21,A22,A23,A24,A25,A26,A27,A28,A29,A30,A31,B0,  *
+     699                    ;*                           B1,B2,B3,B4,B5,B6,B7,B8,B9,B16,B17,B18,B19,B20,  *
+     700                    ;*                           B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31      *
+     701                    ;*   Regs Used         : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A16,A17,A18,A19,A20,   *
+     702                    ;*                           A21,A22,A23,A24,A25,A26,A27,A28,A29,A30,A31,B0,  *
+     703                    ;*                           B1,B2,B3,B4,B5,B6,B7,B8,B9,DP,SP,B16,B17,B18,B19,*
+     704                    ;*                           B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31  *
+     705                    ;*   Local Frame Size  : 0 Args + 0 Auto + 4 Save = 4 byte                    *
+     706                    ;******************************************************************************
+     707                    AIC31LeftPGAGain:
+     708                    ;** --------------------------------------------------------------------------*
+     709                    $C$DW$41        .dwtag  DW_TAG_variable
+     710                            .dwattr $C$DW$41, DW_AT_name("gain")
+     711                            .dwattr $C$DW$41, DW_AT_TI_symbol_name("gain")
+     712                            .dwattr $C$DW$41, DW_AT_type(*$C$DW$T$25)
+     713                            .dwattr $C$DW$41, DW_AT_location[DW_OP_reg20]
+     714                    
+     715                            .dwcfi  cfa_offset, 0
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   14
+
+     716                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     717                    $C$DW$42        .dwtag  DW_TAG_TI_branch
+     718                            .dwattr $C$DW$42, DW_AT_low_pc(0x00)
+     719                            .dwattr $C$DW$42, DW_AT_name("CodecRegWrite")
+     720                            .dwattr $C$DW$42, DW_AT_TI_call
+     721                            .dwattr $C$DW$42, DW_AT_TI_return
+     722                    
+     723 00000238 00000010!            CALLRET .S1     CodecRegWrite     ; [A_S674] |510| 
+     724 00000240 0213390a             EXTU    .S2     B4,25,25,B4       ; [B_Sb674] |510| 
+     725 00000244     ba63             EXTU    .S2     B4,24,24,B5       ; [B_Sb674] |510| 
+     726 00000246     ee27             MVK     .L2     15,B4             ; [B_L674] |510| 
+     727 00000248     d2c6             MV      .L1X    B5,A6             ; [A_L674] |510| 
+     728 0000024a     0c6e             NOP             1                 ; [A_L674] 
+     729                    $C$RL26:   ; CALL-RETURN OCCURS {CodecRegWrite} 0  ; [] |510| 
+     730                            .dwattr $C$DW$38, DW_AT_TI_end_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Aud
+     731                            .dwattr $C$DW$38, DW_AT_TI_end_line(0x1ff)
+     732                            .dwattr $C$DW$38, DW_AT_TI_end_column(0x01)
+     733                            .dwendentry
+     734                            .dwendtag $C$DW$38
+     735                    
+     736 0000024c                   .sect   ".text"
+     737                            .clink
+     738                            .global AIC31DataConfig
+     739                    
+     740                    $C$DW$43        .dwtag  DW_TAG_subprogram
+     741                            .dwattr $C$DW$43, DW_AT_name("AIC31DataConfig")
+     742                            .dwattr $C$DW$43, DW_AT_low_pc(AIC31DataConfig)
+     743                            .dwattr $C$DW$43, DW_AT_high_pc(0x00)
+     744                            .dwattr $C$DW$43, DW_AT_TI_symbol_name("AIC31DataConfig")
+     745                            .dwattr $C$DW$43, DW_AT_external
+     746                            .dwattr $C$DW$43, DW_AT_TI_begin_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/A
+     747                            .dwattr $C$DW$43, DW_AT_TI_begin_line(0xc4)
+     748                            .dwattr $C$DW$43, DW_AT_TI_begin_column(0x06)
+     749                            .dwattr $C$DW$43, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Audio
+     750                            .dwattr $C$DW$43, DW_AT_decl_line(0xc4)
+     751                            .dwattr $C$DW$43, DW_AT_decl_column(0x06)
+     752                            .dwattr $C$DW$43, DW_AT_TI_max_frame_size(0x18)
+     753                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     754                    
+     755                            .dwfde $C$DW$CIE, AIC31DataConfig
+     756                    $C$DW$44        .dwtag  DW_TAG_formal_parameter
+     757                            .dwattr $C$DW$44, DW_AT_name("baseAddr")
+     758                            .dwattr $C$DW$44, DW_AT_TI_symbol_name("baseAddr")
+     759                            .dwattr $C$DW$44, DW_AT_type(*$C$DW$T$11)
+     760                            .dwattr $C$DW$44, DW_AT_location[DW_OP_reg4]
+     761                    
+     762                    $C$DW$45        .dwtag  DW_TAG_formal_parameter
+     763                            .dwattr $C$DW$45, DW_AT_name("dataType")
+     764                            .dwattr $C$DW$45, DW_AT_TI_symbol_name("dataType")
+     765                            .dwattr $C$DW$45, DW_AT_type(*$C$DW$T$6)
+     766                            .dwattr $C$DW$45, DW_AT_location[DW_OP_reg20]
+     767                    
+     768                    $C$DW$46        .dwtag  DW_TAG_formal_parameter
+     769                            .dwattr $C$DW$46, DW_AT_name("slotWidth")
+     770                            .dwattr $C$DW$46, DW_AT_TI_symbol_name("slotWidth")
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   15
+
+     771                            .dwattr $C$DW$46, DW_AT_type(*$C$DW$T$6)
+     772                            .dwattr $C$DW$46, DW_AT_location[DW_OP_reg6]
+     773                    
+     774                    $C$DW$47        .dwtag  DW_TAG_formal_parameter
+     775                            .dwattr $C$DW$47, DW_AT_name("dataOff")
+     776                            .dwattr $C$DW$47, DW_AT_TI_symbol_name("dataOff")
+     777                            .dwattr $C$DW$47, DW_AT_type(*$C$DW$T$6)
+     778                            .dwattr $C$DW$47, DW_AT_location[DW_OP_reg22]
+     779                    
+     780                    
+     781                    ;******************************************************************************
+     782                    ;* FUNCTION NAME: AIC31DataConfig                                             *
+     783                    ;*                                                                            *
+     784                    ;*   Regs Modified     : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A16,A17,A18,   *
+     785                    ;*                           A19,A20,A21,A22,A23,A24,A25,A26,A27,A28,A29,A30, *
+     786                    ;*                           A31,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B13,SP,B16,B17,*
+     787                    ;*                           B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29, *
+     788                    ;*                           B30,B31                                          *
+     789                    ;*   Regs Used         : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A16,A17,A18,   *
+     790                    ;*                           A19,A20,A21,A22,A23,A24,A25,A26,A27,A28,A29,A30, *
+     791                    ;*                           A31,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B13,DP,SP,B16, *
+     792                    ;*                           B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28, *
+     793                    ;*                           B29,B30,B31                                      *
+     794                    ;*   Local Frame Size  : 0 Args + 0 Auto + 24 Save = 24 byte                  *
+     795                    ;******************************************************************************
+     796                    AIC31DataConfig:
+     797                    ;** --------------------------------------------------------------------------*
+     798                    $C$DW$48        .dwtag  DW_TAG_variable
+     799                            .dwattr $C$DW$48, DW_AT_name("slot")
+     800                            .dwattr $C$DW$48, DW_AT_TI_symbol_name("slot")
+     801                            .dwattr $C$DW$48, DW_AT_type(*$C$DW$T$6)
+     802                            .dwattr $C$DW$48, DW_AT_location[DW_OP_reg21]
+     803                    
+     804                    $C$DW$49        .dwtag  DW_TAG_variable
+     805                            .dwattr $C$DW$49, DW_AT_name("baseAddr")
+     806                            .dwattr $C$DW$49, DW_AT_TI_symbol_name("baseAddr")
+     807                            .dwattr $C$DW$49, DW_AT_type(*$C$DW$T$26)
+     808                            .dwattr $C$DW$49, DW_AT_location[DW_OP_reg10]
+     809                    
+     810                    $C$DW$50        .dwtag  DW_TAG_variable
+     811                            .dwattr $C$DW$50, DW_AT_name("dataType")
+     812                            .dwattr $C$DW$50, DW_AT_TI_symbol_name("dataType")
+     813                            .dwattr $C$DW$50, DW_AT_type(*$C$DW$T$25)
+     814                            .dwattr $C$DW$50, DW_AT_location[DW_OP_reg20]
+     815                    
+     816                    $C$DW$51        .dwtag  DW_TAG_variable
+     817                            .dwattr $C$DW$51, DW_AT_name("dataOff")
+     818                            .dwattr $C$DW$51, DW_AT_TI_symbol_name("dataOff")
+     819                            .dwattr $C$DW$51, DW_AT_type(*$C$DW$T$25)
+     820                            .dwattr $C$DW$51, DW_AT_location[DW_OP_reg11]
+     821                    
+     822                            .dwcfi  cfa_offset, 0
+     823                    
+     824 0000024c     9393             MVK     .S2     20,B7             ; [B_Sb674] |201| 
+     825 0000024e     36f7  ||         STW     .D2T2   B13,*SP++(-8)     ; [B_D64P] |198| 
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   16
+
+     826 00000250     a5c7  ||         MV      .L2     B3,B13            ; [B_L674] |198| 
+     827                            .dwcfi  cfa_offset, 8
+     828                            .dwcfi  save_reg_to_mem, 29, 0
+     829                            .dwcfi  save_reg_to_reg, 19, 29
+     830                    
+     831 00000252     1a93             MVK     .S2     24,B5             ; [B_Sb674] |201| 
+     832 00000254     8577  ||         STDW    .D2T1   A11:A10,*SP++(-8) ; [B_D64P] |198| 
+     833 00000256     7746  ||         MV      .L1X    B6,A11            ; [A_L674] |198| 
+     834 00000258     464e  ||         MV      .S1     A4,A10            ; [A_S674] |198| 
+     835                    
+     836                            .dwcfi  cfa_offset, 16
+     837                            .dwcfi  save_reg_to_mem, 11, -4
+     838                            .dwcfi  save_reg_to_mem, 10, -8
+     839                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     840                    
+     841 0000025a     d7e8             CMPEQ   .L1X    A6,B7,A0          ; [A_L674] |201| 
+     842 00000260     b769  ||         CMPEQ   .L2X    A6,B5,B0          ; [B_L674] |201| 
+     843 00000262     1293  ||         MVK     .S2     0x10,B5           ; [B_Sb674] |208| 
+     844                    
+     845 00000264 c0000811     [ A0]   B       .S1     $C$L9             ; [A_S674] |201| 
+     846 00000268     4046  ||         MV      .L1     A0,A2             ; [A_L674] |201| branch predicate copy
+     847 0000026a     2056  ||         MV      .D1     A0,A1             ; [A_D64P] guard predicate rewrite
+     848                    
+     849 0000026c d1801029     [!A0]   MVK     .S1     32,A3             ; [A_S674] |201| 
+     850 00000270 9280102a  || [!A1]   MVK     .S2     0x20,B5           ; [B_Sb674] |212| 
+     851                    
+     852                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     853                    $C$DW$52        .dwtag  DW_TAG_TI_branch
+     854                            .dwattr $C$DW$52, DW_AT_low_pc(0x00)
+     855                            .dwattr $C$DW$52, DW_AT_name("CodecRegWrite")
+     856                            .dwattr $C$DW$52, DW_AT_TI_call
+     857                    
+     858 00000274 a0000010!    [ A2]   CALL    .S1     CodecRegWrite     ; [A_S674] |226| 
+     859 00000278 a210affa     [ A2]   OR      .L2     B5,B4,B4          ; [B_L674] |226| 
+     860                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     861 00000280 d00cca78     [!A0]   CMPEQ   .L1     A6,A3,A0          ; [A_L674] |201| 
+     862                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     863 00000284 a293180a     [ A2]   EXTU    .S2     B4,24,24,B5       ; [B_Sb674] |226| 
+     864                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     865                               ; BRANCHCC OCCURS {$C$L9}         ; [] |201| 
+     866                    ;** --------------------------------------------------------------------------*
+     867                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     868                    $C$DW$53        .dwtag  DW_TAG_TI_branch
+     869                            .dwattr $C$DW$53, DW_AT_low_pc(0x04)
+     870                            .dwattr $C$DW$53, DW_AT_name("CodecRegWrite")
+     871                            .dwattr $C$DW$53, DW_AT_TI_call
+     872                    
+     873                    
+     874 00000288     8866     [ B0]   ZERO    .L1     A0                ; [A_L674] |204| 
+     875 0000028c 00000010! ||         CALL    .S1     CodecRegWrite     ; [A_S674] |226| 
+     876 0000028a     cae7  || [!B0]   ZERO    .L2     B5                ; [B_L674] |204| 
+     877                    
+     878                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     879 00000290 c280182a     [ A0]   MVK     .S2     0x30,B5           ; [B_Sb674] |216| 
+     880                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   17
+
+     881 00000294 0210affa             OR      .L2     B5,B4,B4          ; [B_L674] |226| 
+     882 00000298 0293180a             EXTU    .S2     B4,24,24,B5       ; [B_Sb674] |226| 
+     883                    ;** --------------------------------------------------------------------------*
+     884 000002a0           $C$L9:    
+     885 000002a0     2e27             MVK     .L2     9,B4              ; [B_L674] |226| 
+     886                    
+     887 000002a2     8506             MV      .L1     A10,A4            ; [A_L674] |226| 
+     888 000002a4 01830163  ||         ADDKPC  .S2     $C$RL28,B3,0      ; [B_Sb674] |226| 
+     889 000002a8 031416a0  ||         MV      .S1X    B5,A6             ; [A_S674] |226| 
+     890                    
+     891 000002ac           $C$RL28:   ; CALL OCCURS {CodecRegWrite} {0}  ; [] |226| 
+     892                    ;** --------------------------------------------------------------------------*
+     893                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     894                    $C$DW$54        .dwtag  DW_TAG_TI_branch
+     895                            .dwattr $C$DW$54, DW_AT_low_pc(0x0c)
+     896                            .dwattr $C$DW$54, DW_AT_name("CodecRegWrite")
+     897                            .dwattr $C$DW$54, DW_AT_TI_call
+     898                    
+     899                    
+     900 000002ac     8506             MV      .L1     A10,A4            ; [A_L674] |229| 
+     901 000002ae     c58e  ||         MV      .S1     A11,A6            ; [A_S674] |229| 
+     902 000002b4     4e27  ||         MVK     .L2     10,B4             ; [B_L674] |229| 
+     903 000002b0 10000013! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |229| 
+     904                    
+     905 000002b6           $C$RL30:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |229| 
+     906                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     907 000002b6     6687             MV      .L2     B13,B3            ; [B_L674] |230| 
+     908                            .dwcfi  restore_reg, 19
+     909                    $C$DW$55        .dwtag  DW_TAG_TI_branch
+     910                            .dwattr $C$DW$55, DW_AT_low_pc(0x00)
+     911                            .dwattr $C$DW$55, DW_AT_TI_return
+     912                    
+     913                    
+     914 000002b8     01ef             RET     .S2     B3                ; [B_Sb674] |230| 
+     915 000002ba     c577  ||         LDDW    .D2T1   *++SP(8),A11:A10  ; [B_D64P] |230| 
+     916                    
+     917                            .dwcfi  cfa_offset, 8
+     918                            .dwcfi  restore_reg, 11
+     919                            .dwcfi  restore_reg, 10
+     920 000002c0     76f7             LDW     .D2T2   *++SP(8),B13      ; [B_D64P] |230| 
+     921                            .dwcfi  cfa_offset, 0
+     922                            .dwcfi  restore_reg, 29
+     923 000002c2     6c6e             NOP             4                 ; [A_L674] 
+     924                               ; BRANCH OCCURS {B3}              ; [] |230| 
+     925                            .dwattr $C$DW$43, DW_AT_TI_end_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Aud
+     926                            .dwattr $C$DW$43, DW_AT_TI_end_line(0xe6)
+     927                            .dwattr $C$DW$43, DW_AT_TI_end_column(0x01)
+     928                            .dwendentry
+     929                            .dwendtag $C$DW$43
+     930                    
+     931 000002c4                   .sect   ".text"
+     932                            .clink
+     933                            .global AIC31DACInit
+     934                    
+     935                    $C$DW$56        .dwtag  DW_TAG_subprogram
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   18
+
+     936                            .dwattr $C$DW$56, DW_AT_name("AIC31DACInit")
+     937                            .dwattr $C$DW$56, DW_AT_low_pc(AIC31DACInit)
+     938                            .dwattr $C$DW$56, DW_AT_high_pc(0x00)
+     939                            .dwattr $C$DW$56, DW_AT_TI_symbol_name("AIC31DACInit")
+     940                            .dwattr $C$DW$56, DW_AT_external
+     941                            .dwattr $C$DW$56, DW_AT_TI_begin_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/A
+     942                            .dwattr $C$DW$56, DW_AT_TI_begin_line(0x1b2)
+     943                            .dwattr $C$DW$56, DW_AT_TI_begin_column(0x06)
+     944                            .dwattr $C$DW$56, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Audio
+     945                            .dwattr $C$DW$56, DW_AT_decl_line(0x1b2)
+     946                            .dwattr $C$DW$56, DW_AT_decl_column(0x06)
+     947                            .dwattr $C$DW$56, DW_AT_TI_max_frame_size(0x08)
+     948                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+     949                    
+     950                            .dwfde $C$DW$CIE, AIC31DACInit
+     951                    $C$DW$57        .dwtag  DW_TAG_formal_parameter
+     952                            .dwattr $C$DW$57, DW_AT_name("baseAddr")
+     953                            .dwattr $C$DW$57, DW_AT_TI_symbol_name("baseAddr")
+     954                            .dwattr $C$DW$57, DW_AT_type(*$C$DW$T$11)
+     955                            .dwattr $C$DW$57, DW_AT_location[DW_OP_reg4]
+     956                    
+     957                    
+     958                    ;******************************************************************************
+     959                    ;* FUNCTION NAME: AIC31DACInit                                                *
+     960                    ;*                                                                            *
+     961                    ;*   Regs Modified     : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A16,A17,A18,   *
+     962                    ;*                           A19,A20,A21,A22,A23,A24,A25,A26,A27,A28,A29,A30, *
+     963                    ;*                           A31,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,SP,B16,B17,B18,*
+     964                    ;*                           B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30, *
+     965                    ;*                           B31                                              *
+     966                    ;*   Regs Used         : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A16,A17,A18,   *
+     967                    ;*                           A19,A20,A21,A22,A23,A24,A25,A26,A27,A28,A29,A30, *
+     968                    ;*                           A31,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,DP,SP,B16,B17, *
+     969                    ;*                           B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29, *
+     970                    ;*                           B30,B31                                          *
+     971                    ;*   Local Frame Size  : 0 Args + 0 Auto + 8 Save = 8 byte                    *
+     972                    ;******************************************************************************
+     973                    AIC31DACInit:
+     974                    ;** --------------------------------------------------------------------------*
+     975                    $C$DW$58        .dwtag  DW_TAG_variable
+     976                            .dwattr $C$DW$58, DW_AT_name("baseAddr")
+     977                            .dwattr $C$DW$58, DW_AT_TI_symbol_name("baseAddr")
+     978                            .dwattr $C$DW$58, DW_AT_type(*$C$DW$T$26)
+     979                            .dwattr $C$DW$58, DW_AT_location[DW_OP_reg10]
+     980                    
+     981                            .dwcfi  cfa_offset, 0
+     982                    
+     983 000002c4     a233             MVK     .S2     0x25,B4           ; [B_Sb674] |437| 
+     984 000002c6     25f7  ||         STW     .D2T1   A11,*SP++(-8)     ; [B_D64P] |435| 
+     985                    
+     986                            .dwcfi  cfa_offset, 8
+     987                            .dwcfi  save_reg_to_mem, 11, 0
+     988                    $C$DW$59        .dwtag  DW_TAG_TI_branch
+     989                            .dwattr $C$DW$59, DW_AT_low_pc(0x00)
+     990                            .dwattr $C$DW$59, DW_AT_name("CodecRegWrite")
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   19
+
+     991                            .dwattr $C$DW$59, DW_AT_TI_call
+     992                    
+     993                    
+     994 000002c8 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |437| 
+     995 000002cc     4646  ||         MV      .L1     A4,A10            ; [A_L674] |435| 
+     996 000002d0 053c22f5  ||         STW     .D2T1   A10,*SP(4)        ; [B_D64P] |435| 
+     997 000002ce     75d6  ||         MV      .D1X    B3,A11            ; [A_D64P] |435| 
+     998 000002d4     0772  ||         MVK     .S1     0xe0,A6           ; [A_S674] |437| 
+     999                    
+    1000                            .dwcfi  save_reg_to_mem, 10, -4
+    1001                            .dwcfi  save_reg_to_reg, 19, 11
+    1002                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1003 000002d6           $C$RL32:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |437| 
+    1004                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1005 000002d6     2a33             MVK     .S2     0x29,B4           ; [B_Sb674] |440| 
+    1006                    $C$DW$60        .dwtag  DW_TAG_TI_branch
+    1007                            .dwattr $C$DW$60, DW_AT_low_pc(0x00)
+    1008                            .dwattr $C$DW$60, DW_AT_name("CodecRegWrite")
+    1009                            .dwattr $C$DW$60, DW_AT_TI_call
+    1010                    
+    1011                    
+    1012 000002d8 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |440| 
+    1013 000002e0     8506  ||         MV      .L1     A10,A4            ; [A_L674] |440| 
+    1014 000002e2     4312  ||         MVK     .S1     2,A6              ; [A_S674] |440| 
+    1015                    
+    1016 000002e4           $C$RL34:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |440| 
+    1017                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1018 000002e4     4a33             MVK     .S2     0x2a,B4           ; [B_Sb674] |441| 
+    1019                    $C$DW$61        .dwtag  DW_TAG_TI_branch
+    1020                            .dwattr $C$DW$61, DW_AT_low_pc(0x00)
+    1021                            .dwattr $C$DW$61, DW_AT_name("CodecRegWrite")
+    1022                            .dwattr $C$DW$61, DW_AT_TI_call
+    1023                    
+    1024                    
+    1025 000002e8 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |441| 
+    1026 000002e6     8506  ||         MV      .L1     A10,A4            ; [A_L674] |441| 
+    1027 000002ec     8b72  ||         MVK     .S1     0x6c,A6           ; [A_S674] |441| 
+    1028                    
+    1029 000002ee           $C$RL36:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |441| 
+    1030                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1031 000002ee     ea33             MVK     .S2     0x2f,B4           ; [B_Sb674] |445| 
+    1032                    $C$DW$62        .dwtag  DW_TAG_TI_branch
+    1033                            .dwattr $C$DW$62, DW_AT_low_pc(0x00)
+    1034                            .dwattr $C$DW$62, DW_AT_name("CodecRegWrite")
+    1035                            .dwattr $C$DW$62, DW_AT_TI_call
+    1036                    
+    1037                    
+    1038 000002f0 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |445| 
+    1039 000002f4     8506  ||         MV      .L1     A10,A4            ; [A_L674] |445| 
+    1040 000002f6     0712  ||         MVK     .S1     0x80,A6           ; [A_S674] |445| 
+    1041                    
+    1042 000002f8           $C$RL38:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |445| 
+    1043                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1044 000002f8     7233             MVK     .S2     0x33,B4           ; [B_Sb674] |446| 
+    1045                    $C$DW$63        .dwtag  DW_TAG_TI_branch
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   20
+
+    1046                            .dwattr $C$DW$63, DW_AT_low_pc(0x00)
+    1047                            .dwattr $C$DW$63, DW_AT_name("CodecRegWrite")
+    1048                            .dwattr $C$DW$63, DW_AT_TI_call
+    1049                    
+    1050                    
+    1051 00000300 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |446| 
+    1052 000002fa     8506  ||         MV      .L1     A10,A4            ; [A_L674] |446| 
+    1053 00000304     2b12  ||         MVK     .S1     9,A6              ; [A_S674] |446| 
+    1054                    
+    1055 00000306           $C$RL40:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |446| 
+    1056                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1057 00000306     0253             MVK     .S2     0x40,B4           ; [B_Sb674] |449| 
+    1058                    $C$DW$64        .dwtag  DW_TAG_TI_branch
+    1059                            .dwattr $C$DW$64, DW_AT_low_pc(0x00)
+    1060                            .dwattr $C$DW$64, DW_AT_name("CodecRegWrite")
+    1061                            .dwattr $C$DW$64, DW_AT_TI_call
+    1062                    
+    1063                    
+    1064 00000308 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |449| 
+    1065 0000030c     8506  ||         MV      .L1     A10,A4            ; [A_L674] |449| 
+    1066 0000030e     0712  ||         MVK     .S1     0x80,A6           ; [A_S674] |449| 
+    1067                    
+    1068 00000310           $C$RL42:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |449| 
+    1069                    ;** --------------------------------------------------------------------------*
+    1070                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1071 00000310     2253             MVK     .S2     0x41,B4           ; [B_Sb674] |450| 
+    1072                    $C$DW$65        .dwtag  DW_TAG_TI_branch
+    1073                            .dwattr $C$DW$65, DW_AT_low_pc(0x08)
+    1074                            .dwattr $C$DW$65, DW_AT_name("CodecRegWrite")
+    1075                            .dwattr $C$DW$65, DW_AT_TI_call
+    1076                    
+    1077                    
+    1078 00000312     8506             MV      .L1     A10,A4            ; [A_L674] |450| 
+    1079 00000318     2b12  ||         MVK     .S1     9,A6              ; [A_S674] |450| 
+    1080 00000314 10000013! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |450| 
+    1081                    
+    1082 0000031a           $C$RL44:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |450| 
+    1083                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1084 0000031a     5253             MVK     .S2     0x52,B4           ; [B_Sb674] |453| 
+    1085                    $C$DW$66        .dwtag  DW_TAG_TI_branch
+    1086                            .dwattr $C$DW$66, DW_AT_low_pc(0x00)
+    1087                            .dwattr $C$DW$66, DW_AT_name("CodecRegWrite")
+    1088                            .dwattr $C$DW$66, DW_AT_TI_call
+    1089                    
+    1090                    
+    1091 00000320 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |453| 
+    1092 00000324     0712  ||         MVK     .S1     0x80,A6           ; [A_S674] |453| 
+    1093 00000326     8506  ||         MV      .L1     A10,A4            ; [A_L674] |453| 
+    1094                    
+    1095 00000328           $C$RL46:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |453| 
+    1096                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1097 00000328     d253             MVK     .S2     0x56,B4           ; [B_Sb674] |454| 
+    1098                    $C$DW$67        .dwtag  DW_TAG_TI_branch
+    1099                            .dwattr $C$DW$67, DW_AT_low_pc(0x00)
+    1100                            .dwattr $C$DW$67, DW_AT_name("CodecRegWrite")
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   21
+
+    1101                            .dwattr $C$DW$67, DW_AT_TI_call
+    1102                    
+    1103                    
+    1104 0000032c 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |454| 
+    1105 0000032a     2f26  ||         MVK     .L1     9,A6              ; [A_L674] |454| 
+    1106 00000330     850e  ||         MV      .S1     A10,A4            ; [A_S674] |454| 
+    1107                    
+    1108 00000332           $C$RL48:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |454| 
+    1109                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1110 00000332     9a53             MVK     .S2     0x5c,B4           ; [B_Sb674] |457| 
+    1111                    $C$DW$68        .dwtag  DW_TAG_TI_branch
+    1112                            .dwattr $C$DW$68, DW_AT_low_pc(0x00)
+    1113                            .dwattr $C$DW$68, DW_AT_name("CodecRegWrite")
+    1114                            .dwattr $C$DW$68, DW_AT_TI_call
+    1115                    
+    1116                    
+    1117 00000334 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |457| 
+    1118 00000338     0712  ||         MVK     .S1     0x80,A6           ; [A_S674] |457| 
+    1119 0000033a     8506  ||         MV      .L1     A10,A4            ; [A_L674] |457| 
+    1120                    
+    1121 00000340           $C$RL50:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |457| 
+    1122                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1123 00000340     ba53             MVK     .S2     0x5d,B4           ; [B_Sb674] |458| 
+    1124                    $C$DW$69        .dwtag  DW_TAG_TI_branch
+    1125                            .dwattr $C$DW$69, DW_AT_low_pc(0x00)
+    1126                            .dwattr $C$DW$69, DW_AT_name("CodecRegWrite")
+    1127                            .dwattr $C$DW$69, DW_AT_TI_call
+    1128                    
+    1129                    
+    1130 00000344 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |458| 
+    1131 00000342     2f26  ||         MVK     .L1     9,A6              ; [A_L674] |458| 
+    1132 00000348     850e  ||         MV      .S1     A10,A4            ; [A_S674] |458| 
+    1133                    
+    1134 0000034a           $C$RL52:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |458| 
+    1135                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1136 0000034a     7587             MV      .L2X    A11,B3            ; [B_L674] |459| 
+    1137                            .dwcfi  restore_reg, 19
+    1138                    $C$DW$70        .dwtag  DW_TAG_TI_branch
+    1139                            .dwattr $C$DW$70, DW_AT_low_pc(0x00)
+    1140                            .dwattr $C$DW$70, DW_AT_TI_return
+    1141                    
+    1142                    
+    1143 00000350     01ef             RET     .S2     B3                ; [B_Sb674] |459| 
+    1144 0000034c 053c22e5  ||         LDW     .D2T1   *SP(4),A10        ; [B_D64P] |459| 
+    1145                    
+    1146                            .dwcfi  restore_reg, 10
+    1147 00000352     65f7             LDW     .D2T1   *++SP(8),A11      ; [B_D64P] |459| 
+    1148                            .dwcfi  cfa_offset, 0
+    1149                            .dwcfi  restore_reg, 11
+    1150 00000354 00006000             NOP             4                 ; [A_L674] 
+    1151                               ; BRANCH OCCURS {B3}              ; [] |459| 
+    1152                            .dwattr $C$DW$56, DW_AT_TI_end_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Aud
+    1153                            .dwattr $C$DW$56, DW_AT_TI_end_line(0x1cb)
+    1154                            .dwattr $C$DW$56, DW_AT_TI_end_column(0x01)
+    1155                            .dwendentry
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   22
+
+    1156                            .dwendtag $C$DW$56
+    1157                    
+    1158 00000358                   .sect   ".text"
+    1159                            .clink
+    1160                            .global AIC31BypassInit
+    1161                    
+    1162                    $C$DW$71        .dwtag  DW_TAG_subprogram
+    1163                            .dwattr $C$DW$71, DW_AT_name("AIC31BypassInit")
+    1164                            .dwattr $C$DW$71, DW_AT_low_pc(AIC31BypassInit)
+    1165                            .dwattr $C$DW$71, DW_AT_high_pc(0x00)
+    1166                            .dwattr $C$DW$71, DW_AT_TI_symbol_name("AIC31BypassInit")
+    1167                            .dwattr $C$DW$71, DW_AT_external
+    1168                            .dwattr $C$DW$71, DW_AT_TI_begin_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/A
+    1169                            .dwattr $C$DW$71, DW_AT_TI_begin_line(0x1d5)
+    1170                            .dwattr $C$DW$71, DW_AT_TI_begin_column(0x06)
+    1171                            .dwattr $C$DW$71, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Audio
+    1172                            .dwattr $C$DW$71, DW_AT_decl_line(0x1d5)
+    1173                            .dwattr $C$DW$71, DW_AT_decl_column(0x06)
+    1174                            .dwattr $C$DW$71, DW_AT_TI_max_frame_size(0x08)
+    1175                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1176                    
+    1177                            .dwfde $C$DW$CIE, AIC31BypassInit
+    1178                    $C$DW$72        .dwtag  DW_TAG_formal_parameter
+    1179                            .dwattr $C$DW$72, DW_AT_name("baseAddr")
+    1180                            .dwattr $C$DW$72, DW_AT_TI_symbol_name("baseAddr")
+    1181                            .dwattr $C$DW$72, DW_AT_type(*$C$DW$T$11)
+    1182                            .dwattr $C$DW$72, DW_AT_location[DW_OP_reg4]
+    1183                    
+    1184                    
+    1185                    ;******************************************************************************
+    1186                    ;* FUNCTION NAME: AIC31BypassInit                                             *
+    1187                    ;*                                                                            *
+    1188                    ;*   Regs Modified     : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A16,A17,A18,   *
+    1189                    ;*                           A19,A20,A21,A22,A23,A24,A25,A26,A27,A28,A29,A30, *
+    1190                    ;*                           A31,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,SP,B16,B17,B18,*
+    1191                    ;*                           B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30, *
+    1192                    ;*                           B31                                              *
+    1193                    ;*   Regs Used         : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A16,A17,A18,   *
+    1194                    ;*                           A19,A20,A21,A22,A23,A24,A25,A26,A27,A28,A29,A30, *
+    1195                    ;*                           A31,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,DP,SP,B16,B17, *
+    1196                    ;*                           B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29, *
+    1197                    ;*                           B30,B31                                          *
+    1198                    ;*   Local Frame Size  : 0 Args + 0 Auto + 8 Save = 8 byte                    *
+    1199                    ;******************************************************************************
+    1200                    AIC31BypassInit:
+    1201                    ;** --------------------------------------------------------------------------*
+    1202                    $C$DW$73        .dwtag  DW_TAG_variable
+    1203                            .dwattr $C$DW$73, DW_AT_name("baseAddr")
+    1204                            .dwattr $C$DW$73, DW_AT_TI_symbol_name("baseAddr")
+    1205                            .dwattr $C$DW$73, DW_AT_type(*$C$DW$T$26)
+    1206                            .dwattr $C$DW$73, DW_AT_location[DW_OP_reg10]
+    1207                    
+    1208                            .dwcfi  cfa_offset, 0
+    1209 00000358     25f7             STW     .D2T1   A11,*SP++(-8)     ; [B_D64P] |470| 
+    1210                            .dwcfi  cfa_offset, 8
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   23
+
+    1211                            .dwcfi  save_reg_to_mem, 11, 0
+    1212                    $C$DW$74        .dwtag  DW_TAG_TI_branch
+    1213                            .dwattr $C$DW$74, DW_AT_low_pc(0x0c)
+    1214                            .dwattr $C$DW$74, DW_AT_name("CodecRegWrite")
+    1215                            .dwattr $C$DW$74, DW_AT_TI_call
+    1216                    
+    1217                    
+    1218 00000360 053c22f5             STW     .D2T1   A10,*SP(4)        ; [B_D64P] |470| 
+    1219 0000035a     4646  ||         MV      .L1     A4,A10            ; [A_L674] |470| 
+    1220 00000364     75ce  ||         MV      .S1X    B3,A11            ; [A_S674] |470| 
+    1221 00000368 10000013! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |472| 
+    1222 00000366     1b76  ||         ZERO    .D1     A6                ; [A_D64P] |472| 
+    1223 0000036c     ee27  ||         MVK     .L2     15,B4             ; [B_L674] |472| 
+    1224                    
+    1225                            .dwcfi  save_reg_to_mem, 10, -4
+    1226                            .dwcfi  save_reg_to_reg, 19, 11
+    1227                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1228 0000036e           $C$RL54:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |472| 
+    1229                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1230 0000036e     7213             MVK     .S2     0x13,B4           ; [B_Sb674] |475| 
+    1231                    $C$DW$75        .dwtag  DW_TAG_TI_branch
+    1232                            .dwattr $C$DW$75, DW_AT_low_pc(0x04)
+    1233                            .dwattr $C$DW$75, DW_AT_name("CodecRegWrite")
+    1234                            .dwattr $C$DW$75, DW_AT_TI_call
+    1235                    
+    1236                    
+    1237 00000370     8506             MV      .L1     A10,A4            ; [A_L674] |475| 
+    1238 00000374 10000012! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |475| 
+    1239 00000372     8312  ||         MVK     .S1     4,A6              ; [A_S674] |475| 
+    1240                    
+    1241 00000378           $C$RL56:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |475| 
+    1242                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1243 00000378     b213             MVK     .S2     0x15,B4           ; [B_Sb674] |478| 
+    1244                    $C$DW$76        .dwtag  DW_TAG_TI_branch
+    1245                            .dwattr $C$DW$76, DW_AT_low_pc(0x04)
+    1246                            .dwattr $C$DW$76, DW_AT_name("CodecRegWrite")
+    1247                            .dwattr $C$DW$76, DW_AT_TI_call
+    1248                    
+    1249                    
+    1250 0000037a     8506             MV      .L1     A10,A4            ; [A_L674] |478| 
+    1251 00000380 10000013! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |478| 
+    1252 00000384     0312  ||         ZERO    .S1     A6                ; [A_S674] |478| 
+    1253                    
+    1254 00000386           $C$RL58:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |478| 
+    1255                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1256 00000386     3253             MVK     .S2     0x51,B4           ; [B_Sb674] |481| 
+    1257                    $C$DW$77        .dwtag  DW_TAG_TI_branch
+    1258                            .dwattr $C$DW$77, DW_AT_low_pc(0x04)
+    1259                            .dwattr $C$DW$77, DW_AT_name("CodecRegWrite")
+    1260                            .dwattr $C$DW$77, DW_AT_TI_call
+    1261                    
+    1262                    
+    1263 00000388     8506             MV      .L1     A10,A4            ; [A_L674] |481| 
+    1264 0000038c 10000012! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |481| 
+    1265 0000038a     0712  ||         MVK     .S1     0x80,A6           ; [A_S674] |481| 
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   24
+
+    1266                    
+    1267 00000390           $C$RL60:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |481| 
+    1268                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1269 00000390     1a53             MVK     .S2     0x58,B4           ; [B_Sb674] |484| 
+    1270                    $C$DW$78        .dwtag  DW_TAG_TI_branch
+    1271                            .dwattr $C$DW$78, DW_AT_low_pc(0x04)
+    1272                            .dwattr $C$DW$78, DW_AT_name("CodecRegWrite")
+    1273                            .dwattr $C$DW$78, DW_AT_TI_call
+    1274                    
+    1275                    
+    1276 00000392     8506             MV      .L1     A10,A4            ; [A_L674] |484| 
+    1277 00000394 10000013! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |484| 
+    1278 00000398     0712  ||         MVK     .S1     0x80,A6           ; [A_S674] |484| 
+    1279                    
+    1280 0000039a           $C$RL62:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |484| 
+    1281                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1282 0000039a     5a13             MVK     .S2     0x1a,B4           ; [B_Sb674] |487| 
+    1283                    $C$DW$79        .dwtag  DW_TAG_TI_branch
+    1284                            .dwattr $C$DW$79, DW_AT_low_pc(0x04)
+    1285                            .dwattr $C$DW$79, DW_AT_name("CodecRegWrite")
+    1286                            .dwattr $C$DW$79, DW_AT_TI_call
+    1287                    
+    1288                    
+    1289 000003a0     8506             MV      .L1     A10,A4            ; [A_L674] |487| 
+    1290 000003a4 10000012! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |487| 
+    1291 000003a2     0712  ||         MVK     .S1     0x80,A6           ; [A_S674] |487| 
+    1292                    
+    1293 000003a8           $C$RL64:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |487| 
+    1294                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1295 000003a8     7a13             MVK     .S2     0x1b,B4           ; [B_Sb674] |489| 
+    1296                    $C$DW$80        .dwtag  DW_TAG_TI_branch
+    1297                            .dwattr $C$DW$80, DW_AT_low_pc(0x04)
+    1298                            .dwattr $C$DW$80, DW_AT_name("CodecRegWrite")
+    1299                            .dwattr $C$DW$80, DW_AT_TI_call
+    1300                    
+    1301                    
+    1302 000003aa     8506             MV      .L1     A10,A4            ; [A_L674] |489| 
+    1303 000003ac 10000013! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |489| 
+    1304 000003b0     1712  ||         MVK     .S1     0x90,A6           ; [A_S674] |489| 
+    1305                    
+    1306 000003b2           $C$RL66:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |489| 
+    1307                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1308 000003b2     ba13             MVK     .S2     0x1d,B4           ; [B_Sb674] |492| 
+    1309                    $C$DW$81        .dwtag  DW_TAG_TI_branch
+    1310                            .dwattr $C$DW$81, DW_AT_low_pc(0x04)
+    1311                            .dwattr $C$DW$81, DW_AT_name("CodecRegWrite")
+    1312                            .dwattr $C$DW$81, DW_AT_TI_call
+    1313                    
+    1314                    
+    1315 000003b4     8506             MV      .L1     A10,A4            ; [A_L674] |492| 
+    1316 000003b8 10000012! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |492| 
+    1317 000003b6     0712  ||         MVK     .S1     0x80,A6           ; [A_S674] |492| 
+    1318                    
+    1319 000003c0           $C$RL68:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |492| 
+    1320                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   25
+
+    1321 000003c0     da13             MVK     .S2     0x1e,B4           ; [B_Sb674] |494| 
+    1322                    $C$DW$82        .dwtag  DW_TAG_TI_branch
+    1323                            .dwattr $C$DW$82, DW_AT_low_pc(0x04)
+    1324                            .dwattr $C$DW$82, DW_AT_name("CodecRegWrite")
+    1325                            .dwattr $C$DW$82, DW_AT_TI_call
+    1326                    
+    1327                    
+    1328 000003c2     8506             MV      .L1     A10,A4            ; [A_L674] |494| 
+    1329 000003c4 10000013! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |494| 
+    1330 000003c8     1712  ||         MVK     .S1     0x90,A6           ; [A_S674] |494| 
+    1331                    
+    1332 000003ca           $C$RL70:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |494| 
+    1333                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1334 000003ca     d253             MVK     .S2     0x56,B4           ; [B_Sb674] |497| 
+    1335                    $C$DW$83        .dwtag  DW_TAG_TI_branch
+    1336                            .dwattr $C$DW$83, DW_AT_low_pc(0x04)
+    1337                            .dwattr $C$DW$83, DW_AT_name("CodecRegWrite")
+    1338                            .dwattr $C$DW$83, DW_AT_TI_call
+    1339                    
+    1340                    
+    1341 000003cc     8506             MV      .L1     A10,A4            ; [A_L674] |497| 
+    1342 000003d0 10000012! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |497| 
+    1343 000003ce     2b12  ||         MVK     .S1     9,A6              ; [A_S674] |497| 
+    1344                    
+    1345 000003d4           $C$RL72:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |497| 
+    1346                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1347 000003d4     7587             MV      .L2X    A11,B3            ; [B_L674] |498| 
+    1348                            .dwcfi  restore_reg, 19
+    1349                    $C$DW$84        .dwtag  DW_TAG_TI_branch
+    1350                            .dwattr $C$DW$84, DW_AT_low_pc(0x00)
+    1351                            .dwattr $C$DW$84, DW_AT_TI_return
+    1352                    
+    1353                    
+    1354 000003d6     01ef             RET     .S2     B3                ; [B_Sb674] |498| 
+    1355 000003d8 053c22e4  ||         LDW     .D2T1   *SP(4),A10        ; [B_D64P] |498| 
+    1356                    
+    1357                            .dwcfi  restore_reg, 10
+    1358 000003e0     65f7             LDW     .D2T1   *++SP(8),A11      ; [B_D64P] |498| 
+    1359                            .dwcfi  cfa_offset, 0
+    1360                            .dwcfi  restore_reg, 11
+    1361 000003e2     6c6e             NOP             4                 ; [A_L674] 
+    1362                               ; BRANCH OCCURS {B3}              ; [] |498| 
+    1363                            .dwattr $C$DW$71, DW_AT_TI_end_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Aud
+    1364                            .dwattr $C$DW$71, DW_AT_TI_end_line(0x1f2)
+    1365                            .dwattr $C$DW$71, DW_AT_TI_end_column(0x01)
+    1366                            .dwendentry
+    1367                            .dwendtag $C$DW$71
+    1368                    
+    1369 000003e4                   .sect   ".text"
+    1370                            .clink
+    1371                            .global AIC31ADCInit
+    1372                    
+    1373                    $C$DW$85        .dwtag  DW_TAG_subprogram
+    1374                            .dwattr $C$DW$85, DW_AT_name("AIC31ADCInit")
+    1375                            .dwattr $C$DW$85, DW_AT_low_pc(AIC31ADCInit)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   26
+
+    1376                            .dwattr $C$DW$85, DW_AT_high_pc(0x00)
+    1377                            .dwattr $C$DW$85, DW_AT_TI_symbol_name("AIC31ADCInit")
+    1378                            .dwattr $C$DW$85, DW_AT_external
+    1379                            .dwattr $C$DW$85, DW_AT_TI_begin_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/A
+    1380                            .dwattr $C$DW$85, DW_AT_TI_begin_line(0x166)
+    1381                            .dwattr $C$DW$85, DW_AT_TI_begin_column(0x06)
+    1382                            .dwattr $C$DW$85, DW_AT_decl_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Audio
+    1383                            .dwattr $C$DW$85, DW_AT_decl_line(0x166)
+    1384                            .dwattr $C$DW$85, DW_AT_decl_column(0x06)
+    1385                            .dwattr $C$DW$85, DW_AT_TI_max_frame_size(0x08)
+    1386                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1387                    
+    1388                            .dwfde $C$DW$CIE, AIC31ADCInit
+    1389                    $C$DW$86        .dwtag  DW_TAG_formal_parameter
+    1390                            .dwattr $C$DW$86, DW_AT_name("baseAddr")
+    1391                            .dwattr $C$DW$86, DW_AT_TI_symbol_name("baseAddr")
+    1392                            .dwattr $C$DW$86, DW_AT_type(*$C$DW$T$11)
+    1393                            .dwattr $C$DW$86, DW_AT_location[DW_OP_reg4]
+    1394                    
+    1395                    
+    1396                    ;******************************************************************************
+    1397                    ;* FUNCTION NAME: AIC31ADCInit                                                *
+    1398                    ;*                                                                            *
+    1399                    ;*   Regs Modified     : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A16,A17,A18,   *
+    1400                    ;*                           A19,A20,A21,A22,A23,A24,A25,A26,A27,A28,A29,A30, *
+    1401                    ;*                           A31,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,SP,B16,B17,B18,*
+    1402                    ;*                           B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30, *
+    1403                    ;*                           B31                                              *
+    1404                    ;*   Regs Used         : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A16,A17,A18,   *
+    1405                    ;*                           A19,A20,A21,A22,A23,A24,A25,A26,A27,A28,A29,A30, *
+    1406                    ;*                           A31,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,DP,SP,B16,B17, *
+    1407                    ;*                           B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29, *
+    1408                    ;*                           B30,B31                                          *
+    1409                    ;*   Local Frame Size  : 0 Args + 0 Auto + 8 Save = 8 byte                    *
+    1410                    ;******************************************************************************
+    1411                    AIC31ADCInit:
+    1412                    ;** --------------------------------------------------------------------------*
+    1413                    $C$DW$87        .dwtag  DW_TAG_variable
+    1414                            .dwattr $C$DW$87, DW_AT_name("baseAddr")
+    1415                            .dwattr $C$DW$87, DW_AT_TI_symbol_name("baseAddr")
+    1416                            .dwattr $C$DW$87, DW_AT_type(*$C$DW$T$26)
+    1417                            .dwattr $C$DW$87, DW_AT_location[DW_OP_reg10]
+    1418                    
+    1419                            .dwcfi  cfa_offset, 0
+    1420 000003e4     25f7             STW     .D2T1   A11,*SP++(-8)     ; [B_D64P] |359| 
+    1421                            .dwcfi  cfa_offset, 8
+    1422                            .dwcfi  save_reg_to_mem, 11, 0
+    1423                    $C$DW$88        .dwtag  DW_TAG_TI_branch
+    1424                            .dwattr $C$DW$88, DW_AT_low_pc(0x00)
+    1425                            .dwattr $C$DW$88, DW_AT_name("CodecRegWrite")
+    1426                            .dwattr $C$DW$88, DW_AT_TI_call
+    1427                    
+    1428                    
+    1429 000003e8 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |361| 
+    1430 000003e6     4646  ||         MV      .L1     A4,A10            ; [A_L674] |359| 
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   27
+
+    1431 000003ec 053c22f5  ||         STW     .D2T1   A10,*SP(4)        ; [B_D64P] |359| 
+    1432 000003f0     75ce  ||         MV      .S1X    B3,A11            ; [A_S674] |359| 
+    1433 000003f2     ee27  ||         MVK     .L2     15,B4             ; [B_L674] |361| 
+    1434 000003f4     1b76  ||         ZERO    .D1     A6                ; [A_D64P] |361| 
+    1435                    
+    1436                            .dwcfi  save_reg_to_mem, 10, -4
+    1437                            .dwcfi  save_reg_to_reg, 19, 11
+    1438                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1439 000003f6           $C$RL74:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |361| 
+    1440                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1441 000003f6     7213             MVK     .S2     0x13,B4           ; [B_Sb674] |365| 
+    1442                    $C$DW$89        .dwtag  DW_TAG_TI_branch
+    1443                            .dwattr $C$DW$89, DW_AT_low_pc(0x00)
+    1444                            .dwattr $C$DW$89, DW_AT_name("CodecRegWrite")
+    1445                            .dwattr $C$DW$89, DW_AT_TI_call
+    1446                    
+    1447                    
+    1448 000003f8 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |365| 
+    1449 00000400     8506  ||         MV      .L1     A10,A4            ; [A_L674] |365| 
+    1450 00000402     9b72  ||         MVK     .S1     0x7c,A6           ; [A_S674] |365| 
+    1451                    
+    1452 00000404           $C$RL76:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |365| 
+    1453                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1454 00000404     3213             MVK     .S2     0x11,B4           ; [B_Sb674] |380| 
+    1455                    $C$DW$90        .dwtag  DW_TAG_TI_branch
+    1456                            .dwattr $C$DW$90, DW_AT_low_pc(0x00)
+    1457                            .dwattr $C$DW$90, DW_AT_name("CodecRegWrite")
+    1458                            .dwattr $C$DW$90, DW_AT_TI_call
+    1459                    
+    1460                    
+    1461 00000408 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |380| 
+    1462 00000406     8506  ||         MV      .L1     A10,A4            ; [A_L674] |380| 
+    1463 0000040c     0312  ||         ZERO    .S1     A6                ; [A_S674] |380| 
+    1464                    
+    1465 0000040e           $C$RL78:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |380| 
+    1466                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1467 0000040e     a233             MVK     .S2     0x25,B4           ; [B_Sb674] |383| 
+    1468                    $C$DW$91        .dwtag  DW_TAG_TI_branch
+    1469                            .dwattr $C$DW$91, DW_AT_low_pc(0x00)
+    1470                            .dwattr $C$DW$91, DW_AT_name("CodecRegWrite")
+    1471                            .dwattr $C$DW$91, DW_AT_TI_call
+    1472                    
+    1473                    
+    1474 00000410 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |383| 
+    1475 00000414     8506  ||         MV      .L1     A10,A4            ; [A_L674] |383| 
+    1476 00000416     0712  ||         MVK     .S1     0x80,A6           ; [A_S674] |383| 
+    1477                    
+    1478 00000418           $C$RL80:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |383| 
+    1479                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1480 00000418     2a33             MVK     .S2     0x29,B4           ; [B_Sb674] |386| 
+    1481                    $C$DW$92        .dwtag  DW_TAG_TI_branch
+    1482                            .dwattr $C$DW$92, DW_AT_low_pc(0x00)
+    1483                            .dwattr $C$DW$92, DW_AT_name("CodecRegWrite")
+    1484                            .dwattr $C$DW$92, DW_AT_TI_call
+    1485                    
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   28
+
+    1486                    
+    1487 00000420 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |386| 
+    1488 0000041a     8506  ||         MV      .L1     A10,A4            ; [A_L674] |386| 
+    1489 00000424     0312  ||         ZERO    .S1     A6                ; [A_S674] |386| 
+    1490                    
+    1491 00000426           $C$RL82:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |386| 
+    1492                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1493 00000426     ea33             MVK     .S2     0x2f,B4           ; [B_Sb674] |392| 
+    1494                    $C$DW$93        .dwtag  DW_TAG_TI_branch
+    1495                            .dwattr $C$DW$93, DW_AT_low_pc(0x00)
+    1496                            .dwattr $C$DW$93, DW_AT_name("CodecRegWrite")
+    1497                            .dwattr $C$DW$93, DW_AT_TI_call
+    1498                    
+    1499                    
+    1500 00000428 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |392| 
+    1501 0000042c     8506  ||         MV      .L1     A10,A4            ; [A_L674] |392| 
+    1502 0000042e     0712  ||         MVK     .S1     0x80,A6           ; [A_S674] |392| 
+    1503                    
+    1504 00000430           $C$RL84:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |392| 
+    1505                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1506 00000430     3233             MVK     .S2     0x31,B4           ; [B_Sb674] |393| 
+    1507                    $C$DW$94        .dwtag  DW_TAG_TI_branch
+    1508                            .dwattr $C$DW$94, DW_AT_low_pc(0x00)
+    1509                            .dwattr $C$DW$94, DW_AT_name("CodecRegWrite")
+    1510                            .dwattr $C$DW$94, DW_AT_TI_call
+    1511                    
+    1512                    
+    1513 00000434 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |393| 
+    1514 00000432     8506  ||         MV      .L1     A10,A4            ; [A_L674] |393| 
+    1515 00000438     0712  ||         MVK     .S1     0x80,A6           ; [A_S674] |393| 
+    1516                    
+    1517 0000043a           $C$RL86:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |393| 
+    1518                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1519 0000043a     7233             MVK     .S2     0x33,B4           ; [B_Sb674] |394| 
+    1520                    $C$DW$95        .dwtag  DW_TAG_TI_branch
+    1521                            .dwattr $C$DW$95, DW_AT_low_pc(0x00)
+    1522                            .dwattr $C$DW$95, DW_AT_name("CodecRegWrite")
+    1523                            .dwattr $C$DW$95, DW_AT_TI_call
+    1524                    
+    1525                    
+    1526 00000440 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |394| 
+    1527 00000444     8506  ||         MV      .L1     A10,A4            ; [A_L674] |394| 
+    1528 00000446     2b12  ||         MVK     .S1     9,A6              ; [A_S674] |394| 
+    1529                    
+    1530 00000448           $C$RL88:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |394| 
+    1531                    ;** --------------------------------------------------------------------------*
+    1532                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1533 00000448     ba33             MVK     .S2     0x3d,B4           ; [B_Sb674] |399| 
+    1534                    $C$DW$96        .dwtag  DW_TAG_TI_branch
+    1535                            .dwattr $C$DW$96, DW_AT_low_pc(0x08)
+    1536                            .dwattr $C$DW$96, DW_AT_name("CodecRegWrite")
+    1537                            .dwattr $C$DW$96, DW_AT_TI_call
+    1538                    
+    1539                    
+    1540 0000044a     8506             MV      .L1     A10,A4            ; [A_L674] |399| 
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   29
+
+    1541 00000450     0712  ||         MVK     .S1     0x80,A6           ; [A_S674] |399| 
+    1542 0000044c 10000013! ||         CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |399| 
+    1543                    
+    1544 00000452           $C$RL90:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |399| 
+    1545                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1546 00000452     fa33             MVK     .S2     0x3f,B4           ; [B_Sb674] |400| 
+    1547                    $C$DW$97        .dwtag  DW_TAG_TI_branch
+    1548                            .dwattr $C$DW$97, DW_AT_low_pc(0x00)
+    1549                            .dwattr $C$DW$97, DW_AT_name("CodecRegWrite")
+    1550                            .dwattr $C$DW$97, DW_AT_TI_call
+    1551                    
+    1552                    
+    1553 00000454 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |400| 
+    1554 00000458     0712  ||         MVK     .S1     0x80,A6           ; [A_S674] |400| 
+    1555 0000045a     8506  ||         MV      .L1     A10,A4            ; [A_L674] |400| 
+    1556                    
+    1557 00000460           $C$RL92:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |400| 
+    1558                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1559 00000460     2253             MVK     .S2     0x41,B4           ; [B_Sb674] |401| 
+    1560                    $C$DW$98        .dwtag  DW_TAG_TI_branch
+    1561                            .dwattr $C$DW$98, DW_AT_low_pc(0x00)
+    1562                            .dwattr $C$DW$98, DW_AT_name("CodecRegWrite")
+    1563                            .dwattr $C$DW$98, DW_AT_TI_call
+    1564                    
+    1565                    
+    1566 00000464 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |401| 
+    1567 00000462     2f26  ||         MVK     .L1     9,A6              ; [A_L674] |401| 
+    1568 00000468     850e  ||         MV      .S1     A10,A4            ; [A_S674] |401| 
+    1569                    
+    1570 0000046a           $C$RL94:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |401| 
+    1571                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1572 0000046a     c233             MVK     .S2     0x26,B4           ; [B_Sb674] |404| 
+    1573                    $C$DW$99        .dwtag  DW_TAG_TI_branch
+    1574                            .dwattr $C$DW$99, DW_AT_low_pc(0x00)
+    1575                            .dwattr $C$DW$99, DW_AT_name("CodecRegWrite")
+    1576                            .dwattr $C$DW$99, DW_AT_TI_call
+    1577                    
+    1578                    
+    1579 0000046c 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |404| 
+    1580 00000470     0712  ||         MVK     .S1     0x80,A6           ; [A_S674] |404| 
+    1581 00000472     8506  ||         MV      .L1     A10,A4            ; [A_L674] |404| 
+    1582                    
+    1583 00000474           $C$RL96:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |404| 
+    1584                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1585 00000474     6a33             MVK     .S2     0x2b,B4           ; [B_Sb674] |415| 
+    1586                    $C$DW$100       .dwtag  DW_TAG_TI_branch
+    1587                            .dwattr $C$DW$100, DW_AT_low_pc(0x00)
+    1588                            .dwattr $C$DW$100, DW_AT_name("CodecRegWrite")
+    1589                            .dwattr $C$DW$100, DW_AT_TI_call
+    1590                    
+    1591                    
+    1592 00000478 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |415| 
+    1593 00000476     0726  ||         ZERO    .L1     A6                ; [A_L674] |415| 
+    1594 00000480     850e  ||         MV      .S1     A10,A4            ; [A_S674] |415| 
+    1595                    
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   30
+
+    1596 00000482           $C$RL98:   ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |415| 
+    1597                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1598 00000482     5a13             MVK     .S2     0x1a,B4           ; [B_Sb674] |418| 
+    1599                    $C$DW$101       .dwtag  DW_TAG_TI_branch
+    1600                            .dwattr $C$DW$101, DW_AT_low_pc(0x00)
+    1601                            .dwattr $C$DW$101, DW_AT_name("CodecRegWrite")
+    1602                            .dwattr $C$DW$101, DW_AT_TI_call
+    1603                    
+    1604                    
+    1605 00000484 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |418| 
+    1606 00000488     1772  ||         MVK     .S1     0xf0,A6           ; [A_S674] |418| 
+    1607 0000048a     8506  ||         MV      .L1     A10,A4            ; [A_L674] |418| 
+    1608                    
+    1609 0000048c           $C$RL100:  ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |418| 
+    1610                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1611 0000048c     7a13             MVK     .S2     0x1b,B4           ; [B_Sb674] |419| 
+    1612                    $C$DW$102       .dwtag  DW_TAG_TI_branch
+    1613                            .dwattr $C$DW$102, DW_AT_low_pc(0x00)
+    1614                            .dwattr $C$DW$102, DW_AT_name("CodecRegWrite")
+    1615                            .dwattr $C$DW$102, DW_AT_TI_call
+    1616                    
+    1617                    
+    1618 00000490 10000013!            CALLP   .S2     CodecRegWrite,B3  ; [B_Sb674] |419| 
+    1619 0000048e     1332  ||         MVK     .S1     0x30,A6           ; [A_S674] |419| 
+    1620 00000494     8506  ||         MV      .L1     A10,A4            ; [A_L674] |419| 
+    1621                    
+    1622 00000496           $C$RL102:  ; CALLP OCCURS {CodecRegWrite} {0}  ; [] |419| 
+    1623                            .dwpsn  file "C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/AudioInterface/src/aic31.c
+    1624 00000496     7587             MV      .L2X    A11,B3            ; [B_L674] |424| 
+    1625                            .dwcfi  restore_reg, 19
+    1626                    $C$DW$103       .dwtag  DW_TAG_TI_branch
+    1627                            .dwattr $C$DW$103, DW_AT_low_pc(0x00)
+    1628                            .dwattr $C$DW$103, DW_AT_TI_return
+    1629                    
+    1630                    
+    1631 000004a0 000c0362             RET     .S2     B3                ; [B_Sb674] |424| 
+    1632 00000498 053c22e5  ||         LDW     .D2T1   *SP(4),A10        ; [B_D64P] |424| 
+    1633                    
+    1634                            .dwcfi  restore_reg, 10
+    1635 000004a4 05bc52e4             LDW     .D2T1   *++SP(8),A11      ; [B_D64P] |424| 
+    1636                            .dwcfi  cfa_offset, 0
+    1637                            .dwcfi  restore_reg, 11
+    1638 000004a8 00006000             NOP             4                 ; [A_L674] 
+    1639                               ; BRANCH OCCURS {B3}              ; [] |424| 
+    1640                            .dwattr $C$DW$85, DW_AT_TI_end_file("C:/Users/Raz Aloni/OneDrive/School/EEL4924/DSP/C_Libs/Aud
+    1641                            .dwattr $C$DW$85, DW_AT_TI_end_line(0x1a8)
+    1642                            .dwattr $C$DW$85, DW_AT_TI_end_column(0x01)
+    1643                            .dwendentry
+    1644                            .dwendtag $C$DW$85
+    1645                    
+    1646                    ;*****************************************************************************
+    1647                    ;* UNDEFINED EXTERNAL REFERENCES                                             *
+    1648                    ;*****************************************************************************
+    1649                            .global CodecRegWrite
+    1650                            .global CodecRegBitClr
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   31
+
+    1651                    
+    1652                    ;******************************************************************************
+    1653                    ;* BUILD ATTRIBUTES                                                           *
+    1654                    ;******************************************************************************
+    1655                            .battr "TI", Tag_File, 1, Tag_Long_Precision_Bits(2)
+    1656                            .battr "TI", Tag_File, 1, Tag_Bitfield_layout(2)
+    1657                            .battr "TI", Tag_File, 1, Tag_ABI_enum_size(3)
+    1658                            .battr "c6xabi", Tag_File, 1, Tag_ABI_wchar_t(1)
+    1659                            .battr "c6xabi", Tag_File, 1, Tag_ABI_array_object_alignment(0)
+    1660                            .battr "c6xabi", Tag_File, 1, Tag_ABI_array_object_align_expected(0)
+    1661                            .battr "c6xabi", Tag_File, 1, Tag_ABI_PIC(0)
+    1662                            .battr "c6xabi", Tag_File, 1, Tag_ABI_PID(0)
+    1663                            .battr "c6xabi", Tag_File, 1, Tag_ABI_DSBT(0)
+    1664                            .battr "c6xabi", Tag_File, 1, Tag_ABI_stack_align_needed(0)
+    1665                            .battr "c6xabi", Tag_File, 1, Tag_ABI_stack_align_preserved(0)
+    1666                            .battr "TI", Tag_File, 1, Tag_Tramps_Use_SOC(1)
+    1667                    
+    1668                    ;******************************************************************************
+    1669                    ;* TYPE INFORMATION                                                           *
+    1670                    ;******************************************************************************
+    1671                    $C$DW$T$2       .dwtag  DW_TAG_unspecified_type
+    1672                            .dwattr $C$DW$T$2, DW_AT_name("void")
+    1673                    
+    1674                    $C$DW$T$4       .dwtag  DW_TAG_base_type
+    1675                            .dwattr $C$DW$T$4, DW_AT_encoding(DW_ATE_boolean)
+    1676                            .dwattr $C$DW$T$4, DW_AT_name("bool")
+    1677                            .dwattr $C$DW$T$4, DW_AT_byte_size(0x01)
+    1678                    
+    1679                    $C$DW$T$5       .dwtag  DW_TAG_base_type
+    1680                            .dwattr $C$DW$T$5, DW_AT_encoding(DW_ATE_signed_char)
+    1681                            .dwattr $C$DW$T$5, DW_AT_name("signed char")
+    1682                            .dwattr $C$DW$T$5, DW_AT_byte_size(0x01)
+    1683                    
+    1684                    $C$DW$T$6       .dwtag  DW_TAG_base_type
+    1685                            .dwattr $C$DW$T$6, DW_AT_encoding(DW_ATE_unsigned_char)
+    1686                            .dwattr $C$DW$T$6, DW_AT_name("unsigned char")
+    1687                            .dwattr $C$DW$T$6, DW_AT_byte_size(0x01)
+    1688                    
+    1689                    $C$DW$T$25      .dwtag  DW_TAG_const_type
+    1690                            .dwattr $C$DW$T$25, DW_AT_type(*$C$DW$T$6)
+    1691                    
+    1692                    $C$DW$T$7       .dwtag  DW_TAG_base_type
+    1693                            .dwattr $C$DW$T$7, DW_AT_encoding(DW_ATE_signed_char)
+    1694                            .dwattr $C$DW$T$7, DW_AT_name("wchar_t")
+    1695                            .dwattr $C$DW$T$7, DW_AT_byte_size(0x02)
+    1696                    
+    1697                    $C$DW$T$8       .dwtag  DW_TAG_base_type
+    1698                            .dwattr $C$DW$T$8, DW_AT_encoding(DW_ATE_signed)
+    1699                            .dwattr $C$DW$T$8, DW_AT_name("short")
+    1700                            .dwattr $C$DW$T$8, DW_AT_byte_size(0x02)
+    1701                    
+    1702                    $C$DW$T$9       .dwtag  DW_TAG_base_type
+    1703                            .dwattr $C$DW$T$9, DW_AT_encoding(DW_ATE_unsigned)
+    1704                            .dwattr $C$DW$T$9, DW_AT_name("unsigned short")
+    1705                            .dwattr $C$DW$T$9, DW_AT_byte_size(0x02)
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   32
+
+    1706                    
+    1707                    $C$DW$T$10      .dwtag  DW_TAG_base_type
+    1708                            .dwattr $C$DW$T$10, DW_AT_encoding(DW_ATE_signed)
+    1709                            .dwattr $C$DW$T$10, DW_AT_name("int")
+    1710                            .dwattr $C$DW$T$10, DW_AT_byte_size(0x04)
+    1711                    
+    1712                    $C$DW$T$11      .dwtag  DW_TAG_base_type
+    1713                            .dwattr $C$DW$T$11, DW_AT_encoding(DW_ATE_unsigned)
+    1714                            .dwattr $C$DW$T$11, DW_AT_name("unsigned int")
+    1715                            .dwattr $C$DW$T$11, DW_AT_byte_size(0x04)
+    1716                    
+    1717                    $C$DW$T$26      .dwtag  DW_TAG_const_type
+    1718                            .dwattr $C$DW$T$26, DW_AT_type(*$C$DW$T$11)
+    1719                    
+    1720                    $C$DW$T$12      .dwtag  DW_TAG_base_type
+    1721                            .dwattr $C$DW$T$12, DW_AT_encoding(DW_ATE_signed)
+    1722                            .dwattr $C$DW$T$12, DW_AT_name("__int40_t")
+    1723                            .dwattr $C$DW$T$12, DW_AT_byte_size(0x08)
+    1724                            .dwattr $C$DW$T$12, DW_AT_bit_size(0x28)
+    1725                            .dwattr $C$DW$T$12, DW_AT_bit_offset(0x18)
+    1726                    
+    1727                    $C$DW$T$13      .dwtag  DW_TAG_base_type
+    1728                            .dwattr $C$DW$T$13, DW_AT_encoding(DW_ATE_unsigned)
+    1729                            .dwattr $C$DW$T$13, DW_AT_name("unsigned __int40_t")
+    1730                            .dwattr $C$DW$T$13, DW_AT_byte_size(0x08)
+    1731                            .dwattr $C$DW$T$13, DW_AT_bit_size(0x28)
+    1732                            .dwattr $C$DW$T$13, DW_AT_bit_offset(0x18)
+    1733                    
+    1734                    $C$DW$T$14      .dwtag  DW_TAG_base_type
+    1735                            .dwattr $C$DW$T$14, DW_AT_encoding(DW_ATE_signed)
+    1736                            .dwattr $C$DW$T$14, DW_AT_name("long long")
+    1737                            .dwattr $C$DW$T$14, DW_AT_byte_size(0x08)
+    1738                    
+    1739                    $C$DW$T$15      .dwtag  DW_TAG_base_type
+    1740                            .dwattr $C$DW$T$15, DW_AT_encoding(DW_ATE_unsigned)
+    1741                            .dwattr $C$DW$T$15, DW_AT_name("unsigned long long")
+    1742                            .dwattr $C$DW$T$15, DW_AT_byte_size(0x08)
+    1743                    
+    1744                    $C$DW$T$16      .dwtag  DW_TAG_base_type
+    1745                            .dwattr $C$DW$T$16, DW_AT_encoding(DW_ATE_float)
+    1746                            .dwattr $C$DW$T$16, DW_AT_name("float")
+    1747                            .dwattr $C$DW$T$16, DW_AT_byte_size(0x04)
+    1748                    
+    1749                    $C$DW$T$17      .dwtag  DW_TAG_base_type
+    1750                            .dwattr $C$DW$T$17, DW_AT_encoding(DW_ATE_float)
+    1751                            .dwattr $C$DW$T$17, DW_AT_name("double")
+    1752                            .dwattr $C$DW$T$17, DW_AT_byte_size(0x08)
+    1753                    
+    1754                    $C$DW$T$18      .dwtag  DW_TAG_base_type
+    1755                            .dwattr $C$DW$T$18, DW_AT_encoding(DW_ATE_float)
+    1756                            .dwattr $C$DW$T$18, DW_AT_name("long double")
+    1757                            .dwattr $C$DW$T$18, DW_AT_byte_size(0x08)
+    1758                    
+    1759                            .dwattr $C$DW$CU, DW_AT_language(DW_LANG_C)
+    1760                    
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   33
+
+    1761                    ;***************************************************************
+    1762                    ;* DWARF CIE ENTRIES                                           *
+    1763                    ;***************************************************************
+    1764                    
+    1765                    $C$DW$CIE       .dwcie 19
+    1766                            .dwcfi  cfa_register, 31
+    1767                            .dwcfi  cfa_offset, 0
+    1768                            .dwcfi  undefined, 0
+    1769                            .dwcfi  undefined, 1
+    1770                            .dwcfi  undefined, 2
+    1771                            .dwcfi  undefined, 3
+    1772                            .dwcfi  undefined, 4
+    1773                            .dwcfi  undefined, 5
+    1774                            .dwcfi  undefined, 6
+    1775                            .dwcfi  undefined, 7
+    1776                            .dwcfi  undefined, 8
+    1777                            .dwcfi  undefined, 9
+    1778                            .dwcfi  same_value, 10
+    1779                            .dwcfi  same_value, 11
+    1780                            .dwcfi  same_value, 12
+    1781                            .dwcfi  same_value, 13
+    1782                            .dwcfi  same_value, 14
+    1783                            .dwcfi  same_value, 15
+    1784                            .dwcfi  undefined, 32
+    1785                            .dwcfi  undefined, 37
+    1786                            .dwcfi  undefined, 38
+    1787                            .dwcfi  undefined, 39
+    1788                            .dwcfi  undefined, 40
+    1789                            .dwcfi  undefined, 41
+    1790                            .dwcfi  undefined, 42
+    1791                            .dwcfi  undefined, 43
+    1792                            .dwcfi  undefined, 44
+    1793                            .dwcfi  undefined, 45
+    1794                            .dwcfi  undefined, 46
+    1795                            .dwcfi  undefined, 47
+    1796                            .dwcfi  undefined, 48
+    1797                            .dwcfi  undefined, 49
+    1798                            .dwcfi  undefined, 50
+    1799                            .dwcfi  undefined, 51
+    1800                            .dwcfi  undefined, 52
+    1801                            .dwcfi  undefined, 16
+    1802                            .dwcfi  undefined, 17
+    1803                            .dwcfi  undefined, 18
+    1804                            .dwcfi  undefined, 19
+    1805                            .dwcfi  undefined, 20
+    1806                            .dwcfi  undefined, 21
+    1807                            .dwcfi  undefined, 22
+    1808                            .dwcfi  undefined, 23
+    1809                            .dwcfi  undefined, 24
+    1810                            .dwcfi  undefined, 25
+    1811                            .dwcfi  same_value, 26
+    1812                            .dwcfi  same_value, 27
+    1813                            .dwcfi  same_value, 28
+    1814                            .dwcfi  same_value, 29
+    1815                            .dwcfi  same_value, 30
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   34
+
+    1816                            .dwcfi  same_value, 31
+    1817                            .dwcfi  undefined, 53
+    1818                            .dwcfi  undefined, 54
+    1819                            .dwcfi  undefined, 55
+    1820                            .dwcfi  undefined, 56
+    1821                            .dwcfi  undefined, 57
+    1822                            .dwcfi  undefined, 58
+    1823                            .dwcfi  undefined, 59
+    1824                            .dwcfi  undefined, 60
+    1825                            .dwcfi  undefined, 61
+    1826                            .dwcfi  undefined, 62
+    1827                            .dwcfi  undefined, 63
+    1828                            .dwcfi  undefined, 64
+    1829                            .dwcfi  undefined, 65
+    1830                            .dwcfi  undefined, 66
+    1831                            .dwcfi  undefined, 67
+    1832                            .dwcfi  undefined, 68
+    1833                            .dwcfi  undefined, 33
+    1834                            .dwcfi  undefined, 34
+    1835                            .dwcfi  undefined, 35
+    1836                            .dwcfi  undefined, 36
+    1837                            .dwcfi  undefined, 70
+    1838                            .dwcfi  undefined, 70
+    1839                            .dwcfi  undefined, 91
+    1840                            .dwcfi  undefined, 70
+    1841                            .dwcfi  undefined, 69
+    1842                            .dwcfi  undefined, 71
+    1843                            .dwcfi  undefined, 72
+    1844                            .dwcfi  undefined, 73
+    1845                            .dwcfi  undefined, 74
+    1846                            .dwcfi  undefined, 75
+    1847                            .dwcfi  undefined, 76
+    1848                            .dwcfi  undefined, 77
+    1849                            .dwcfi  undefined, 78
+    1850                            .dwcfi  undefined, 79
+    1851                            .dwcfi  undefined, 80
+    1852                            .dwcfi  undefined, 81
+    1853                            .dwcfi  undefined, 82
+    1854                            .dwcfi  undefined, 83
+    1855                            .dwcfi  undefined, 84
+    1856                            .dwcfi  undefined, 85
+    1857                            .dwcfi  undefined, 86
+    1858                            .dwcfi  undefined, 87
+    1859                            .dwcfi  undefined, 88
+    1860                            .dwcfi  undefined, 89
+    1861                            .dwcfi  undefined, 90
+    1862                            .dwcfi  undefined, 92
+    1863                            .dwcfi  undefined, 93
+    1864                            .dwcfi  undefined, 94
+    1865                            .dwcfi  undefined, 95
+    1866                            .dwcfi  undefined, 96
+    1867                            .dwcfi  undefined, 97
+    1868                            .dwcfi  undefined, 98
+    1869                            .dwcfi  undefined, 99
+    1870                            .dwcfi  undefined, 100
+TMS320C6x Assembler PC v8.1.3 Fri Apr 14 08:40:19 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+aic31.asm                                                            PAGE   35
+
+    1871                            .dwcfi  undefined, 101
+    1872                            .dwcfi  undefined, 102
+    1873                            .dwcfi  undefined, 103
+    1874                            .dwcfi  undefined, 104
+    1875                            .dwcfi  undefined, 105
+    1876                            .dwcfi  undefined, 106
+    1877                            .dwcfi  undefined, 107
+    1878                            .dwcfi  undefined, 108
+    1879                            .dwcfi  undefined, 109
+    1880                            .dwcfi  undefined, 110
+    1881                            .dwcfi  undefined, 111
+    1882                            .dwcfi  undefined, 112
+    1883                            .dwcfi  undefined, 113
+    1884                            .dwcfi  undefined, 114
+    1885                            .dwcfi  undefined, 115
+    1886                            .dwcfi  undefined, 116
+    1887                            .dwcfi  undefined, 117
+    1888                            .dwcfi  undefined, 118
+    1889                            .dwcfi  undefined, 119
+    1890                            .dwcfi  undefined, 120
+    1891                            .dwcfi  undefined, 121
+    1892                            .dwcfi  undefined, 122
+    1893                            .dwcfi  undefined, 123
+    1894                            .dwcfi  undefined, 124
+    1895                            .dwcfi  undefined, 125
+    1896                            .dwcfi  undefined, 126
+    1897                            .dwcfi  undefined, 127
+    1898                            .dwendentry
+    1899                            .dwendtag $C$DW$CU
+    1900                    
+
+No Assembly Errors, No Assembly Warnings

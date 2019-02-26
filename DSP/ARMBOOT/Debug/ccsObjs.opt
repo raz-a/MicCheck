@@ -1,0 +1,1 @@
+"./boot.obj" "./leds.obj" "./main.obj" "./StarterWareLib/gpio.obj" "./StarterWareLib/psc.obj" "../OMAPL138.cmd" -llibc.a 

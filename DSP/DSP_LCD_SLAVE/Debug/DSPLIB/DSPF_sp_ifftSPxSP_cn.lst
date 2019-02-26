@@ -1,0 +1,1555 @@
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE    1
+
+       1                    ;******************************************************************************
+       2                    ;* G3 TMS320C6x C/C++ Codegen                                       PC v8.1.3 *
+       3                    ;* Date/Time created: Thu Apr 20 04:41:22 2017                                *
+       4                    ;******************************************************************************
+       5                            .compiler_opts --abi=eabi --array_alignment=8 --diag_wrap=off --endian=little --hll_source=on 
+       6                    
+       7                    ;******************************************************************************
+       8                    ;* GLOBAL FILE PARAMETERS                                                     *
+       9                    ;*                                                                            *
+      10                    ;*   Architecture      : TMS320C674x                                          *
+      11                    ;*   Optimization      : Enabled at level 3                                   *
+      12                    ;*   Optimizing for    : Speed                                                *
+      13                    ;*                       Based on options: -o3, no -ms                        *
+      14                    ;*   Endian            : Little                                               *
+      15                    ;*   Interrupt Thrshld : Disabled                                             *
+      16                    ;*   Data Access Model : Far Aggregate Data                                   *
+      17                    ;*   Pipelining        : Enabled                                              *
+      18                    ;*   Speculate Loads   : Enabled with threshold = 0                           *
+      19                    ;*   Memory Aliases    : Presume are aliases (pessimistic)                    *
+      20                    ;*   Debug Info        : DWARF Debug                                          *
+      21                    ;*                                                                            *
+      22                    ;******************************************************************************
+      23                    
+      24                            .asg    A15, FP
+      25                            .asg    B14, DP
+      26                            .asg    B15, SP
+      27                            .global $bss
+      28                    
+      29                    
+      30                    $C$DW$CU        .dwtag  DW_TAG_compile_unit
+      31                            .dwattr $C$DW$CU, DW_AT_name("C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSP
+      32                            .dwattr $C$DW$CU, DW_AT_producer("TI G3 TMS320C6x C/C++ Codegen PC v8.1.3 Copyright (c) 1996-2
+      33                            .dwattr $C$DW$CU, DW_AT_TI_version(0x01)
+      34                            .dwattr $C$DW$CU, DW_AT_comp_dir("C:\Users\Raz Aloni\OneDrive\School\EEL4924\DSP\DSP_Workspace
+      35                    ;       C:\ti\ccsv7\tools\compiler\ti-cgt-c6000_8.1.3\bin\opt6x.exe C:\\Users\\RAZALO~1\\AppData\\Loca
+      36 00000000                   .sect   ".text:natural"
+      37                            .clink
+      38                            .global DSPF_sp_ifftSPxSP_cn
+      39                    
+      40                    $C$DW$1 .dwtag  DW_TAG_subprogram
+      41                            .dwattr $C$DW$1, DW_AT_name("DSPF_sp_ifftSPxSP_cn")
+      42                            .dwattr $C$DW$1, DW_AT_low_pc(DSPF_sp_ifftSPxSP_cn)
+      43                            .dwattr $C$DW$1, DW_AT_high_pc(0x00)
+      44                            .dwattr $C$DW$1, DW_AT_TI_symbol_name("DSPF_sp_ifftSPxSP_cn")
+      45                            .dwattr $C$DW$1, DW_AT_external
+      46                            .dwattr $C$DW$1, DW_AT_TI_begin_file("C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_s
+      47                            .dwattr $C$DW$1, DW_AT_TI_begin_line(0x3e)
+      48                            .dwattr $C$DW$1, DW_AT_TI_begin_column(0x06)
+      49                            .dwattr $C$DW$1, DW_AT_decl_file("C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_if
+      50                            .dwattr $C$DW$1, DW_AT_decl_line(0x3e)
+      51                            .dwattr $C$DW$1, DW_AT_decl_column(0x06)
+      52                            .dwattr $C$DW$1, DW_AT_TI_max_frame_size(0x28)
+      53                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+      54                    
+      55                            .dwfde $C$DW$CIE, DSPF_sp_ifftSPxSP_cn
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE    2
+
+      56                    $C$DW$2 .dwtag  DW_TAG_formal_parameter
+      57                            .dwattr $C$DW$2, DW_AT_name("N")
+      58                            .dwattr $C$DW$2, DW_AT_TI_symbol_name("N")
+      59                            .dwattr $C$DW$2, DW_AT_type(*$C$DW$T$10)
+      60                            .dwattr $C$DW$2, DW_AT_location[DW_OP_reg4]
+      61                    
+      62                    $C$DW$3 .dwtag  DW_TAG_formal_parameter
+      63                            .dwattr $C$DW$3, DW_AT_name("ptr_x")
+      64                            .dwattr $C$DW$3, DW_AT_TI_symbol_name("ptr_x")
+      65                            .dwattr $C$DW$3, DW_AT_type(*$C$DW$T$22)
+      66                            .dwattr $C$DW$3, DW_AT_location[DW_OP_reg20]
+      67                    
+      68                    $C$DW$4 .dwtag  DW_TAG_formal_parameter
+      69                            .dwattr $C$DW$4, DW_AT_name("ptr_w")
+      70                            .dwattr $C$DW$4, DW_AT_TI_symbol_name("ptr_w")
+      71                            .dwattr $C$DW$4, DW_AT_type(*$C$DW$T$22)
+      72                            .dwattr $C$DW$4, DW_AT_location[DW_OP_reg6]
+      73                    
+      74                    $C$DW$5 .dwtag  DW_TAG_formal_parameter
+      75                            .dwattr $C$DW$5, DW_AT_name("ptr_y")
+      76                            .dwattr $C$DW$5, DW_AT_TI_symbol_name("ptr_y")
+      77                            .dwattr $C$DW$5, DW_AT_type(*$C$DW$T$22)
+      78                            .dwattr $C$DW$5, DW_AT_location[DW_OP_reg22]
+      79                    
+      80                    $C$DW$6 .dwtag  DW_TAG_formal_parameter
+      81                            .dwattr $C$DW$6, DW_AT_name("brev")
+      82                            .dwattr $C$DW$6, DW_AT_TI_symbol_name("brev")
+      83                            .dwattr $C$DW$6, DW_AT_type(*$C$DW$T$19)
+      84                            .dwattr $C$DW$6, DW_AT_location[DW_OP_reg8]
+      85                    
+      86                    $C$DW$7 .dwtag  DW_TAG_formal_parameter
+      87                            .dwattr $C$DW$7, DW_AT_name("n_min")
+      88                            .dwattr $C$DW$7, DW_AT_TI_symbol_name("n_min")
+      89                            .dwattr $C$DW$7, DW_AT_type(*$C$DW$T$10)
+      90                            .dwattr $C$DW$7, DW_AT_location[DW_OP_reg24]
+      91                    
+      92                    $C$DW$8 .dwtag  DW_TAG_formal_parameter
+      93                            .dwattr $C$DW$8, DW_AT_name("offset")
+      94                            .dwattr $C$DW$8, DW_AT_TI_symbol_name("offset")
+      95                            .dwattr $C$DW$8, DW_AT_type(*$C$DW$T$10)
+      96                            .dwattr $C$DW$8, DW_AT_location[DW_OP_reg10]
+      97                    
+      98                    $C$DW$9 .dwtag  DW_TAG_formal_parameter
+      99                            .dwattr $C$DW$9, DW_AT_name("n_max")
+     100                            .dwattr $C$DW$9, DW_AT_TI_symbol_name("n_max")
+     101                            .dwattr $C$DW$9, DW_AT_type(*$C$DW$T$10)
+     102                            .dwattr $C$DW$9, DW_AT_location[DW_OP_reg26]
+     103                    
+     104                    
+     105                    ;******************************************************************************
+     106                    ;* FUNCTION NAME: DSPF_sp_ifftSPxSP_cn                                        *
+     107                    ;*                                                                            *
+     108                    ;*   Regs Modified     : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A16,   *
+     109                    ;*                           A17,A18,A19,A20,A21,A22,A23,A24,A25,A26,A27,A28, *
+     110                    ;*                           A29,A30,A31,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,   *
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE    3
+
+     111                    ;*                           B11,B12,B13,SP,B16,B17,B18,B19,B20,B21,B22,B23,  *
+     112                    ;*                           B24,B25,B26,B27,B28,B29,B30,B31                  *
+     113                    ;*   Regs Used         : A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A16,   *
+     114                    ;*                           A17,A18,A19,A20,A21,A22,A23,A24,A25,A26,A27,A28, *
+     115                    ;*                           A29,A30,A31,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,   *
+     116                    ;*                           B11,B12,B13,DP,SP,B16,B17,B18,B19,B20,B21,B22,   *
+     117                    ;*                           B23,B24,B25,B26,B27,B28,B29,B30,B31              *
+     118                    ;*   Local Frame Size  : 0 Args + 0 Auto + 40 Save = 40 byte                  *
+     119                    ;******************************************************************************
+     120                    DSPF_sp_ifftSPxSP_cn:
+     121                    ;** --------------------------------------------------------------------------*
+     122                    $C$DW$10        .dwtag  DW_TAG_variable
+     123                            .dwattr $C$DW$10, DW_AT_name("j")
+     124                            .dwattr $C$DW$10, DW_AT_TI_symbol_name("j")
+     125                            .dwattr $C$DW$10, DW_AT_type(*$C$DW$T$10)
+     126                            .dwattr $C$DW$10, DW_AT_location[DW_OP_reg28]
+     127                    
+     128                    $C$DW$11        .dwtag  DW_TAG_variable
+     129                            .dwattr $C$DW$11, DW_AT_name("j")
+     130                            .dwattr $C$DW$11, DW_AT_TI_symbol_name("j")
+     131                            .dwattr $C$DW$11, DW_AT_type(*$C$DW$T$10)
+     132                            .dwattr $C$DW$11, DW_AT_location[DW_OP_reg24]
+     133                    
+     134                    $C$DW$12        .dwtag  DW_TAG_variable
+     135                            .dwattr $C$DW$12, DW_AT_name("k")
+     136                            .dwattr $C$DW$12, DW_AT_TI_symbol_name("k")
+     137                            .dwattr $C$DW$12, DW_AT_type(*$C$DW$T$10)
+     138                            .dwattr $C$DW$12, DW_AT_location[DW_OP_reg8]
+     139                    
+     140                    $C$DW$13        .dwtag  DW_TAG_variable
+     141                            .dwattr $C$DW$13, DW_AT_name("k")
+     142                            .dwattr $C$DW$13, DW_AT_TI_symbol_name("k")
+     143                            .dwattr $C$DW$13, DW_AT_type(*$C$DW$T$10)
+     144                            .dwattr $C$DW$13, DW_AT_location[DW_OP_reg25]
+     145                    
+     146                    $C$DW$14        .dwtag  DW_TAG_variable
+     147                            .dwattr $C$DW$14, DW_AT_name("yt0")
+     148                            .dwattr $C$DW$14, DW_AT_TI_symbol_name("yt0")
+     149                            .dwattr $C$DW$14, DW_AT_type(*$C$DW$T$16)
+     150                            .dwattr $C$DW$14, DW_AT_location[DW_OP_reg21]
+     151                    
+     152                    $C$DW$15        .dwtag  DW_TAG_variable
+     153                            .dwattr $C$DW$15, DW_AT_name("yt1")
+     154                            .dwattr $C$DW$15, DW_AT_TI_symbol_name("yt1")
+     155                            .dwattr $C$DW$15, DW_AT_type(*$C$DW$T$16)
+     156                            .dwattr $C$DW$15, DW_AT_location[DW_OP_reg20]
+     157                    
+     158                    $C$DW$16        .dwtag  DW_TAG_variable
+     159                            .dwattr $C$DW$16, DW_AT_name("ptr_x0")
+     160                            .dwattr $C$DW$16, DW_AT_TI_symbol_name("ptr_x0")
+     161                            .dwattr $C$DW$16, DW_AT_type(*$C$DW$T$22)
+     162                            .dwattr $C$DW$16, DW_AT_location[DW_OP_reg12]
+     163                    
+     164                    $C$DW$17        .dwtag  DW_TAG_variable
+     165                            .dwattr $C$DW$17, DW_AT_name("n_max")
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE    4
+
+     166                            .dwattr $C$DW$17, DW_AT_TI_symbol_name("n_max")
+     167                            .dwattr $C$DW$17, DW_AT_type(*$C$DW$T$24)
+     168                            .dwattr $C$DW$17, DW_AT_location[DW_OP_reg26]
+     169                    
+     170                    $C$DW$18        .dwtag  DW_TAG_variable
+     171                            .dwattr $C$DW$18, DW_AT_name("offset")
+     172                            .dwattr $C$DW$18, DW_AT_TI_symbol_name("offset")
+     173                            .dwattr $C$DW$18, DW_AT_type(*$C$DW$T$24)
+     174                            .dwattr $C$DW$18, DW_AT_location[DW_OP_regx 0x36]
+     175                    
+     176                    $C$DW$19        .dwtag  DW_TAG_variable
+     177                            .dwattr $C$DW$19, DW_AT_name("n_min")
+     178                            .dwattr $C$DW$19, DW_AT_TI_symbol_name("n_min")
+     179                            .dwattr $C$DW$19, DW_AT_type(*$C$DW$T$24)
+     180                            .dwattr $C$DW$19, DW_AT_location[DW_OP_reg10]
+     181                    
+     182                    $C$DW$20        .dwtag  DW_TAG_variable
+     183                            .dwattr $C$DW$20, DW_AT_name("ptr_w")
+     184                            .dwattr $C$DW$20, DW_AT_TI_symbol_name("ptr_w")
+     185                            .dwattr $C$DW$20, DW_AT_type(*$C$DW$T$29)
+     186                            .dwattr $C$DW$20, DW_AT_location[DW_OP_regx 0x35]
+     187                    
+     188                    $C$DW$21        .dwtag  DW_TAG_variable
+     189                            .dwattr $C$DW$21, DW_AT_name("ptr_x")
+     190                            .dwattr $C$DW$21, DW_AT_TI_symbol_name("ptr_x")
+     191                            .dwattr $C$DW$21, DW_AT_type(*$C$DW$T$29)
+     192                            .dwattr $C$DW$21, DW_AT_location[DW_OP_reg12]
+     193                    
+     194                    $C$DW$22        .dwtag  DW_TAG_variable
+     195                            .dwattr $C$DW$22, DW_AT_name("N")
+     196                            .dwattr $C$DW$22, DW_AT_TI_symbol_name("N")
+     197                            .dwattr $C$DW$22, DW_AT_type(*$C$DW$T$24)
+     198                            .dwattr $C$DW$22, DW_AT_location[DW_OP_reg27]
+     199                    
+     200                    $C$DW$23        .dwtag  DW_TAG_variable
+     201                            .dwattr $C$DW$23, DW_AT_name("tw_offset")
+     202                            .dwattr $C$DW$23, DW_AT_TI_symbol_name("tw_offset")
+     203                            .dwattr $C$DW$23, DW_AT_type(*$C$DW$T$10)
+     204                            .dwattr $C$DW$23, DW_AT_location[DW_OP_regx 0x2e]
+     205                    
+     206                    $C$DW$24        .dwtag  DW_TAG_variable
+     207                            .dwattr $C$DW$24, DW_AT_name("stride")
+     208                            .dwattr $C$DW$24, DW_AT_TI_symbol_name("stride")
+     209                            .dwattr $C$DW$24, DW_AT_type(*$C$DW$T$10)
+     210                            .dwattr $C$DW$24, DW_AT_location[DW_OP_reg25]
+     211                    
+     212                    $C$DW$25        .dwtag  DW_TAG_variable
+     213                            .dwattr $C$DW$25, DW_AT_name("fft_jmp")
+     214                            .dwattr $C$DW$25, DW_AT_TI_symbol_name("fft_jmp")
+     215                            .dwattr $C$DW$25, DW_AT_type(*$C$DW$T$10)
+     216                            .dwattr $C$DW$25, DW_AT_location[DW_OP_regx 0x27]
+     217                    
+     218                    $C$DW$26        .dwtag  DW_TAG_variable
+     219                            .dwattr $C$DW$26, DW_AT_name("yt4")
+     220                            .dwattr $C$DW$26, DW_AT_TI_symbol_name("yt4")
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE    5
+
+     221                            .dwattr $C$DW$26, DW_AT_type(*$C$DW$T$16)
+     222                            .dwattr $C$DW$26, DW_AT_location[DW_OP_regx 0x35]
+     223                    
+     224                    $C$DW$27        .dwtag  DW_TAG_variable
+     225                            .dwattr $C$DW$27, DW_AT_name("yt5")
+     226                            .dwattr $C$DW$27, DW_AT_TI_symbol_name("yt5")
+     227                            .dwattr $C$DW$27, DW_AT_type(*$C$DW$T$16)
+     228                            .dwattr $C$DW$27, DW_AT_location[DW_OP_reg25]
+     229                    
+     230                    $C$DW$28        .dwtag  DW_TAG_variable
+     231                            .dwattr $C$DW$28, DW_AT_name("xh0")
+     232                            .dwattr $C$DW$28, DW_AT_TI_symbol_name("xh0")
+     233                            .dwattr $C$DW$28, DW_AT_type(*$C$DW$T$16)
+     234                            .dwattr $C$DW$28, DW_AT_location[DW_OP_regx 0x34]
+     235                    
+     236                    $C$DW$29        .dwtag  DW_TAG_variable
+     237                            .dwattr $C$DW$29, DW_AT_name("xh1")
+     238                            .dwattr $C$DW$29, DW_AT_TI_symbol_name("xh1")
+     239                            .dwattr $C$DW$29, DW_AT_type(*$C$DW$T$16)
+     240                            .dwattr $C$DW$29, DW_AT_location[DW_OP_regx 0x30]
+     241                    
+     242                    $C$DW$30        .dwtag  DW_TAG_variable
+     243                            .dwattr $C$DW$30, DW_AT_name("xh20")
+     244                            .dwattr $C$DW$30, DW_AT_TI_symbol_name("xh20")
+     245                            .dwattr $C$DW$30, DW_AT_type(*$C$DW$T$16)
+     246                            .dwattr $C$DW$30, DW_AT_location[DW_OP_regx 0x32]
+     247                    
+     248                    $C$DW$31        .dwtag  DW_TAG_variable
+     249                            .dwattr $C$DW$31, DW_AT_name("xh21")
+     250                            .dwattr $C$DW$31, DW_AT_TI_symbol_name("xh21")
+     251                            .dwattr $C$DW$31, DW_AT_type(*$C$DW$T$16)
+     252                            .dwattr $C$DW$31, DW_AT_location[DW_OP_regx 0x2f]
+     253                    
+     254                    $C$DW$32        .dwtag  DW_TAG_variable
+     255                            .dwattr $C$DW$32, DW_AT_name("xl0")
+     256                            .dwattr $C$DW$32, DW_AT_TI_symbol_name("xl0")
+     257                            .dwattr $C$DW$32, DW_AT_type(*$C$DW$T$16)
+     258                            .dwattr $C$DW$32, DW_AT_location[DW_OP_regx 0x31]
+     259                    
+     260                    $C$DW$33        .dwtag  DW_TAG_variable
+     261                            .dwattr $C$DW$33, DW_AT_name("xl1")
+     262                            .dwattr $C$DW$33, DW_AT_TI_symbol_name("xl1")
+     263                            .dwattr $C$DW$33, DW_AT_type(*$C$DW$T$16)
+     264                            .dwattr $C$DW$33, DW_AT_location[DW_OP_regx 0x2d]
+     265                    
+     266                    $C$DW$34        .dwtag  DW_TAG_variable
+     267                            .dwattr $C$DW$34, DW_AT_name("xl20")
+     268                            .dwattr $C$DW$34, DW_AT_TI_symbol_name("xl20")
+     269                            .dwattr $C$DW$34, DW_AT_type(*$C$DW$T$16)
+     270                            .dwattr $C$DW$34, DW_AT_location[DW_OP_regx 0x29]
+     271                    
+     272                    $C$DW$35        .dwtag  DW_TAG_variable
+     273                            .dwattr $C$DW$35, DW_AT_name("xl21")
+     274                            .dwattr $C$DW$35, DW_AT_TI_symbol_name("xl21")
+     275                            .dwattr $C$DW$35, DW_AT_type(*$C$DW$T$16)
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE    6
+
+     276                            .dwattr $C$DW$35, DW_AT_location[DW_OP_reg9]
+     277                    
+     278                    $C$DW$36        .dwtag  DW_TAG_variable
+     279                            .dwattr $C$DW$36, DW_AT_name("xl0_0")
+     280                            .dwattr $C$DW$36, DW_AT_TI_symbol_name("xl0_0")
+     281                            .dwattr $C$DW$36, DW_AT_type(*$C$DW$T$16)
+     282                            .dwattr $C$DW$36, DW_AT_location[DW_OP_regx 0x35]
+     283                    
+     284                    $C$DW$37        .dwtag  DW_TAG_variable
+     285                            .dwattr $C$DW$37, DW_AT_name("xl1_0")
+     286                            .dwattr $C$DW$37, DW_AT_TI_symbol_name("xl1_0")
+     287                            .dwattr $C$DW$37, DW_AT_type(*$C$DW$T$16)
+     288                            .dwattr $C$DW$37, DW_AT_location[DW_OP_reg22]
+     289                    
+     290                    $C$DW$38        .dwtag  DW_TAG_variable
+     291                            .dwattr $C$DW$38, DW_AT_name("xl0_1")
+     292                            .dwattr $C$DW$38, DW_AT_TI_symbol_name("xl0_1")
+     293                            .dwattr $C$DW$38, DW_AT_type(*$C$DW$T$16)
+     294                            .dwattr $C$DW$38, DW_AT_location[DW_OP_reg5]
+     295                    
+     296                    $C$DW$39        .dwtag  DW_TAG_variable
+     297                            .dwattr $C$DW$39, DW_AT_name("xl1_1")
+     298                            .dwattr $C$DW$39, DW_AT_TI_symbol_name("xl1_1")
+     299                            .dwattr $C$DW$39, DW_AT_type(*$C$DW$T$16)
+     300                            .dwattr $C$DW$39, DW_AT_location[DW_OP_regx 0x3f]
+     301                    
+     302                    $C$DW$40        .dwtag  DW_TAG_variable
+     303                            .dwattr $C$DW$40, DW_AT_name("xh0_0")
+     304                            .dwattr $C$DW$40, DW_AT_TI_symbol_name("xh0_0")
+     305                            .dwattr $C$DW$40, DW_AT_type(*$C$DW$T$16)
+     306                            .dwattr $C$DW$40, DW_AT_location[DW_OP_regx 0x3a]
+     307                    
+     308                    $C$DW$41        .dwtag  DW_TAG_variable
+     309                            .dwattr $C$DW$41, DW_AT_name("xh1_0")
+     310                            .dwattr $C$DW$41, DW_AT_TI_symbol_name("xh1_0")
+     311                            .dwattr $C$DW$41, DW_AT_type(*$C$DW$T$16)
+     312                            .dwattr $C$DW$41, DW_AT_location[DW_OP_reg25]
+     313                    
+     314                    $C$DW$42        .dwtag  DW_TAG_variable
+     315                            .dwattr $C$DW$42, DW_AT_name("xh0_1")
+     316                            .dwattr $C$DW$42, DW_AT_TI_symbol_name("xh0_1")
+     317                            .dwattr $C$DW$42, DW_AT_type(*$C$DW$T$16)
+     318                            .dwattr $C$DW$42, DW_AT_location[DW_OP_reg24]
+     319                    
+     320                    $C$DW$43        .dwtag  DW_TAG_variable
+     321                            .dwattr $C$DW$43, DW_AT_name("xh1_1")
+     322                            .dwattr $C$DW$43, DW_AT_TI_symbol_name("xh1_1")
+     323                            .dwattr $C$DW$43, DW_AT_type(*$C$DW$T$16)
+     324                            .dwattr $C$DW$43, DW_AT_location[DW_OP_reg23]
+     325                    
+     326                    $C$DW$44        .dwtag  DW_TAG_variable
+     327                            .dwattr $C$DW$44, DW_AT_name("x")
+     328                            .dwattr $C$DW$44, DW_AT_TI_symbol_name("x")
+     329                            .dwattr $C$DW$44, DW_AT_type(*$C$DW$T$22)
+     330                            .dwattr $C$DW$44, DW_AT_location[DW_OP_regx 0x28]
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE    7
+
+     331                    
+     332                    $C$DW$45        .dwtag  DW_TAG_variable
+     333                            .dwattr $C$DW$45, DW_AT_name("w")
+     334                            .dwattr $C$DW$45, DW_AT_TI_symbol_name("w")
+     335                            .dwattr $C$DW$45, DW_AT_type(*$C$DW$T$22)
+     336                            .dwattr $C$DW$45, DW_AT_location[DW_OP_regx 0x37]
+     337                    
+     338                    $C$DW$46        .dwtag  DW_TAG_variable
+     339                            .dwattr $C$DW$46, DW_AT_name("l0")
+     340                            .dwattr $C$DW$46, DW_AT_TI_symbol_name("l0")
+     341                            .dwattr $C$DW$46, DW_AT_type(*$C$DW$T$10)
+     342                            .dwattr $C$DW$46, DW_AT_location[DW_OP_reg13]
+     343                    
+     344                    $C$DW$47        .dwtag  DW_TAG_variable
+     345                            .dwattr $C$DW$47, DW_AT_name("y0")
+     346                            .dwattr $C$DW$47, DW_AT_TI_symbol_name("y0")
+     347                            .dwattr $C$DW$47, DW_AT_type(*$C$DW$T$28)
+     348                            .dwattr $C$DW$47, DW_AT_location[DW_OP_reg11]
+     349                    
+     350                    $C$DW$48        .dwtag  DW_TAG_variable
+     351                            .dwattr $C$DW$48, DW_AT_name("scale")
+     352                            .dwattr $C$DW$48, DW_AT_TI_symbol_name("scale")
+     353                            .dwattr $C$DW$48, DW_AT_type(*$C$DW$T$16)
+     354                            .dwattr $C$DW$48, DW_AT_location[DW_OP_regx 0x39]
+     355                    
+     356                    $C$DW$49        .dwtag  DW_TAG_variable
+     357                            .dwattr $C$DW$49, DW_AT_name("i")
+     358                            .dwattr $C$DW$49, DW_AT_TI_symbol_name("i")
+     359                            .dwattr $C$DW$49, DW_AT_type(*$C$DW$T$11)
+     360                            .dwattr $C$DW$49, DW_AT_location[DW_OP_reg5]
+     361                    
+     362                    $C$DW$50        .dwtag  DW_TAG_variable
+     363                            .dwattr $C$DW$50, DW_AT_name("a")
+     364                            .dwattr $C$DW$50, DW_AT_TI_symbol_name("a")
+     365                            .dwattr $C$DW$50, DW_AT_type(*$C$DW$T$11)
+     366                            .dwattr $C$DW$50, DW_AT_location[DW_OP_reg4]
+     367                    
+     368                            .dwcfi  cfa_offset, 0
+     369                    
+     370 00000000 002098f9             CMPGT   .L1X    A4,B8,A0          ; [A_L674] |87| 
+     371 0000000c     25f7  ||         STW     .D2T1   A11,*SP++(-8)     ; [B_D64P] |64| 
+     372 00000008 0c800029  ||         ZERO    .S1     A25               ; [A_S674] |86| 
+     373 00000004 08a81fdb  ||         MV      .L2X    A10,B17           ; [B_L674] |64| 
+     374                            .dwcfi  cfa_offset, 8
+     375                            .dwcfi  save_reg_to_mem, 11, 0
+     376                    
+     377 00000010 d0003891     [!A0]   B       .S1     $C$L4             ; [A_S674] |87| 
+     378 0000000e     9677  ||         STDW    .D2T2   B13:B12,*SP++(-8) ; [B_D64P] |64| 
+     379 00000014     7746  ||         MV      .L1X    B6,A11            ; [A_L674] |64| 
+     380 00000016     6b67  || [!A0]   MVK     .L2     1,B6              ; [B_L674] |163| 
+     381 00000018     a5cf  ||         MV      .S2     B3,B13            ; [B_Sb674] |64| 
+     382                            .dwcfi  cfa_offset, 16
+     383                            .dwcfi  save_reg_to_mem, 29, -4
+     384                            .dwcfi  save_reg_to_mem, 28, -8
+     385                            .dwcfi  save_reg_to_reg, 19, 29
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE    8
+
+     386                    
+     387 0000001a     9577             STDW    .D2T2   B11:B10,*SP++(-8) ; [B_D64P] |64| 
+     388 00000024     7647  ||         MV      .L2X    A4,B11            ; [B_L674] |64| 
+     389 00000020 d09806a3  || [!A0]   MV      .S2     B6,B1             ; [B_Sb674] |162| 
+     390                            .dwcfi  cfa_offset, 24
+     391                            .dwcfi  save_reg_to_mem, 27, -12
+     392                            .dwcfi  save_reg_to_mem, 26, -16
+     393                    
+     394 00000026     8677             STDW    .D2T1   A13:A12,*SP++(-8) ; [B_D64P] |64| 
+     395 00000028 c02c0adb  || [ A0]   CMPGT   .L2     B11,0,B0          ; [B_L674] |97| 
+     396 0000002c     9646  ||         MV      .L1X    B4,A12            ; [A_L674] |64| 
+     397 0000002e     364f  ||         MV      .S2X    A4,B9             ; [B_Sb674] |64| 
+     398                    
+     399                            .dwcfi  cfa_offset, 32
+     400                            .dwcfi  save_reg_to_mem, 13, -20
+     401                            .dwcfi  save_reg_to_mem, 12, -24
+     402 00000030 053c54f4             STW     .D2T1   A10,*SP++(-8)     ; [B_D64P] |64| 
+     403                            .dwcfi  cfa_offset, 40
+     404                            .dwcfi  save_reg_to_mem, 10, -32
+     405 00000034 05201fd8             MV      .L1X    B8,A10            ; [A_L674] |64| 
+     406 00000038     1b47             MV      .L2X    A6,B16            ; [B_L674] |64| 
+     407                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     408                               ; BRANCHCC OCCURS {$C$L4}         ; [] |87| 
+     409                    ;** --------------------------------------------------------------------------*
+     410                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     411                    
+     412 00000040 30002613     [!B0]   B       .S2     $C$L3             ; [B_Sb674] |97| 
+     413 0000003a     9c87  ||         MV      .L2X    A25,B4            ; [B_L674] |94| 
+     414 00000044 01a43da1  ||         SHR     .S1X    B9,1,A3           ; [A_S674] |90| 
+     415 00000048 008008f3  ||         MV      .D2     B0,B1             ; [B_D64P] guard predicate rewrite
+     416 0000004c 09b00fd8  ||         MV      .L1     A12,A19           ; [A_L674] |94| 
+     417                    
+     418                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     419                    
+     420 00000050 09409c43             ADDAW   .D2     B16,B4,B18        ; [B_D64P] |95| 
+     421 00000054 222c605b  || [ B0]   ADD     .L2     3,B11,B4          ; [B_L674] 
+     422 00000058 09247079  ||         ADD     .L1X    B9,A3,A18         ; [A_L674] |90| 
+     423 0000005c 4b8c4ca1  || [ B1]   SHL     .S1     A3,2,A23          ; [A_S674] 
+     424 00000060 4400002a  || [ B1]   ZERO    .S2     B8                ; [B_Sb674] |89| 
+     425                    
+     426 00000064 2b484ca0     [ B0]   SHL     .S1     A18,2,A22         ; [A_S674] 
+     427 00000068 2aa45ca0     [ B0]   SHL     .S1X    B9,2,A21          ; [A_S674] 
+     428 0000006c 20104da2     [ B0]   SHR     .S2     B4,2,B0           ; [B_Sb674] 
+     429                    ;** --------------------------------------------------------------------------*
+     430                    ;**   BEGIN LOOP $C$L1
+     431                    ;** --------------------------------------------------------------------------*
+     432 00000070           $C$L1:    
+     433 00000070 00000000             NOP             1                 ; [A_L674] 
+     434                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     435                               ; BRANCHCC OCCURS {$C$L3}         ; [] |97| 
+     436                    ;*----------------------------------------------------------------------------*
+     437                    ;*   SOFTWARE PIPELINE INFORMATION
+     438                    ;*
+     439                    ;*      Loop found in file               : C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_i
+     440                    ;*      Loop source line                 : 97
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE    9
+
+     441                    ;*      Loop opening brace source line   : 98
+     442                    ;*      Loop closing brace source line   : 151
+     443                    ;*      Known Minimum Trip Count         : 1                    
+     444                    ;*      Known Max Trip Count Factor      : 1
+     445                    ;*      Loop Carried Dependency Bound(^) : 24
+     446                    ;*      Unpartitioned Resource Bound     : 9
+     447                    ;*      Partitioned Resource Bound(*)    : 12
+     448                    ;*      Resource Partition:
+     449                    ;*                                A-side   B-side
+     450                    ;*      .L units                     0        1     
+     451                    ;*      .S units                     0        2     
+     452                    ;*      .D units                     8        8     
+     453                    ;*      .M units                     7        5     
+     454                    ;*      .X cross paths               1       12     
+     455                    ;*      .T address paths            10       12     
+     456                    ;*      Logical  ops (.LS)          17        5     (.L or .S unit)
+     457                    ;*      Addition ops (.LSD)          4       10     (.L or .S or .D unit)
+     458                    ;*      Bound(.L .S .LS)             9*       4     
+     459                    ;*      Bound(.L .S .D .LS .LSD)    10*       9*    
+     460                    ;*
+     461                    ;*      Searching for software pipeline schedule at ...
+     462                    ;*         ii = 24 Did not find schedule
+     463                    ;*         ii = 25 Did not find schedule
+     464                    ;*         ii = 26 Did not find schedule
+     465                    ;*         ii = 27 Did not find schedule
+     466                    ;*         ii = 28 Did not find schedule
+     467                    ;*         ii = 29 Did not find schedule
+     468                    ;*         ii = 30 Did not find schedule
+     469                    ;*      Disqualified loop: Did not find schedule
+     470                    ;*----------------------------------------------------------------------------*
+     471 00000074           $C$L2:    
+     472                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     473 00000074 08cc0324             LDNDW   .D1T1   *A19(0),A17:A16   ; [A_D64P] |106| 
+     474                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     475 00000078 025a6b24             LDNDW   .D1T1   *+A22(A19),A5:A4  ; [A_D64P] |112| 
+     476                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     477 0000007c 03566b24             LDNDW   .D1T1   *+A21(A19),A7:A6  ; [A_D64P] |110| 
+     478                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     479 00000080 045e6b24             LDNDW   .D1T1   *+A23(A19),A9:A8  ; [A_D64P] |108| 
+     480 00000084     6c6e             NOP             4                 ; [A_L674] 
+     481                    ;** --------------------------------------------------------------------------*
+     482                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     483                    
+     484 00000090 0dc4e219             ADDSP   .L1     A7,A17,A27        ; [A_L674] |116| 
+     485 00000088 0ea08e19  ||         ADDSP   .S1     A4,A8,A29         ; [A_S674] |120| 
+     486 0000008c 03204ca3  ||         SHL     .S2     B8,2,B6           ; [B_Sb674] |99| 
+     487 00000086     ec01  ||         SUB     .L2     B0,1,B0           ; [B_L674] |97| 
+     488 00000094 0420c942  ||         ADD     .D2     6,B8,B8           ; [B_D64P] |133| 
+     489                    
+     490                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     491                    
+     492 00000098 0fc0c219             ADDSP   .L1     A6,A16,A31        ; [A_L674] |115| 
+     493 000000a0 0d24ae19  ||         ADDSP   .S1     A5,A9,A26         ; [A_S674] |121| 
+     494 000000a4 021a41e3  ||         ADD     .S2     B18,B6,B4         ; [B_Sb674] |101| 
+     495 000000a8 0fc8c843  ||         ADD     .D2     B18,B6,B31        ; [B_D64P] |103| 
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   10
+
+     496 000000ac 00c91a7a  ||         CMPEQ   .L2X    B8,A18,B1         ; [B_L674] |133| 
+     497                    
+     498 000000b0 0e1a0239             SUBSP   .L1     A16,A6,A28        ; [A_L674] |117| 
+     499 000000b4 04952e39  ||         SUBSP   .S1     A9,A5,A9          ; [A_S674] |123| 
+     500 000000b8 029023a7  ||         LDNDW   .D2T2   *B4(8),B5:B4      ; [B_D64P] |101| 
+     501 000000bc 4400a35a  || [ B1]   ZERO    .L2     B8                ; [B_L674] |136| 
+     502                    
+     503                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     504                    
+     505 000000c0 0c1e2239             SUBSP   .L1     A17,A7,A24        ; [A_L674] |118| 
+     506 000000c4 0a110e39  ||         SUBSP   .S1     A8,A4,A20         ; [A_S674] |122| 
+     507 000000c8 031a4ba4  ||         LDNDW   .D2T1   *+B6(B18),A7:A6   ; [B_D64P] |99| 
+     508                    
+     509                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     510 000000cc 08fc43a4             LDNDW   .D2T1   *B31(16),A17:A16  ; [B_D64P] |103| 
+     511                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     512                    
+     513 000000d0 0477e239             SUBSP   .L1     A31,A29,A8        ; [A_L674] |147| 
+     514 000000d4 02eb6e38  ||         SUBSP   .S1     A27,A26,A5        ; [A_S674] |147| 
+     515                    
+     516                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     517                    
+     518 000000d8 01a78239             SUBSP   .L1     A28,A9,A3         ; [A_L674] |145| 
+     519 000000dc 016f4e19  ||         ADDSP   .S1     A26,A27,A2        ; [A_S674] |127| 
+     520 000000e0 0d566840  ||         ADD     .D1     A21,A19,A26       ; [A_D64P] |145| 
+     521                    
+     522                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     523                    
+     524 000000e4 02628219             ADDSP   .L1     A20,A24,A4        ; [A_L674] |145| 
+     525 000000e8 0c530e38  ||         SUBSP   .S1     A24,A20,A24       ; [A_S674] |149| 
+     526                    
+     527                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     528                    
+     529 000000ec 00ffa219             ADDSP   .L1     A29,A31,A1        ; [A_L674] |126| 
+     530 000000f0 0ede6840  ||         ADD     .D1     A23,A19,A29       ; [A_D64P] |147| 
+     531                    
+     532                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     533 000000f4 0a712218             ADDSP   .L1     A9,A28,A20        ; [A_L674] |149| 
+     534                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     535                    
+     536 000000f8 0314be03             MPYSP   .M2X    B5,A5,B6          ; [B_M674] |147| 
+     537 000000fc 000cce01  ||         MPYSP   .M1     A6,A3,A0          ; [A_M674] |145| 
+     538 00000100 014c2274  ||         STW     .D1T1   A2,*A19(4)        ; [A_D64P] |127| 
+     539                    
+     540                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     541                    
+     542 00000104 03a09e03             MPYSP   .M2X    B4,A8,B7          ; [B_M674] |147| 
+     543 00000108 0f10ee00  ||         MPYSP   .M1     A7,A4,A30         ; [A_M674] |145| 
+     544                    
+     545                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     546                    
+     547 0000010c 02149e03             MPYSP   .M2X    B4,A5,B4          ; [B_M674] |148| 
+     548 00000110 018cee01  ||         MPYSP   .M1     A7,A3,A3          ; [A_M674] |146| 
+     549 00000114 00cc0274  ||         STW     .D1T1   A1,*A19(0)        ; [A_D64P] |126| 
+     550                    
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   11
+
+     551                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     552                    
+     553 00000118 02a0be03             MPYSP   .M2X    B5,A8,B5          ; [B_M674] |148| 
+     554 0000011c 0210ce00  ||         MPYSP   .M1     A6,A4,A4          ; [A_M674] |146| 
+     555                    
+     556                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     557 00000120 0e620e00             MPYSP   .M1     A16,A24,A28       ; [A_M674] |150| 
+     558                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     559                    
+     560 00000124 03d20e01             MPYSP   .M1     A16,A20,A7        ; [A_M674] |149| 
+     561 00000128 0318e23b  ||         SUBSP   .L2     B7,B6,B6          ; [B_L674] |147| 
+     562 0000012c 04f80238  ||         SUBSP   .L1     A0,A30,A9         ; [A_L674] |145| 
+     563                    
+     564                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     565 00000130 03622e00             MPYSP   .M1     A17,A24,A6        ; [A_M674] |149| 
+     566                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     567                    
+     568 00000134 0dd22e01             MPYSP   .M1     A17,A20,A27       ; [A_M674] |150| 
+     569 00000138 0210a21b  ||         ADDSP   .L2     B5,B4,B4          ; [B_L674] |148| 
+     570 0000013c 04106219  ||         ADDSP   .L1     A3,A4,A8          ; [A_L674] |146| 
+     571 00000140 08cec1e1  ||         ADD     .S1     A22,A19,A17       ; [A_S674] |149| 
+     572 00000144 09cd0940  ||         ADD     .D1     8,A19,A19         ; [A_D64P] |130| 
+     573                    
+     574                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     575 00000148 49ce5c40     [ B1]   ADDAW   .D1     A19,A18,A19       ; [A_D64P] |134| 
+     576                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     577 0000014c 04e80274             STW     .D1T1   A9,*A26(0)        ; [A_D64P] |145| 
+     578                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     579                    
+     580 00000150 2fffe691     [ B0]   B       .S1     $C$L2             ; [A_S674] |97| 
+     581 00000154 0f98e238  ||         SUBSP   .L1     A7,A6,A31         ; [A_L674] |149| 
+     582                    
+     583                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     584                    
+     585 00000158 02736219             ADDSP   .L1     A27,A28,A4        ; [A_L674] |150| 
+     586 0000015c 04682274  ||         STW     .D1T1   A8,*A26(4)        ; [A_D64P] |146| 
+     587                    
+     588                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     589 00000160 02742276             STW     .D1T2   B4,*A29(4)        ; [A_D64P] |148| 
+     590                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     591 00000164 03740276             STW     .D1T2   B6,*A29(0)        ; [A_D64P] |147| 
+     592                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     593 00000168 0fc40274             STW     .D1T1   A31,*A17(0)       ; [A_D64P] |149| 
+     594                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     595 0000016c 02442274             STW     .D1T1   A4,*A17(4)        ; [A_D64P] |150| 
+     596                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     597                               ; BRANCHCC OCCURS {$C$L2}         ; [] |97| 
+     598                    ;** --------------------------------------------------------------------------*
+     599 00000170           $C$L3:    
+     600                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     601                    
+     602 00000170 0ce64079             ADD     .L1     A18,A25,A25       ; [A_L674] |152| 
+     603 00000174 04a44da2  ||         SHR     .S2     B9,2,B9           ; [B_Sb674] |87| 
+     604                    
+     605                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   12
+
+     606 00000178 002c0ada             CMPGT   .L2     B11,0,B0          ; [B_L674] |97| 
+     607                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     608 0000017c 00255af8             CMPGT   .L1X    B9,A10,A0         ; [A_L674] |87| 
+     609                    
+     610 00000190     6867     [!A0]   MVK     .L2     1,B0              ; [B_L674] |94| nullify predicate
+     611 00000184 cfffde11  || [ A0]   B       .S1     $C$L1             ; [A_S674] |87| 
+     612 00000188 c26416a3  || [ A0]   MV      .S2X    A25,B4            ; [B_Sb674] |94| 
+     613 0000018c c08008f3  || [ A0]   MV      .D2     B0,B1             ; [B_D64P] guard predicate rewrite
+     614 00000180 c9b00fd9  || [ A0]   MV      .L1     A12,A19           ; [A_L674] |94| 
+     615                    
+     616                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     617                    
+     618 00000192     1e3b     [!B0]   B       .S2     $C$L3             ; [B_Sb674] |97| 
+     619 00000194 c1a43da1  || [ A0]   SHR     .S1X    B9,1,A3           ; [A_S674] |90| 
+     620 00000198 c9409c43  || [ A0]   ADDAW   .D2     B16,B4,B18        ; [B_D64P] |95| 
+     621 000001a0 222c605a  || [ B0]   ADD     .L2     3,B11,B4          ; [B_L674] 
+     622                    
+     623                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     624                    
+     625 000001a4 c9247079     [ A0]   ADD     .L1X    B9,A3,A18         ; [A_L674] |90| 
+     626 000001a8 d304a35b  || [!A0]   MVK     .L2     1,B6              ; [B_L674] |163| 
+     627 000001ac 4b8c4ca1  || [ B1]   SHL     .S1     A3,2,A23          ; [A_S674] 
+     628 000001b0 4400002a  || [ B1]   ZERO    .S2     B8                ; [B_Sb674] |89| 
+     629                    
+     630                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     631                    
+     632 000001b4 2b484ca1     [ B0]   SHL     .S1     A18,2,A22         ; [A_S674] 
+     633 000001b8 d0980fda  || [!A0]   MV      .L2     B6,B1             ; [B_L674] |162| 
+     634                    
+     635 000001bc 2aa45ca0     [ B0]   SHL     .S1X    B9,2,A21          ; [A_S674] 
+     636 000001c0 20104da2     [ B0]   SHR     .S2     B4,2,B0           ; [B_Sb674] 
+     637                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     638                               ; BRANCHCC OCCURS {$C$L1}         ; [] |87| 
+     639                    ;*----------------------------------------------------------------------------*
+     640                    ;*   SOFTWARE PIPELINE INFORMATION
+     641                    ;*
+     642                    ;*      Loop found in file               : C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_i
+     643                    ;*      Loop source line                 : 162
+     644                    ;*      Loop closing brace source line   : 164
+     645                    ;*      Known Minimum Trip Count         : 1                    
+     646                    ;*      Known Maximum Trip Count         : 31                    
+     647                    ;*      Known Max Trip Count Factor      : 1
+     648                    ;*      Loop Carried Dependency Bound(^) : 3
+     649                    ;*      Unpartitioned Resource Bound     : 2
+     650                    ;*      Partitioned Resource Bound(*)    : 2
+     651                    ;*      Resource Partition:
+     652                    ;*                                A-side   B-side
+     653                    ;*      .L units                     0        0     
+     654                    ;*      .S units                     0        1     
+     655                    ;*      .D units                     0        0     
+     656                    ;*      .M units                     0        0     
+     657                    ;*      .X cross paths               0        0     
+     658                    ;*      .T address paths             0        0     
+     659                    ;*      Logical  ops (.LS)           0        0     (.L or .S unit)
+     660                    ;*      Addition ops (.LSD)          3        5     (.L or .S or .D unit)
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   13
+
+     661                    ;*      Bound(.L .S .LS)             0        1     
+     662                    ;*      Bound(.L .S .D .LS .LSD)     1        2*    
+     663                    ;*
+     664                    ;*      Searching for software pipeline schedule at ...
+     665                    ;*         ii = 3  Schedule found with 4 iterations in parallel
+     666                    ;*      Done
+     667                    ;*
+     668                    ;*      Loop will be splooped
+     669                    ;*      Collapsed epilog stages       : 3
+     670                    ;*      Collapsed prolog stages       : 0
+     671                    ;*      Minimum required memory pad   : 0 bytes
+     672                    ;*
+     673                    ;*      Minimum safe trip count       : 1
+     674                    ;*----------------------------------------------------------------------------*
+     675 000001c4           $C$L4:    ; PIPED LOOP PROLOG
+     676 000001c4 4103e000     [ B1]   SPLOOPW         3                 ;12 ; [A_L674] (P) 
+     677                    ;** --------------------------------------------------------------------------*
+     678 000001c8           $C$L5:    ; PIPED LOOP KERNEL
+     679 000001c8     0c6e             NOP             1                 ; [A_L674] 
+     680                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     681                    
+     682 000001ca     2e66             SPMASK                            ; [] 
+     683 000001cc 04800f2a  ||^        MVK     .S2     0x1e,B9           ; [B_Sb674] |162| 
+     684                    
+     685                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     686                    
+     687 000001d0 000b0001             SPMASK                            ; [] 
+     688 000001d4 04280fdb  ||^        MV      .L2     B10,B8            ; [B_L674] 
+     689 000001d8 02192ce2  ||         SHL     .S2     B6,B9,B4          ; [B_Sb674] |163| (P) <0,2>  ^ 
+     690                    
+     691                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     692                    
+     693 000001e0     2f66             SPMASK                            ; [] 
+     694 000001e4 06444da3  ||^        SHR     .S2     B17,2,B12         ; [B_Sb674] |156| 
+     695 000001e2     f992  ||^        MVK     .S1     0x1f,A3           ; [A_S674] |162| 
+     696 000001e8 00208f7a  ||         AND     .L2     B4,B8,B0          ; [B_L674] |163| (P) <0,3>  ^ 
+     697                    
+     698                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     699                    
+     700 000001ec 34a7e1a3     [!B0]   SUB     .S2     B9,1,B9           ; [B_Sb674] |162| (P) <0,4>  ^ 
+     701 000001f0 318fe058  || [!B0]   SUB     .L1     A3,1,A3           ; [A_L674] |162| (P) <0,4>  ^ 
+     702                    
+     703                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     704                    
+     705 000001f4     2ce6             SPMASK                            ; [] 
+     706 000001f6     07a7  ||^        ZERO    .L2     B7                ; [B_L674] |161| 
+     707 000001f8     01c6  ||         MV      .L1     A3,A0             ; [A_L674] |162| (P) <0,5>  ^ 
+     708                    
+     709                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     710                    
+     711 00000200 339c21a2     [!B0]   ADD     .S2     1,B7,B7           ; [B_Sb674] |164| (P) <0,6> 
+     712 000001fa     8866  || [ B0]   ZERO    .L1     A0                ; [A_L674] |162| (P) <0,6>  ^ 
+     713                    
+     714 00000204 429c08f3     [ B1]   MV      .D2     B7,B5             ; [B_D64P] |162| (P) <0,7> 
+     715 00000208     48e7  || [!A0]   ZERO    .L2     B1                ; [B_L674] |162| (P) <0,7> 
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   14
+
+     716                    
+     717 0000020a     2c6e             NOP             2                 ; [A_L674] 
+     718 0000020c 00000000             NOP             1                 ; [A_L674] 
+     719 00000210 00034000             SPKERNEL        0,0               ; [] 
+     720                    ;** --------------------------------------------------------------------------*
+     721 00000214           $C$L6:    ; PIPED LOOP EPILOG
+     722                    ;** --------------------------------------------------------------------------*
+     723 00000214 05200fda             MV      .L2     B8,B10            ; [B_L674] 
+     724                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     725 00000218 0228095a             INTSP   .L2     B10,B4            ; [B_L674] |168| 
+     726 00000220 0200a358             ZERO    .L1     A4                ; [A_L674] |168| 
+     727 00000224 0212fd88             SET     .S1     A4,23,29,A4       ; [A_S674] |168| 
+     728                    $C$DW$51        .dwtag  DW_TAG_TI_branch
+     729                            .dwattr $C$DW$51, DW_AT_low_pc(0x04)
+     730                            .dwattr $C$DW$51, DW_AT_name("__c6xabi_divf")
+     731                            .dwattr $C$DW$51, DW_AT_TI_call
+     732                    
+     733                    
+     734 0000022c     b6c6             MV      .L1X    B5,A13            ; [A_L674] 
+     735 00000228 10000013! ||         CALLP   .S2     __c6xabi_divf,B3  ; [B_Sb674] |168| 
+     736                    
+     737 0000022e           $C$RL0:    ; CALLP OCCURS {__c6xabi_divf} {0}  ; [] |168| 
+     738                    ;** --------------------------------------------------------------------------*
+     739                    
+     740 0000022e     9a47             MV      .L2X    A4,B20            ; [B_L674] |168| 
+     741 00000230 022c1ad9  ||         CMPGT   .L1X    B11,0,A4          ; [A_L674] |169| 
+     742 00000234 022c61a2  ||         ADD     .S2     3,B11,B4          ; [B_Sb674] |174| 
+     743                    
+     744                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     745                    
+     746 00000238 01a8a8d9             CMPLT   .L1     A10,5,A3          ; [A_L674] |169| 
+     747 00000244     4e0b  ||         SHR     .S2     B4,2,B0           ; [B_Sb674] |174| 
+     748 00000240 09a83da1  ||         SHR     .S1X    B10,1,A19         ; [A_S674] 
+     749                    
+     750 00000246     8588             AND     .L1     A4,A3,A0          ; [A_L674] |169| 
+     751                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     752                    
+     753 00000248 d0faa121     [!A0]   BNOP            $C$L11,5          ; [] |169| 
+     754 0000024c c0a85a5b  || [ A0]   CMPEQ   .L2X    A10,2,B1          ; [B_L674] |192| 
+     755 00000250 c6b46941  || [ A0]   ADD     .D1     3,A13,A13         ; [A_D64P] |167| 
+     756 00000254 c0284a59  || [ A0]   CMPEQ   .L1     A10,2,A0          ; [A_L674] |210| 
+     757                    
+     758                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     759                               ; BRANCHCC OCCURS {$C$L11}        ; [] |169| 
+     760                    ;** --------------------------------------------------------------------------*
+     761 00000260           $C$L7:    
+     762                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     763                    
+     764 00000260 08000fab             MVK     .S2     31,B16            ; [B_Sb674] |53| 
+     765 00000264     0e27  ||         MVK     .L2     8,B4              ; [B_L674] |51| 
+     766                    
+     767 00000266     e627             MVK     .L2     7,B4              ; [B_L674] |51| 
+     768 00000268 071003a2  ||         MVC     .S2     B4,RILC           ; [B_Sb674] 
+     769                    
+     770 0000026c     da6f             MVC     .S2     B4,ILC            ; [B_Sb674] 
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   15
+
+     771                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     772                    
+     773 0000026e     06a6             ZERO    .L1     A5                ; [A_L674] |51| 
+     774 00000270 04000f29  ||         MVK     .S1     30,A8             ; [A_S674] |53| 
+     775 00000274 04800eab  ||         MVK     .S2     29,B9             ; [B_Sb674] |53| 
+     776                    
+     777                    ;*----------------------------------------------------------------------------*
+     778                    ;*   SOFTWARE PIPELINE INFORMATION
+     779                    ;*
+     780                    ;*      Loop found in file               : C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_i
+     781                    ;*      Loop source line                 : 51
+     782                    ;*      Loop opening brace source line   : 52
+     783                    ;*      Loop closing brace source line   : 54
+     784                    ;*      Loop Unroll Multiple             : 4x
+     785                    ;*      Known Minimum Trip Count         : 8                    
+     786                    ;*      Known Maximum Trip Count         : 8                    
+     787                    ;*      Known Max Trip Count Factor      : 8
+     788                    ;*      Loop Carried Dependency Bound(^) : 2
+     789                    ;*      Unpartitioned Resource Bound     : 4
+     790                    ;*      Partitioned Resource Bound(*)    : 5
+     791                    ;*      Resource Partition:
+     792                    ;*                                A-side   B-side
+     793                    ;*      .L units                     0        0     
+     794                    ;*      .S units                     4*       4*    
+     795                    ;*      .D units                     0        0     
+     796                    ;*      .M units                     0        0     
+     797                    ;*      .X cross paths               0        3     
+     798                    ;*      .T address paths             0        0     
+     799                    ;*      Logical  ops (.LS)           0        1     (.L or .S unit)
+     800                    ;*      Addition ops (.LSD)          9        7     (.L or .S or .D unit)
+     801                    ;*      Bound(.L .S .LS)             2        3     
+     802                    ;*      Bound(.L .S .D .LS .LSD)     5*       4*    
+     803                    ;*
+     804                    ;*      Searching for software pipeline schedule at ...
+     805                    ;*         ii = 5  Schedule found with 2 iterations in parallel
+     806                    ;*      Done
+     807                    ;*
+     808                    ;*      Loop will be splooped
+     809                    ;*      Collapsed epilog stages       : 0
+     810                    ;*      Collapsed prolog stages       : 0
+     811                    ;*      Minimum required memory pad   : 0 bytes
+     812                    ;*
+     813                    ;*      Minimum safe trip count       : 1 (after unrolling)
+     814                    ;*----------------------------------------------------------------------------*
+     815 00000280           $C$L8:    ; PIPED LOOP PROLOG
+     816                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     817                    
+     818 00000280     0e67             SPLOOPD         5                 ;10 ; [A_L674] (P) 
+     819 00000282     9b92  ||         MVK     .S1     28,A7             ; [A_S674] |53| 
+     820 00000284     9616  ||         MV      .D1X    B12,A4            ; [A_D64P] |174| 
+     821                    
+     822                    ;** --------------------------------------------------------------------------*
+     823 00000286           $C$L9:    ; PIPED LOOP KERNEL
+     824                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     825                    
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   16
+
+     826 00000286     ac66             SPMASK                            ; [] 
+     827 00000288 04000043  ||^        ZERO    .D2     B8                ; [B_D64P] |51| 
+     828 0000028c 019421a1  ||         ADD     .S1     1,A5,A3           ; [A_S674] |53| (P) <0,0> 
+     829 00000290 03146941  ||         ADD     .D1     3,A5,A6           ; [A_D64P] |53| (P) <0,0> 
+     830 00000294     56f1  ||         ADD     .L2X    2,A5,B7           ; [B_L674] |53| (P) <0,0>  ^ 
+     831                    
+     832 00000296     ace6             SPMASK                            ; [] 
+     833 00000298     8617  ||^        MV      .D2     B12,B4            ; [B_D64P] |174| 
+     834 0000029a     06a7  ||^        ZERO    .L2     B5                ; [B_L674] |51| 
+     835 000002a0 019ca8c1  ||         SUB     .D1     A7,A5,A3          ; [A_D64P] |53| (P) <0,1> 
+     836 000002a4 089500f9  ||         SUB     .L1     A8,A5,A17         ; [A_L674] |53| (P) <0,1> 
+     837 000002a8 091069e1  ||         SHRU    .S1     A4,A3,A18         ; [A_S674] |53| (P) <0,1> 
+     838 000002ac 0390f9e2  ||         SHRU    .S2X    A4,B7,B7          ; [B_Sb674] |53| (P) <0,1> 
+     839                    
+     840 000002b0     6c66             SPMASK                            ; [] 
+     841 000002b2     1876  ||^        ZERO    .D1     A16               ; [A_D64P] |51| 
+     842 000002b4 08953b33  ||         SUB     .D2X    B9,A5,B17         ; [B_D64P] |53| (P) <0,2>  ^ 
+     843 000002b8 0390a9e3  ||         SHRU    .S2     B4,B5,B7          ; [B_Sb674] |53| (P) <0,2> 
+     844 000002c0 09482f59  ||         AND     .L1     1,A18,A18         ; [A_L674] |53| (P) <0,2> 
+     845 000002c4 091c2f5b  ||         AND     .L2     1,B7,B18          ; [B_L674] |53| (P) <0,2> 
+     846 000002c8 0310c9e0  ||         SHRU    .S1     A4,A6,A6          ; [A_S674] |53| (P) <0,2> 
+     847                    
+     848                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     849                    
+     850 000002cc 08c0a8c3             SUB     .D2     B16,B5,B17        ; [B_D64P] |53| (P) <0,3> 
+     851 000002d0 02948059  ||         ADD     .L1     4,A5,A5           ; [A_L674] |51| (P) <0,3>  ^ 
+     852 000002d4 091c2f5b  ||         AND     .L2     1,B7,B18          ; [B_L674] |53| (P) <0,3> 
+     853 000002d8 08ca2ce1  ||         SHL     .S1     A18,A17,A17       ; [A_S674] |53| (P) <0,3> 
+     854 000002dc 03ca2ce3  ||         SHL     .S2     B18,B17,B7        ; [B_Sb674] |53| (P) <0,3> 
+     855 000002e0 031829f0  ||         AND     .D1     1,A6,A6           ; [A_D64P] |53| (P) <0,3> 
+     856                    
+     857                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     858                    
+     859 000002e4     ec66             SPMASK                            ; [] 
+     860 000002e8 04800041  ||^        ZERO    .D1     A9                ; [A_D64P] |51| 
+     861 000002e6     1b77  ||^        ZERO    .D2     B6                ; [B_D64P] |51| 
+     862 000002ec 03ca2ce3  ||         SHL     .S2     B18,B17,B7        ; [B_Sb674] |53| (P) <0,4> 
+     863 000002f0 08422ff9  ||         OR      .L1     A17,A16,A16       ; [A_L674] |53| (P) <0,4> 
+     864 000002f4 0420effb  ||         OR      .L2     B7,B8,B8          ; [B_L674] |53| (P) <0,4> 
+     865 000002f8 01986ce0  ||         SHL     .S1     A6,A3,A3          ; [A_S674] |53| (P) <0,4> 
+     866                    
+     867                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     868                    
+     869 00000300 00034001             SPKERNEL        0,0               ; [] 
+     870 00000304 02948943  ||         ADD     .D2     4,B5,B5           ; [B_D64P] |51| <0,5> Define a twin register
+     871 00000308 0318e6e3  ||         OR      .S2     B7,B6,B6          ; [B_Sb674] |53| <0,5> 
+     872 0000030c 04a46ff8  ||         OR      .L1     A3,A9,A9          ; [A_L674] |53| <0,5> 
+     873                    
+     874                    ;** --------------------------------------------------------------------------*
+     875 00000310           $C$L10:    ; PIPED LOOP EPILOG
+     876                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     877                    
+     878 00000310 0003e05b             SUB     .L2     B0,1,B0           ; [B_L674] |170| 
+     879 00000314 0bb06326  ||         LDNDW   .D1T2   *A12(24),B23:B22  ; [A_D64P] |183| 
+     880                    
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   17
+
+     881                    ;** --------------------------------------------------------------------------*
+     882                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     883                    
+     884 00000318 02b02327             LDNDW   .D1T2   *A12(8),B5:B4     ; [A_D64P] |179| 
+     885 0000031c 01a01fd9  ||         MV      .L1X    B8,A3             ; [A_L674] 
+     886 00000320 0630205a  ||         ADD     .L2     1,B12,B12         ; [B_L674] |175| 
+     887                    
+     888                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     889                    
+     890 00000324 09b04327             LDNDW   .D1T2   *A12(16),B19:B18  ; [A_D64P] |181| 
+     891 00000328 02181fd8  ||         MV      .L1X    B6,A4             ; [A_L674] 
+     892                    
+     893                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     894                    
+     895 0000032c 0cb00327             LDNDW   .D1T2   *A12(0),B25:B24   ; [A_D64P] |177| 
+     896 00000330 02120ff9  ||         OR      .L1     A16,A4,A4         ; [A_L674] |174| 
+     897 00000334 06001050  ||         ADDK    .S1     32,A12            ; [A_S674] |185| 
+     898                    
+     899 00000338 01906ff8             OR      .L1     A3,A4,A3          ; [A_L674] |174| 
+     900 0000033c 018d2ff8             OR      .L1     A9,A3,A3          ; [A_L674] |174| 
+     901                    
+     902 00000340 0412c21b             ADDSP   .L2     B22,B4,B8         ; [B_L674] |189| 
+     903 00000344 0396ee1b  ||         ADDSP   .S2     B23,B5,B7         ; [B_Sb674] |190| 
+     904 00000348 02101fd9  ||         MV      .L1X    B4,A4             ; [A_L674] |179| Define a twin register
+     905 0000034c 018da9e0  ||         SHRU    .S1     A3,A13,A3         ; [A_S674] |174| 
+     906                    
+     907                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     908                    
+     909 00000350 0d16e23b             SUBSP   .L2     B23,B5,B26        ; [B_L674] |208| 
+     910 00000354 02d89239  ||         SUBSP   .L1X    A4,B22,A5         ; [A_L674] |207| 
+     911 00000358 038e61e1  ||         ADD     .S1     A19,A3,A7         ; [A_S674] |225| 
+     912 0000035c 04ac7c40  ||         ADDAW   .D1     A11,A3,A9         ; [A_D64P] |224| 
+     913                    
+     914                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     915                    
+     916 00000360 0ae2421b             ADDSP   .L2     B18,B24,B21       ; [B_L674] |187| 
+     917 00000364 034f2e3b  ||         SUBSP   .S2     B25,B19,B6        ; [B_Sb674] |206| 
+     918 00000368 032cfc41  ||         ADDAW   .D1     A11,A7,A6         ; [A_D64P] |227| 
+     919 0000036c 041e6078  ||         ADD     .L1     A19,A7,A8         ; [A_L674] |228| 
+     920                    
+     921                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     922                    
+     923 00000370 04e6621b             ADDSP   .L2     B19,B25,B9        ; [B_L674] |188| 
+     924 00000374 084b0e3b  ||         SUBSP   .S2     B24,B18,B16       ; [B_Sb674] |205| 
+     925 00000378 0fa26079  ||         ADD     .L1     A19,A8,A31        ; [A_L674] |231| 
+     926 0000037c 022d1c40  ||         ADDAW   .D1     A11,A8,A4         ; [A_D64P] |230| 
+     927                    
+     928                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     929                    
+     930 00000380 441006a3     [ B1]   MV      .S2     B4,B8             ; [B_Sb674] |179| 
+     931 00000384 439408f3  || [ B1]   MV      .D2     B5,B7             ; [B_D64P] |180| 
+     932 00000388 092ffc40  ||         ADDAW   .D1     A11,A31,A18       ; [A_D64P] |233| 
+     933                    
+     934                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     935                    
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   18
+
+     936 0000038c 0f9818f3             MV      .D2X    A6,B31            ; [B_D64P] |227| Define a twin register
+     937 00000390 c2dc1fd8  || [ A0]   MV      .L1X    B23,A5            ; [A_L674] |184| 
+     938                    
+     939                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     940 00000394 4ae008f2     [ B1]   MV      .D2     B24,B21           ; [B_D64P] |177| 
+     941                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     942                    
+     943 00000398 02d5021b             ADDSP   .L2     B8,B21,B5         ; [B_L674] |200| 
+     944 0000039c 44e406a3  || [ B1]   MV      .S2     B25,B9            ; [B_Sb674] |178| 
+     945 000003a0 03181fd9  ||         MV      .L1X    B6,A6             ; [A_L674] |206| Define a twin register
+     946 000003a4 cd5808f2  || [ A0]   MV      .D2     B22,B26           ; [B_D64P] |183| 
+     947                    
+     948                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     949                    
+     950 000003a8 0224e21b             ADDSP   .L2     B7,B9,B4          ; [B_L674] |201| 
+     951 000003ac c84808f3  || [ A0]   MV      .D2     B18,B16           ; [B_D64P] |181| 
+     952 000003b0 c34c1fd9  || [ A0]   MV      .L1X    B19,A6            ; [A_L674] |182| 
+     953 000003b4 049d2e3a  ||         SUBSP   .S2     B9,B7,B9          ; [B_Sb674] |203| 
+     954                    
+     955                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     956                    
+     957 000003b8 0343421b             ADDSP   .L2     B26,B16,B6        ; [B_L674] |226| 
+     958 000003bc 0294c239  ||         SUBSP   .L1     A6,A5,A5          ; [A_L674] |233| 
+     959 000003c0 0318ae19  ||         ADDSP   .S1     A5,A6,A6          ; [A_S674] |227| 
+     960 000003c4 096a0e3b  ||         SUBSP   .S2     B16,B26,B18       ; [B_Sb674] |232| 
+     961 000003c8 0ec818f2  ||         MV      .D2X    A18,B29           ; [B_D64P] |233| Define a twin register
+     962                    
+     963                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     964 000003cc 0822a23a             SUBSP   .L2     B21,B8,B16        ; [B_L674] |202| 
+     965                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     966 000003d0 03968e02             MPYSP   .M2     B20,B5,B7         ; [B_M674] |223| 
+     967                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     968 000003d4 02928e02             MPYSP   .M2     B20,B4,B5         ; [B_M674] |224| 
+     969                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     970                    
+     971 000003d8 031a8e03             MPYSP   .M2     B20,B6,B6         ; [B_M674] |226| 
+     972 000003dc 0f50de00  ||         MPYSP   .M1X    B20,A6,A30        ; [A_M674] |227| 
+     973                    
+     974                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     975                    
+     976 000003e0 02428e03             MPYSP   .M2     B20,B16,B4        ; [B_M674] |229| 
+     977 000003e4 28000faa  || [ B0]   MVK     .S2     31,B16            ; [B_Sb674] |53| 
+     978                    
+     979                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     980                    
+     981 000003e8 03ac6a77             STW     .D1T2   B7,*+A11[A3]      ; [A_D64P] |223| 
+     982 000003ec 04268e03  ||         MPYSP   .M2     B20,B9,B8         ; [B_M674] |230| 
+     983 000003f0 01d0be01  ||         MPYSP   .M1X    B20,A5,A3         ; [A_M674] |233| 
+     984 000003f4 2280a359  || [ B0]   ZERO    .L1     A5                ; [A_L674] |51| 
+     985 000003f8 24800eaa  || [ B0]   MVK     .S2     29,B9             ; [B_Sb674] |53| 
+     986                    
+     987                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     988                    
+     989 000003fc 02a42277             STW     .D1T2   B5,*A9(4)         ; [A_D64P] |224| 
+     990 00000400 0f4a8e03  ||         MPYSP   .M2     B20,B18,B30       ; [B_M674] |232| 
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   19
+
+     991 00000404 2fffd012  || [ B0]   B       .S2     $C$L8             ; [B_Sb674] |170| 
+     992                    
+     993                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     994 00000408 032cea76             STW     .D1T2   B6,*+A11[A7]      ; [A_D64P] |226| 
+     995                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+     996                    
+     997 0000040c 0f7c22f5             STW     .D2T1   A30,*B31(4)       ; [B_D64P] |227| 
+     998 00000410 022d0a77  ||         STW     .D1T2   B4,*+A11[A8]      ; [A_D64P] |229| 
+     999 00000414 2220a35b  || [ B0]   MVK     .L2     8,B4              ; [B_L674] |51| 
+    1000 00000418 24000f28  || [ B0]   MVK     .S1     30,A8             ; [A_S674] |53| 
+    1001                    
+    1002 0000041c 04102277             STW     .D1T2   B8,*A4(4)         ; [A_D64P] |230| 
+    1003 00000420 271003a3  || [ B0]   MVC     .S2     B4,RILC           ; [B_Sb674] 
+    1004 00000424 221ca35a  || [ B0]   MVK     .L2     7,B4              ; [B_L674] |51| 
+    1005                    
+    1006                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+    1007                    
+    1008 00000428 0f2fea77             STW     .D1T2   B30,*+A11[A31]    ; [A_D64P] |232| 
+    1009 0000042c 269003a2  || [ B0]   MVC     .S2     B4,ILC            ; [B_Sb674] 
+    1010                    
+    1011                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+    1012 00000430 01f422f4             STW     .D2T1   A3,*B29(4)        ; [B_D64P] |233| 
+    1013                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+    1014                               ; BRANCHCC OCCURS {$C$L8}         ; [] |170| 
+    1015                    ;** --------------------------------------------------------------------------*
+    1016 00000434           $C$L11:    
+    1017                            .dwpsn  file "C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_ifftSPxSP/c674/DSPF_sp
+    1018 00000434     6577             LDW     .D2T1   *++SP(8),A10      ; [B_D64P] |236| 
+    1019                            .dwcfi  cfa_offset, 32
+    1020                            .dwcfi  restore_reg, 10
+    1021 00000436     c677             LDDW    .D2T1   *++SP(8),A13:A12  ; [B_D64P] |236| 
+    1022                            .dwcfi  cfa_offset, 24
+    1023                            .dwcfi  restore_reg, 13
+    1024                            .dwcfi  restore_reg, 12
+    1025                    
+    1026 00000438     d577             LDDW    .D2T2   *++SP(8),B11:B10  ; [B_D64P] |236| 
+    1027 0000043a     6687  ||         MV      .L2     B13,B3            ; [B_L674] |236| 
+    1028                    
+    1029                            .dwcfi  cfa_offset, 16
+    1030                            .dwcfi  restore_reg, 27
+    1031                            .dwcfi  restore_reg, 26
+    1032                            .dwcfi  restore_reg, 19
+    1033                    $C$DW$52        .dwtag  DW_TAG_TI_branch
+    1034                            .dwattr $C$DW$52, DW_AT_low_pc(0x04)
+    1035                            .dwattr $C$DW$52, DW_AT_TI_return
+    1036                    
+    1037                    
+    1038 00000440 063c33e7             LDDW    .D2T2   *++SP(8),B13:B12  ; [B_D64P] |236| 
+    1039 00000444 000c0362  ||         RET     .S2     B3                ; [B_Sb674] |236| 
+    1040                    
+    1041                            .dwcfi  cfa_offset, 8
+    1042                            .dwcfi  restore_reg, 29
+    1043                            .dwcfi  restore_reg, 28
+    1044 00000448 05bc52e4             LDW     .D2T1   *++SP(8),A11      ; [B_D64P] |236| 
+    1045                            .dwcfi  cfa_offset, 0
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   20
+
+    1046                            .dwcfi  restore_reg, 11
+    1047 0000044c 00006000             NOP             4                 ; [A_L674] 
+    1048                               ; BRANCH OCCURS {B3}              ; [] |236| 
+    1049                            .dwattr $C$DW$1, DW_AT_TI_end_file("C:/ti/dsplib_c674x_3_4_0_0/packages/ti/dsplib/src/DSPF_sp_
+    1050                            .dwattr $C$DW$1, DW_AT_TI_end_line(0xec)
+    1051                            .dwattr $C$DW$1, DW_AT_TI_end_column(0x01)
+    1052                            .dwendentry
+    1053                            .dwendtag $C$DW$1
+    1054                    
+    1055                    ;*****************************************************************************
+    1056                    ;* UNDEFINED EXTERNAL REFERENCES                                             *
+    1057                    ;*****************************************************************************
+    1058                            .global __c6xabi_divf
+    1059                    
+    1060                    ;******************************************************************************
+    1061                    ;* BUILD ATTRIBUTES                                                           *
+    1062                    ;******************************************************************************
+    1063                            .battr "TI", Tag_File, 1, Tag_Long_Precision_Bits(2)
+    1064                            .battr "TI", Tag_File, 1, Tag_Bitfield_layout(2)
+    1065                            .battr "TI", Tag_File, 1, Tag_ABI_enum_size(3)
+    1066                            .battr "c6xabi", Tag_File, 1, Tag_ABI_wchar_t(1)
+    1067                            .battr "c6xabi", Tag_File, 1, Tag_ABI_array_object_alignment(0)
+    1068                            .battr "c6xabi", Tag_File, 1, Tag_ABI_array_object_align_expected(0)
+    1069                            .battr "c6xabi", Tag_File, 1, Tag_ABI_PIC(0)
+    1070                            .battr "c6xabi", Tag_File, 1, Tag_ABI_PID(0)
+    1071                            .battr "c6xabi", Tag_File, 1, Tag_ABI_DSBT(0)
+    1072                            .battr "c6xabi", Tag_File, 1, Tag_ABI_stack_align_needed(0)
+    1073                            .battr "c6xabi", Tag_File, 1, Tag_ABI_stack_align_preserved(0)
+    1074                            .battr "TI", Tag_File, 1, Tag_Tramps_Use_SOC(1)
+    1075                    
+    1076                    ;******************************************************************************
+    1077                    ;* TYPE INFORMATION                                                           *
+    1078                    ;******************************************************************************
+    1079                    
+    1080                    $C$DW$T$20      .dwtag  DW_TAG_structure_type
+    1081                            .dwattr $C$DW$T$20, DW_AT_byte_size(0x18)
+    1082                    $C$DW$53        .dwtag  DW_TAG_member
+    1083                            .dwattr $C$DW$53, DW_AT_type(*$C$DW$T$10)
+    1084                            .dwattr $C$DW$53, DW_AT_name("fd")
+    1085                            .dwattr $C$DW$53, DW_AT_TI_symbol_name("fd")
+    1086                            .dwattr $C$DW$53, DW_AT_data_member_location[DW_OP_plus_uconst 0x0]
+    1087                            .dwattr $C$DW$53, DW_AT_accessibility(DW_ACCESS_public)
+    1088                            .dwattr $C$DW$53, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/stdio
+    1089                            .dwattr $C$DW$53, DW_AT_decl_line(0x49)
+    1090                            .dwattr $C$DW$53, DW_AT_decl_column(0x0b)
+    1091                    
+    1092                    $C$DW$54        .dwtag  DW_TAG_member
+    1093                            .dwattr $C$DW$54, DW_AT_type(*$C$DW$T$19)
+    1094                            .dwattr $C$DW$54, DW_AT_name("buf")
+    1095                            .dwattr $C$DW$54, DW_AT_TI_symbol_name("buf")
+    1096                            .dwattr $C$DW$54, DW_AT_data_member_location[DW_OP_plus_uconst 0x4]
+    1097                            .dwattr $C$DW$54, DW_AT_accessibility(DW_ACCESS_public)
+    1098                            .dwattr $C$DW$54, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/stdio
+    1099                            .dwattr $C$DW$54, DW_AT_decl_line(0x4a)
+    1100                            .dwattr $C$DW$54, DW_AT_decl_column(0x16)
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   21
+
+    1101                    
+    1102                    $C$DW$55        .dwtag  DW_TAG_member
+    1103                            .dwattr $C$DW$55, DW_AT_type(*$C$DW$T$19)
+    1104                            .dwattr $C$DW$55, DW_AT_name("pos")
+    1105                            .dwattr $C$DW$55, DW_AT_TI_symbol_name("pos")
+    1106                            .dwattr $C$DW$55, DW_AT_data_member_location[DW_OP_plus_uconst 0x8]
+    1107                            .dwattr $C$DW$55, DW_AT_accessibility(DW_ACCESS_public)
+    1108                            .dwattr $C$DW$55, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/stdio
+    1109                            .dwattr $C$DW$55, DW_AT_decl_line(0x4b)
+    1110                            .dwattr $C$DW$55, DW_AT_decl_column(0x16)
+    1111                    
+    1112                    $C$DW$56        .dwtag  DW_TAG_member
+    1113                            .dwattr $C$DW$56, DW_AT_type(*$C$DW$T$19)
+    1114                            .dwattr $C$DW$56, DW_AT_name("bufend")
+    1115                            .dwattr $C$DW$56, DW_AT_TI_symbol_name("bufend")
+    1116                            .dwattr $C$DW$56, DW_AT_data_member_location[DW_OP_plus_uconst 0xc]
+    1117                            .dwattr $C$DW$56, DW_AT_accessibility(DW_ACCESS_public)
+    1118                            .dwattr $C$DW$56, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/stdio
+    1119                            .dwattr $C$DW$56, DW_AT_decl_line(0x4c)
+    1120                            .dwattr $C$DW$56, DW_AT_decl_column(0x16)
+    1121                    
+    1122                    $C$DW$57        .dwtag  DW_TAG_member
+    1123                            .dwattr $C$DW$57, DW_AT_type(*$C$DW$T$19)
+    1124                            .dwattr $C$DW$57, DW_AT_name("buff_stop")
+    1125                            .dwattr $C$DW$57, DW_AT_TI_symbol_name("buff_stop")
+    1126                            .dwattr $C$DW$57, DW_AT_data_member_location[DW_OP_plus_uconst 0x10]
+    1127                            .dwattr $C$DW$57, DW_AT_accessibility(DW_ACCESS_public)
+    1128                            .dwattr $C$DW$57, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/stdio
+    1129                            .dwattr $C$DW$57, DW_AT_decl_line(0x4d)
+    1130                            .dwattr $C$DW$57, DW_AT_decl_column(0x16)
+    1131                    
+    1132                    $C$DW$58        .dwtag  DW_TAG_member
+    1133                            .dwattr $C$DW$58, DW_AT_type(*$C$DW$T$11)
+    1134                            .dwattr $C$DW$58, DW_AT_name("flags")
+    1135                            .dwattr $C$DW$58, DW_AT_TI_symbol_name("flags")
+    1136                            .dwattr $C$DW$58, DW_AT_data_member_location[DW_OP_plus_uconst 0x14]
+    1137                            .dwattr $C$DW$58, DW_AT_accessibility(DW_ACCESS_public)
+    1138                            .dwattr $C$DW$58, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/stdio
+    1139                            .dwattr $C$DW$58, DW_AT_decl_line(0x4e)
+    1140                            .dwattr $C$DW$58, DW_AT_decl_column(0x16)
+    1141                    
+    1142                            .dwattr $C$DW$T$20, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1143                            .dwattr $C$DW$T$20, DW_AT_decl_line(0x48)
+    1144                            .dwattr $C$DW$T$20, DW_AT_decl_column(0x10)
+    1145                            .dwendtag $C$DW$T$20
+    1146                    
+    1147                    $C$DW$T$21      .dwtag  DW_TAG_typedef
+    1148                            .dwattr $C$DW$T$21, DW_AT_name("FILE")
+    1149                            .dwattr $C$DW$T$21, DW_AT_type(*$C$DW$T$20)
+    1150                            .dwattr $C$DW$T$21, DW_AT_language(DW_LANG_C)
+    1151                            .dwattr $C$DW$T$21, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1152                            .dwattr $C$DW$T$21, DW_AT_decl_line(0x4f)
+    1153                            .dwattr $C$DW$T$21, DW_AT_decl_column(0x03)
+    1154                    
+    1155                    $C$DW$T$2       .dwtag  DW_TAG_unspecified_type
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   22
+
+    1156                            .dwattr $C$DW$T$2, DW_AT_name("void")
+    1157                    
+    1158                    $C$DW$T$4       .dwtag  DW_TAG_base_type
+    1159                            .dwattr $C$DW$T$4, DW_AT_encoding(DW_ATE_boolean)
+    1160                            .dwattr $C$DW$T$4, DW_AT_name("bool")
+    1161                            .dwattr $C$DW$T$4, DW_AT_byte_size(0x01)
+    1162                    
+    1163                    $C$DW$T$5       .dwtag  DW_TAG_base_type
+    1164                            .dwattr $C$DW$T$5, DW_AT_encoding(DW_ATE_signed_char)
+    1165                            .dwattr $C$DW$T$5, DW_AT_name("signed char")
+    1166                            .dwattr $C$DW$T$5, DW_AT_byte_size(0x01)
+    1167                    
+    1168                    $C$DW$T$6       .dwtag  DW_TAG_base_type
+    1169                            .dwattr $C$DW$T$6, DW_AT_encoding(DW_ATE_unsigned_char)
+    1170                            .dwattr $C$DW$T$6, DW_AT_name("unsigned char")
+    1171                            .dwattr $C$DW$T$6, DW_AT_byte_size(0x01)
+    1172                    
+    1173                    $C$DW$T$19      .dwtag  DW_TAG_pointer_type
+    1174                            .dwattr $C$DW$T$19, DW_AT_type(*$C$DW$T$6)
+    1175                            .dwattr $C$DW$T$19, DW_AT_address_class(0x20)
+    1176                    
+    1177                    $C$DW$T$7       .dwtag  DW_TAG_base_type
+    1178                            .dwattr $C$DW$T$7, DW_AT_encoding(DW_ATE_signed_char)
+    1179                            .dwattr $C$DW$T$7, DW_AT_name("wchar_t")
+    1180                            .dwattr $C$DW$T$7, DW_AT_byte_size(0x02)
+    1181                    
+    1182                    $C$DW$T$8       .dwtag  DW_TAG_base_type
+    1183                            .dwattr $C$DW$T$8, DW_AT_encoding(DW_ATE_signed)
+    1184                            .dwattr $C$DW$T$8, DW_AT_name("short")
+    1185                            .dwattr $C$DW$T$8, DW_AT_byte_size(0x02)
+    1186                    
+    1187                    $C$DW$T$9       .dwtag  DW_TAG_base_type
+    1188                            .dwattr $C$DW$T$9, DW_AT_encoding(DW_ATE_unsigned)
+    1189                            .dwattr $C$DW$T$9, DW_AT_name("unsigned short")
+    1190                            .dwattr $C$DW$T$9, DW_AT_byte_size(0x02)
+    1191                    
+    1192                    $C$DW$T$10      .dwtag  DW_TAG_base_type
+    1193                            .dwattr $C$DW$T$10, DW_AT_encoding(DW_ATE_signed)
+    1194                            .dwattr $C$DW$T$10, DW_AT_name("int")
+    1195                            .dwattr $C$DW$T$10, DW_AT_byte_size(0x04)
+    1196                    
+    1197                    $C$DW$T$24      .dwtag  DW_TAG_const_type
+    1198                            .dwattr $C$DW$T$24, DW_AT_type(*$C$DW$T$10)
+    1199                    
+    1200                    $C$DW$T$25      .dwtag  DW_TAG_typedef
+    1201                            .dwattr $C$DW$T$25, DW_AT_name("fpos_t")
+    1202                            .dwattr $C$DW$T$25, DW_AT_type(*$C$DW$T$10)
+    1203                            .dwattr $C$DW$T$25, DW_AT_language(DW_LANG_C)
+    1204                            .dwattr $C$DW$T$25, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1205                            .dwattr $C$DW$T$25, DW_AT_decl_line(0x53)
+    1206                            .dwattr $C$DW$T$25, DW_AT_decl_column(0x0d)
+    1207                    
+    1208                    $C$DW$T$11      .dwtag  DW_TAG_base_type
+    1209                            .dwattr $C$DW$T$11, DW_AT_encoding(DW_ATE_unsigned)
+    1210                            .dwattr $C$DW$T$11, DW_AT_name("unsigned int")
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   23
+
+    1211                            .dwattr $C$DW$T$11, DW_AT_byte_size(0x04)
+    1212                    
+    1213                    $C$DW$T$27      .dwtag  DW_TAG_typedef
+    1214                            .dwattr $C$DW$T$27, DW_AT_name("size_t")
+    1215                            .dwattr $C$DW$T$27, DW_AT_type(*$C$DW$T$11)
+    1216                            .dwattr $C$DW$T$27, DW_AT_language(DW_LANG_C)
+    1217                            .dwattr $C$DW$T$27, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1218                            .dwattr $C$DW$T$27, DW_AT_decl_line(0x45)
+    1219                            .dwattr $C$DW$T$27, DW_AT_decl_column(0x19)
+    1220                    
+    1221                    $C$DW$T$12      .dwtag  DW_TAG_base_type
+    1222                            .dwattr $C$DW$T$12, DW_AT_encoding(DW_ATE_signed)
+    1223                            .dwattr $C$DW$T$12, DW_AT_name("__int40_t")
+    1224                            .dwattr $C$DW$T$12, DW_AT_byte_size(0x08)
+    1225                            .dwattr $C$DW$T$12, DW_AT_bit_size(0x28)
+    1226                            .dwattr $C$DW$T$12, DW_AT_bit_offset(0x18)
+    1227                    
+    1228                    $C$DW$T$13      .dwtag  DW_TAG_base_type
+    1229                            .dwattr $C$DW$T$13, DW_AT_encoding(DW_ATE_unsigned)
+    1230                            .dwattr $C$DW$T$13, DW_AT_name("unsigned __int40_t")
+    1231                            .dwattr $C$DW$T$13, DW_AT_byte_size(0x08)
+    1232                            .dwattr $C$DW$T$13, DW_AT_bit_size(0x28)
+    1233                            .dwattr $C$DW$T$13, DW_AT_bit_offset(0x18)
+    1234                    
+    1235                    $C$DW$T$14      .dwtag  DW_TAG_base_type
+    1236                            .dwattr $C$DW$T$14, DW_AT_encoding(DW_ATE_signed)
+    1237                            .dwattr $C$DW$T$14, DW_AT_name("long long")
+    1238                            .dwattr $C$DW$T$14, DW_AT_byte_size(0x08)
+    1239                    
+    1240                    $C$DW$T$15      .dwtag  DW_TAG_base_type
+    1241                            .dwattr $C$DW$T$15, DW_AT_encoding(DW_ATE_unsigned)
+    1242                            .dwattr $C$DW$T$15, DW_AT_name("unsigned long long")
+    1243                            .dwattr $C$DW$T$15, DW_AT_byte_size(0x08)
+    1244                    
+    1245                    $C$DW$T$16      .dwtag  DW_TAG_base_type
+    1246                            .dwattr $C$DW$T$16, DW_AT_encoding(DW_ATE_float)
+    1247                            .dwattr $C$DW$T$16, DW_AT_name("float")
+    1248                            .dwattr $C$DW$T$16, DW_AT_byte_size(0x04)
+    1249                    
+    1250                    $C$DW$T$22      .dwtag  DW_TAG_pointer_type
+    1251                            .dwattr $C$DW$T$22, DW_AT_type(*$C$DW$T$16)
+    1252                            .dwattr $C$DW$T$22, DW_AT_address_class(0x20)
+    1253                    
+    1254                    $C$DW$T$28      .dwtag  DW_TAG_restrict_type
+    1255                            .dwattr $C$DW$T$28, DW_AT_type(*$C$DW$T$22)
+    1256                    
+    1257                    $C$DW$T$29      .dwtag  DW_TAG_const_type
+    1258                            .dwattr $C$DW$T$29, DW_AT_type(*$C$DW$T$22)
+    1259                    
+    1260                    $C$DW$T$17      .dwtag  DW_TAG_base_type
+    1261                            .dwattr $C$DW$T$17, DW_AT_encoding(DW_ATE_float)
+    1262                            .dwattr $C$DW$T$17, DW_AT_name("double")
+    1263                            .dwattr $C$DW$T$17, DW_AT_byte_size(0x08)
+    1264                    
+    1265                    $C$DW$T$18      .dwtag  DW_TAG_base_type
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   24
+
+    1266                            .dwattr $C$DW$T$18, DW_AT_encoding(DW_ATE_float)
+    1267                            .dwattr $C$DW$T$18, DW_AT_name("long double")
+    1268                            .dwattr $C$DW$T$18, DW_AT_byte_size(0x08)
+    1269                    
+    1270                    $C$DW$T$34      .dwtag  DW_TAG_pointer_type
+    1271                            .dwattr $C$DW$T$34, DW_AT_type(*$C$DW$T$5)
+    1272                            .dwattr $C$DW$T$34, DW_AT_address_class(0x20)
+    1273                    
+    1274                    $C$DW$T$35      .dwtag  DW_TAG_typedef
+    1275                            .dwattr $C$DW$T$35, DW_AT_name("va_list")
+    1276                            .dwattr $C$DW$T$35, DW_AT_type(*$C$DW$T$34)
+    1277                            .dwattr $C$DW$T$35, DW_AT_language(DW_LANG_C)
+    1278                            .dwattr $C$DW$T$35, DW_AT_decl_file("C:/ti/ccsv7/tools/compiler/ti-cgt-c6000_8.1.3/include/std
+    1279                            .dwattr $C$DW$T$35, DW_AT_decl_line(0x37)
+    1280                            .dwattr $C$DW$T$35, DW_AT_decl_column(0x13)
+    1281                    
+    1282                            .dwattr $C$DW$CU, DW_AT_language(DW_LANG_C)
+    1283                    
+    1284                    ;***************************************************************
+    1285                    ;* DWARF CIE ENTRIES                                           *
+    1286                    ;***************************************************************
+    1287                    
+    1288                    $C$DW$CIE       .dwcie 19
+    1289                            .dwcfi  cfa_register, 31
+    1290                            .dwcfi  cfa_offset, 0
+    1291                            .dwcfi  undefined, 0
+    1292                            .dwcfi  undefined, 1
+    1293                            .dwcfi  undefined, 2
+    1294                            .dwcfi  undefined, 3
+    1295                            .dwcfi  undefined, 4
+    1296                            .dwcfi  undefined, 5
+    1297                            .dwcfi  undefined, 6
+    1298                            .dwcfi  undefined, 7
+    1299                            .dwcfi  undefined, 8
+    1300                            .dwcfi  undefined, 9
+    1301                            .dwcfi  same_value, 10
+    1302                            .dwcfi  same_value, 11
+    1303                            .dwcfi  same_value, 12
+    1304                            .dwcfi  same_value, 13
+    1305                            .dwcfi  same_value, 14
+    1306                            .dwcfi  same_value, 15
+    1307                            .dwcfi  undefined, 32
+    1308                            .dwcfi  undefined, 37
+    1309                            .dwcfi  undefined, 38
+    1310                            .dwcfi  undefined, 39
+    1311                            .dwcfi  undefined, 40
+    1312                            .dwcfi  undefined, 41
+    1313                            .dwcfi  undefined, 42
+    1314                            .dwcfi  undefined, 43
+    1315                            .dwcfi  undefined, 44
+    1316                            .dwcfi  undefined, 45
+    1317                            .dwcfi  undefined, 46
+    1318                            .dwcfi  undefined, 47
+    1319                            .dwcfi  undefined, 48
+    1320                            .dwcfi  undefined, 49
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   25
+
+    1321                            .dwcfi  undefined, 50
+    1322                            .dwcfi  undefined, 51
+    1323                            .dwcfi  undefined, 52
+    1324                            .dwcfi  undefined, 16
+    1325                            .dwcfi  undefined, 17
+    1326                            .dwcfi  undefined, 18
+    1327                            .dwcfi  undefined, 19
+    1328                            .dwcfi  undefined, 20
+    1329                            .dwcfi  undefined, 21
+    1330                            .dwcfi  undefined, 22
+    1331                            .dwcfi  undefined, 23
+    1332                            .dwcfi  undefined, 24
+    1333                            .dwcfi  undefined, 25
+    1334                            .dwcfi  same_value, 26
+    1335                            .dwcfi  same_value, 27
+    1336                            .dwcfi  same_value, 28
+    1337                            .dwcfi  same_value, 29
+    1338                            .dwcfi  same_value, 30
+    1339                            .dwcfi  same_value, 31
+    1340                            .dwcfi  undefined, 53
+    1341                            .dwcfi  undefined, 54
+    1342                            .dwcfi  undefined, 55
+    1343                            .dwcfi  undefined, 56
+    1344                            .dwcfi  undefined, 57
+    1345                            .dwcfi  undefined, 58
+    1346                            .dwcfi  undefined, 59
+    1347                            .dwcfi  undefined, 60
+    1348                            .dwcfi  undefined, 61
+    1349                            .dwcfi  undefined, 62
+    1350                            .dwcfi  undefined, 63
+    1351                            .dwcfi  undefined, 64
+    1352                            .dwcfi  undefined, 65
+    1353                            .dwcfi  undefined, 66
+    1354                            .dwcfi  undefined, 67
+    1355                            .dwcfi  undefined, 68
+    1356                            .dwcfi  undefined, 33
+    1357                            .dwcfi  undefined, 34
+    1358                            .dwcfi  undefined, 35
+    1359                            .dwcfi  undefined, 36
+    1360                            .dwcfi  undefined, 70
+    1361                            .dwcfi  undefined, 70
+    1362                            .dwcfi  undefined, 91
+    1363                            .dwcfi  undefined, 70
+    1364                            .dwcfi  undefined, 69
+    1365                            .dwcfi  undefined, 71
+    1366                            .dwcfi  undefined, 72
+    1367                            .dwcfi  undefined, 73
+    1368                            .dwcfi  undefined, 74
+    1369                            .dwcfi  undefined, 75
+    1370                            .dwcfi  undefined, 76
+    1371                            .dwcfi  undefined, 77
+    1372                            .dwcfi  undefined, 78
+    1373                            .dwcfi  undefined, 79
+    1374                            .dwcfi  undefined, 80
+    1375                            .dwcfi  undefined, 81
+TMS320C6x Assembler PC v8.1.3 Thu Apr 20 04:41:30 2017
+
+Tools Copyright (c) 1996-2015 Texas Instruments Incorporated
+DSPF_sp_ifftSPxSP_cn.asm                                             PAGE   26
+
+    1376                            .dwcfi  undefined, 82
+    1377                            .dwcfi  undefined, 83
+    1378                            .dwcfi  undefined, 84
+    1379                            .dwcfi  undefined, 85
+    1380                            .dwcfi  undefined, 86
+    1381                            .dwcfi  undefined, 87
+    1382                            .dwcfi  undefined, 88
+    1383                            .dwcfi  undefined, 89
+    1384                            .dwcfi  undefined, 90
+    1385                            .dwcfi  undefined, 92
+    1386                            .dwcfi  undefined, 93
+    1387                            .dwcfi  undefined, 94
+    1388                            .dwcfi  undefined, 95
+    1389                            .dwcfi  undefined, 96
+    1390                            .dwcfi  undefined, 97
+    1391                            .dwcfi  undefined, 98
+    1392                            .dwcfi  undefined, 99
+    1393                            .dwcfi  undefined, 100
+    1394                            .dwcfi  undefined, 101
+    1395                            .dwcfi  undefined, 102
+    1396                            .dwcfi  undefined, 103
+    1397                            .dwcfi  undefined, 104
+    1398                            .dwcfi  undefined, 105
+    1399                            .dwcfi  undefined, 106
+    1400                            .dwcfi  undefined, 107
+    1401                            .dwcfi  undefined, 108
+    1402                            .dwcfi  undefined, 109
+    1403                            .dwcfi  undefined, 110
+    1404                            .dwcfi  undefined, 111
+    1405                            .dwcfi  undefined, 112
+    1406                            .dwcfi  undefined, 113
+    1407                            .dwcfi  undefined, 114
+    1408                            .dwcfi  undefined, 115
+    1409                            .dwcfi  undefined, 116
+    1410                            .dwcfi  undefined, 117
+    1411                            .dwcfi  undefined, 118
+    1412                            .dwcfi  undefined, 119
+    1413                            .dwcfi  undefined, 120
+    1414                            .dwcfi  undefined, 121
+    1415                            .dwcfi  undefined, 122
+    1416                            .dwcfi  undefined, 123
+    1417                            .dwcfi  undefined, 124
+    1418                            .dwcfi  undefined, 125
+    1419                            .dwcfi  undefined, 126
+    1420                            .dwcfi  undefined, 127
+    1421                            .dwendentry
+    1422                            .dwendtag $C$DW$CU
+    1423                    
+
+No Assembly Errors, No Assembly Warnings
