@@ -580,7 +580,7 @@ The Discrete Wavelet transform is a technique to separate a signal into
 approximation (A) components and detail (D) components. The technique is
 accomplished by convolving the input signal with a wavelet segment and
 down-sampling the result. This technique is used for lossy compression
-like JPEG to reduce quality loss. See Figure 5 for an example.
+like png to reduce quality loss. See Figure 5 for an example.
 
 One of the most fundamental wavelets to use is the Haar wavelet (See
 Figure 5). The Haar wavelet was chosen as the convolving value because
@@ -1138,31 +1138,31 @@ bypass capacitors located directly underneath BGA
 Figure 14 -- main dsp board, unpopulated; top
 ---------------------------------------------
 
-![](media/image17.jpeg){width="4.511905074365704in"
+![](media/image17.png){width="4.511905074365704in"
 height="3.7143405511811025in"}
 
 Figure 15 -- main dsp board, unpopulated; bottom
 ------------------------------------------------
 
-![](media/image18.jpeg){width="4.595238407699037in"
+![](media/image18.png){width="4.595238407699037in"
 height="3.8363757655293087in"}
 
 figure 16 -- stencil for the top side of main dsp board
 -------------------------------------------------------
 
-![](media/image19.jpeg){width="2.742726377952756in"
+![](media/image19.png){width="2.742726377952756in"
 height="2.277083333333333in"}
 
 Figure 17 -- lcd breakout board; in use with dev board and lcd
 --------------------------------------------------------------
 
-![](media/image20.jpeg){width="2.2in" height="2.03in"}
-![](media/image21.jpeg){width="3.65in" height="2.2in"}
+![](media/image20.png){width="2.2in" height="2.03in"}
+![](media/image21.png){width="3.65in" height="2.2in"}
 
 Figure 18 -- populating the main dsp board, top and bottom
 ----------------------------------------------------------
 
-![](media/image22.jpeg){width="5.035714129483814in"
+![](media/image22.png){width="5.035714129483814in"
 height="3.8234142607174104in"}
 
 Power Circuit and OMAP processor pictured
@@ -1170,7 +1170,7 @@ Power Circuit and OMAP processor pictured
 Figure 19 -- Populated bottom side, directly under bga package
 --------------------------------------------------------------
 
-![](media/image23.jpeg){width="4.488094925634296in"
+![](media/image23.png){width="4.488094925634296in"
 height="3.366071741032371in"}
 
 30x 0402 package capacitors directly under the BGA, thumb for scale
@@ -1178,15 +1178,15 @@ height="3.366071741032371in"}
 Figure 20: fixing problems on the main dsp board
 ------------------------------------------------
 
-![](media/image24.jpeg){width="3.08in" height="2.4in"}
-![](media/image25.jpeg){width="2.69in" height="2.4in"}
+![](media/image24.png){width="3.08in" height="2.4in"}
+![](media/image25.png){width="2.69in" height="2.4in"}
 
 A-frame series resistor implementation
 
-![](media/image26.jpeg){width="2.7857141294838144in" height="1.25in"}
+![](media/image26.png){width="2.7857141294838144in" height="1.25in"}
 
-![](media/image27.jpeg){width="2.76in" height="1.8in"}
-![](media/image28.jpeg){width="2.48in" height="1.8in"}
+![](media/image27.png){width="2.76in" height="1.8in"}
+![](media/image28.png){width="2.48in" height="1.8in"}
 
 Cutting traces on the 0.5mm pitch FFC 40pin LCD connector, rewiring
 using 30AWG wire wrap.
@@ -1194,16 +1194,16 @@ using 30AWG wire wrap.
 Figure 21 -- User interface on lcd; wireless board
 --------------------------------------------------
 
-![](media/image29.JPG){width="3.2619039807524057in"
-height="1.87330271216098in"} ![](media/image30.jpeg){width="1.51in"
+![](media/image29.png){width="3.2619039807524057in"
+height="1.87330271216098in"} ![](media/image30.png){width="1.51in"
 height="1.87in"}
 
 Figure 22 -- final project
 --------------------------
 
-![](media/image31.jpeg){width="3.33in"
-height="2.5in"}![](media/image32.jpeg){width="2.95in"
-height="2.5in"}![](media/image33.jpeg){width="2.9865879265091864in"
+![](media/image31.png){width="3.33in"
+height="2.5in"}![](media/image32.png){width="2.95in"
+height="2.5in"}![](media/image33.png){width="2.9865879265091864in"
 height="3.6721773840769902in"}
 
 Authors
