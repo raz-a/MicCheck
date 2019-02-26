@@ -655,7 +655,7 @@ comparing the current phase to the past phase (accounting for the 75%
 overlap of the two frames) we can derive the true prominent frequency in
 each bin. The equation for each bin 'k' is:
 
-$$\omega\left( k \right) = \ \frac{2\pi*k}{\text{overlap}} + (Phase\left\lbrack k \right\rbrack - PhasePast\left\lbrack k \right\rbrack)$$
+$$\omega\left( k \right) = \ \frac + (Phase\left\lbrack k \right\rbrack - PhasePast\left\lbrack k \right\rbrack)$$
 
 The resulting values are in normalized angular frequency. These
 frequencies are stored in an analysis buffer to be used for processing.
@@ -1053,83 +1053,83 @@ Appendix
 Figure 1 -- Audio Processing Task
 ----------------------------------------------------------------------------------------------------
 
-![](media/image3.png){width="3.0493055555555557in" height="9.05625in"}
+![](media/image3.png)
 
 
 Figure 2 -- LCD Touch Task
 --------------------------
 
-![](media/image4.png){width="3.7402777777777776in"
-height="4.100694444444445in"}
+![](media/image4.png)
+
 
 Figure 3 -- Wireless Button Interface Tasks
 -------------------------------------------
 
-![](media/image5.png){width="5.389583333333333in" height="3.1625in"}
+![](media/image5.png)
 
 Figure 4 -- Pitch Detection: Minima and Maxima Calculation
 ----------------------------------------------------------
 
-![](media/image6.png){width="2.845138888888889in"
-height="1.7833333333333334in"}
+![](media/image6.png)
+
 
 Figure 5 -- HAAR WAVELET and Transform
 --------------------------------------
 
-![](media/image7.png){width="2.8607589676290464in"
-height="2.1479494750656167in"}
+![](media/image7.png)
 
-![](media/image8.png){width="5.845138888888889in"
-height="1.7805555555555554in"}
+
+![](media/image8.png)
+
 
 Figure 6 -- Phases Between Frames
 ---------------------------------
 
-![http://www.guitarpitchshifter.com/fig\_3\_7.png](media/image9.png){width="5.978472222222222in"
-height="2.748611111111111in"}
+![http://www.guitarpitchshifter.com/fig\_3\_7.png](media/image9.png)
+
 
 Figure 7 -- MSP 430 Codeflow
 ----------------------------
 
-![](media/image10.png){width="4.542679352580928in"
-height="3.9786089238845146in"}
+![](media/image10.png)
+
 
 Figure 8 -- Main processing board
 ---------------------------------
 
-![](media/image11.png){width="6.5in" height="5.279861111111111in"}
+![](media/image11.png)
 
 Figure 9 -- WIRELESS CONTROL BOARD
 ----------------------------------
 
-![](media/image12.png){width="5.149351487314085in"
-height="2.7727274715660544in"}
+![](media/image12.png)
+
 
 Figure 10 -- analog board
 -------------------------
 
-![](media/image13.png){width="5.07792104111986in"
-height="2.9621205161854767in"}
+![](media/image13.png)
+
 
 Figure 11 -- analog Circuit: Battery charge
 -------------------------------------------
 
-![](media/image14.png){width="3.0519477252843394in"
-height="3.560605861767279in"}
+![](media/image14.png)
+
 
 Figure 12 -- routing the Main dsp board
 ---------------------------------------
 
-![](media/image15.png){width="5.684837051618548in"
-height="4.77380905511811in"}
+![](media/image15.png)
+
 
 4"x4.5" 4 layer board using majority 8mil trace/space, 10mil via.
 
 Figure 13 -- routing the BGA
 ----------------------------
 
-![](media/image16.png){width="2.5925929571303588in"
-height="2.520850831146107in"}
+![](media/image16.png)
+
 
 Standard dog-bone breakout for about 60% of pins. 5mil trace/space
 minimum, 8mil traces to vias, 10mil vias, 5mil annular ring. 30x 0402
@@ -1138,55 +1138,55 @@ bypass capacitors located directly underneath BGA
 Figure 14 -- main dsp board, unpopulated; top
 ---------------------------------------------
 
-![](media/image17.png){width="4.511905074365704in"
-height="3.7143405511811025in"}
+![](media/image17.png)
+
 
 Figure 15 -- main dsp board, unpopulated; bottom
 ------------------------------------------------
 
-![](media/image18.png){width="4.595238407699037in"
-height="3.8363757655293087in"}
+![](media/image18.png)
+
 
 figure 16 -- stencil for the top side of main dsp board
 -------------------------------------------------------
 
-![](media/image19.png){width="2.742726377952756in"
-height="2.277083333333333in"}
+![](media/image19.png)
+
 
 Figure 17 -- lcd breakout board; in use with dev board and lcd
 --------------------------------------------------------------
 
-![](media/image20.png){width="2.2in" height="2.03in"}
-![](media/image21.png){width="3.65in" height="2.2in"}
+![](media/image20.png)
+![](media/image21.png)
 
 Figure 18 -- populating the main dsp board, top and bottom
 ----------------------------------------------------------
 
-![](media/image22.png){width="5.035714129483814in"
-height="3.8234142607174104in"}
+![](media/image22.png)
+
 
 Power Circuit and OMAP processor pictured
 
 Figure 19 -- Populated bottom side, directly under bga package
 --------------------------------------------------------------
 
-![](media/image23.png){width="4.488094925634296in"
-height="3.366071741032371in"}
+![](media/image23.png)
+
 
 30x 0402 package capacitors directly under the BGA, thumb for scale
 
 Figure 20: fixing problems on the main dsp board
 ------------------------------------------------
 
-![](media/image24.png){width="3.08in" height="2.4in"}
-![](media/image25.png){width="2.69in" height="2.4in"}
+![](media/image24.png)
+![](media/image25.png)
 
 A-frame series resistor implementation
 
-![](media/image26.png){width="2.7857141294838144in" height="1.25in"}
+![](media/image26.png)
 
-![](media/image27.png){width="2.76in" height="1.8in"}
-![](media/image28.png){width="2.48in" height="1.8in"}
+![](media/image27.png)
+![](media/image28.png)
 
 Cutting traces on the 0.5mm pitch FFC 40pin LCD connector, rewiring
 using 30AWG wire wrap.
@@ -1194,17 +1194,17 @@ using 30AWG wire wrap.
 Figure 21 -- User interface on lcd; wireless board
 --------------------------------------------------
 
-![](media/image29.png){width="3.2619039807524057in"
-height="1.87330271216098in"} ![](media/image30.png){width="1.51in"
-height="1.87in"}
+![](media/image29.png)
+ ![](media/image30.png)
+
 
 Figure 22 -- final project
 --------------------------
 
-![](media/image31.png){width="3.33in"
-height="2.5in"}![](media/image32.png){width="2.95in"
-height="2.5in"}![](media/image33.png){width="2.9865879265091864in"
-height="3.6721773840769902in"}
+![](media/image31.png)
+![](media/image32.png)
+![](media/image33.png)
+
 
 Authors
 =======
