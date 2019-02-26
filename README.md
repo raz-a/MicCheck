@@ -1,5 +1,3 @@
-![](media/image1.jpg){width="3.7090266841644794in"
-height="4.705676946631671in"}
 
 +-------------------------+-------------------------+
 | Mark McNeely\           | Raz Aloni\              |
@@ -1052,8 +1050,11 @@ future Software Changes
 Appendix
 ========
 
-Figure 1 -- Audio Processing Task![](media/image3.png){width="3.0493055555555557in" height="9.05625in"}
--------------------------------------------------------------------------------------------------------
+Figure 1 -- Audio Processing Task
+----------------------------------------------------------------------------------------------------
+
+![](media/image3.png){width="3.0493055555555557in" height="9.05625in"}
+
 
 Figure 2 -- LCD Touch Task
 --------------------------
@@ -1207,10 +1208,6 @@ height="3.6721773840769902in"}
 
 Authors
 =======
-
-![](media/image34.jpeg){width="1.65in"
-height="2.4298611111111112in"}![](media/image35.jpeg){width="1.7in"
-height="2.4298611111111112in"}
 
 Raz Aloni
 ---------
